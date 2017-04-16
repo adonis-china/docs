@@ -7,7 +7,8 @@ categories:
 
 toc::[]
 
-Directory structure may feel overwhelming at first since there are a handful of pre-configured directories. Gradually you will understand the benefit of dividing the logical entities into multiple directories since it keeps your code maintainable and easy to search.
+目录结构首先可能会让你感到压倒一切，因为有一些预配置的目录。慢慢地，您会了解将逻辑实体划分为多个目录的好处，因为它可以保持代码的易维护性维护并易于查找。
+
 
 [source, bash]
 ----
@@ -28,11 +29,12 @@ Directory structure may feel overwhelming at first since there are a handful of 
 ├── storage
 ----
 
-== The (app) Directory
+== app（应用程序）目录
 
-NOTE: Make sure to learn more about link:dependency-injection[Dependency injection] and link:ioc-container[Ioc Container] to understand the concept of Autoloading.
+NOTE: 
+请确保了解有关link:dependency-injection[依赖注入] and link:ioc-container[Ioc Container]的更多信息，以了解自动加载的概念。
 
-The `app` directory is the home for your code and is autoloaded under the namespace `App`. If you will open `package.json` file, you will find the following piece of code inside it.
+该`app`目录是您的代码的家，并在命名空间下自动加载App。如果你打开package.json文件，你会发现下面的代码片段。
 
 [source, json]
 ----
@@ -43,37 +45,37 @@ The `app` directory is the home for your code and is autoloaded under the namesp
 }
 ----
 
-You are free to change the namespace from `App` to anything you want. Of course, sticking to the default makes it easier for others to understand the code flow.
+您可以自由地将命名空间从`App`更改为任何您想要的。当然，使用默认的命名空间，其他人更容易理解您写的代码。
 
-Also, the `app` directory has nested directories for different purposes. All directories inside the `app` directory are capitalized since AdonisJs follows the principles of Namespacing. Unfortunately, Javascript or Node.js has no conventions on namespacing, so we borrow the standards/best practices from other programming languages like Php.
-
-[options="header"]
-|====
-| Directory | Purpose
-| Commands | This directory is dedicated for storing Ace commands. Ideally, a single file represents an individual command.
-| Http | As the name conveys, `Http` directory is dedicated to entities related to an HTTP server, like: *Controllers*, *Middleware*, and *Routes*.
-| Listeners | Listeners directory makes it easier to organize your event listeners since inline closures on events are not maintainable and neither testable. Also feel free to create listeners for *Redis Pub/Sub* inside this directory.
-| Model | Model directory has your Lucid models. Also, there is a *Hooks* directory inside this directory to store Model hooks.
-|====
-
-== The (bootstrap) Directory
-
-The `bootstrap` directory is there to join the pieces of your application for HTTP server and ace commands. There are a few files that you need to work with inside this directory.
+此外，该`app`目录具有用于不同目的的嵌套目录。目录下的所有子目录首字母都大写，因为AdonisJs遵循命名空间的原则。不幸的是，Javascript或者Node.js没有关于命名空间的约定，所以我们借鉴了其他编程语言（如PHP）的标准/最佳实践。
 
 [options="header"]
 |====
-| File | Purpose
-| app.js | This file is used to register service providers/commands and setup aliases for frequently used namespaces.
-| events.js | You can use this file to register listeners for specifics events. Like `Listeners` directory, you can also use this file to register listeners for *Redis Pub/Sub*.
-| extend.js | This file is used to extend the core/3rd party service providers.
+| 目录 | 目的
+| Commands | 该目录专用于存储`Ace`命令。理想情况下，单个文件代表一个单独的命令。
+| Http | 如名称所示，Http目录专用于与HTTP服务器相关的实体，如：*控制器*，*中间件*和*路由*。
+| Listeners | Listeners目录可以更容易地组织您的事件监听器，因为事件的内联关闭是不可维护的，也不可测试。你可以自由地为此目录中的*Redis Pub/Sub*创建侦听器。
+| Model | 模型目录有您的Lucid模型。此外，该目录中还有一个*Hooks*目录来存储模型钩子。
 |====
 
-TIP: To keep future upgrades easy and simple it is recommended you should not modify `bootstrap/http.js` and `bootstrap/kernel.js` file.
+== bootstrap（引导）目录
 
-== The (config) Directory
-The `config` directory is used to define configuration for your application. AdonisJs itself ships with a bunch of config files, but you are also free to create your config files.
+该`bootstrap`目录是加入您的应用程序的HTTP服务器和ace命令，在这个目录中需要使用几个文件。
 
-In order, you read the configuration settings from any file you are supposed to make use of the `Config` provider and do not require files manually in your code.
+[options="header"]
+|====
+| 文件 | 作用
+| app.js | 此文件用于注册服务提供商/命令，并为常用命名空间设置别名。
+| events.js | 您可以使用此文件来注册特定事件的侦听器。像Listeners目录一样，您也可以使用此文件注册*Redis Pub/Sub*的侦听器。
+| extend.js | 此文件用于扩展核心/第三方服务提供商。
+|====
+
+TIP: 为了使未来的升级变得简单易用，建议您不要修`改bootstrap/http.js`和`bootstrap/kernel.js`文件。
+
+== config（配置）目录
+该`config`目录用于定义应用程序的配置。AdonisJs本身带有一堆配置文件，但您也可以自由创建配置文件。
+
+为了可以在任意文件中读取配置文件的设置，你应该使用`Config`provider,在你的代码中不需要手动引入文件，下面是示例
 
 .Wrong
 [source, javascript]
@@ -89,21 +91,21 @@ const Config = use('Config')
 console.log(Config.get('app.appKey'))
 ----
 
-== The (database) Directory
-All database related files are stored inside the `database` directory. Since `SQLite` is a file based database, the SQLite file will be stored in this directory too.
+== database（数据库）目录
+所有与数据库相关的文件都存储在database目录中，由于SQLite是一个基于文件的数据库，SQLite文件也将存储在这个目录中。
 
 [options="header"]
 |====
-| Directory/File | Purpose
-| migrations | This directory has all the migrations you have created using the `make:migration` command. Learn more about migrations link:migrations[here].
-| seeds | Seeds are used to prefill database with dummy data. They are helpful in setting up an initial state of your application.
-| factory.js | Factories are used to generate fake data for Lucid models or database tables. You will find yourself using factories a lot when writing tests. `factory.js` is the place you define blueprints for the dummy data.
+| 目录/文件 | 目的
+| migrations | 此目录具有使用该`make:migration`命令创建的所有迁移。了解更多关于迁移link:migrations[这里].
+| seeds | 用于使用虚拟数据预填充数据库。它们有助于设置应用程序的初始状态。
+| factory.js | 工厂用于生成Lucid模型或数据库表的假数据。你在写测试时会发现自己在工厂里使用很多。`factory.js`是您为虚拟数据定义蓝图的地方。
 |====
 
-== The (providers) Directory
-If you ever feel a need for writing your providers, this is the place to keep them in. It is advisable to publish reusable providers on *npm*.
+== providers（提供者）目录
+如果您觉得需要编写您的providers，这是保留他们的地方，建议在*npm*上发布可重复使用的providers。
 
-Ideally, there are no strict rules of creating providers, just make sure to read the link:service-providers[service providers] documentation to understand how to build your providers. Service providers inside the `providers` directory are registered by defining an absolute path inside the `app.js` file.
+理想情况下，没有创建提供商的严格规则，只需确保阅读服务提供商文档，了解如何构建提供程序。内部服务供应商`providers`目录中通过定义内的绝对路径注册`app.js`文件。
 
 [source, javascript]
 .bootstrap/app.js
@@ -115,8 +117,8 @@ const providers = [
 ]
 ----
 
-== The (public) Directory
-As the name suggests the `public` directory is used to serve static assets over HTTP. The path `/public` is not required when referencing files from this directory. For example:
+== public（公共）目录
+顾名思义，该public目录用于通过HTTP提供静态资源。从路径`/public`中引用文件时，不需要写`/public`。例如：
 
 .public/style.css
 [source, html]
@@ -124,14 +126,14 @@ As the name suggests the `public` directory is used to serve static assets over 
 <link rel="stylesheet" href="/style.css" />
 ----
 
-== The (resources) Directory
-The `resources` directory is there to store presentational files for your application. Nunjucks `views` are also stored in this directory, and you are free to create additional directories for storing *Sass*/*Less* or any frontend build related files.
+== resources（资源）目录
+该`resources`目录用于存储应用程序的演示文件。Nunjucks `视图`也存储在此目录中，您可以自由创建用于存储*Sass*/*Less*或任何前端构建相关文件的其他目录。
 
 [options="header"]
 |====
-| Directory | Purpose
-| views | Nunjucks views are stored inside this directory. Feel free to create additional directories inside `views` for creating *partials* or *layouts*.
+| 目录 | 目的
+| views | Nunjucks视图存储在此目录中，views已创建了*partials* or *layouts*。
 |====
 
-== The (storage) Directory
-Application logs and sessions are stored inside `storage` directory. Think of it as a temporary storage for your application. Also, this directory is added to the `.gitignore`, so that your development related logs/sessions are not committed to version control providers like Github or Bitbucket.
+== storage（存储）目录
+应用程序日志和会话存储在`storage`目录中。将其视为应用程序的临时存储。此外，该目录被添加到.gitignore，以便您的开发相关日志/会话不会提交给版本控制提供程序，如Github或Bitbucket。
