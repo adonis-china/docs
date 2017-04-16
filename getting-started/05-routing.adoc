@@ -11,7 +11,7 @@ HTTP 路由器向所有的网站浏览的用户提供了一个可以访问你的
 
 所有的路由都保存在 `app/Http/routes.js` 文件里面, 他们都会在HTTP服务器启动的时候自动载入.
 
-NOTE: 所有本文档的小例子, 都使用 `闭包 (Closures)` 的方式定义一个路由的行为, 但是依然推荐创建 *管理器(Controllers)* 来管理你的路由, 这样你就可以让你的路由文件变得简洁, 方便测试.
+NOTE: 所有本文档的小例子, 都使用 `闭包 (Closures)` 的方式定义一个路由的动词, 但是依然推荐创建 *管理器(Controllers)* 来管理你的路由, 这样你就可以让你的路由文件变得简洁, 方便测试.
 
 video::w7LD7E53w3w[youtube, width=100%, height=480]
 
@@ -53,14 +53,14 @@ Route.get('/secured', function * (request, response) {
 }).middleware(['auth', 'custom'])
 ----
 
-== HTTP 行为(verbs)
-HTTP行为也被称为HTTP方法, 最简单的例子就是, 我们用POST安全地去提交一个表单.
+== HTTP 动词(verbs)
+HTTP动词也被称为HTTP方法, 最简单的例子就是, 我们用POST安全地去提交一个表单.
 
-HTTP行为不仅仅有`GET`和`POST`, 这里有很多有用的其他方法在AdonisJs里面可以使用
+HTTP动词不仅仅有`GET`和`POST`, 这里有很多有用的其他方法在AdonisJs里面可以使用
 
 [options="header"]
 |====
-| 行为 | 路由方法
+| 动词 | 路由方法
 | GET | Route.get
 | POST | Route.post
 | PUT | Route.put
@@ -68,7 +68,7 @@ HTTP行为不仅仅有`GET`和`POST`, 这里有很多有用的其他方法在Ado
 | DELETE | Route.delete
 |====
 
-如果你想用自定义的HTTP行为/方法, 你可以使用`route`来定义他们.
+如果你想用自定义的HTTP动词/方法, 你可以使用`route`来定义他们.
 
 ==== route(url, verbs, action)
 [source, javascript]
@@ -95,7 +95,7 @@ Route.any('*', function * (request, response) {
 })
 ----
 
-这个小例子里的`any`方法将会绑定所有的路由行为到这个链接, 而'*'这个匹配符, 让你的所有链接都可以访问这个路由. (译者: 其实这个例子很差)
+这个小例子里的`any`方法将会绑定所有的路由动词到这个链接, 而'*'这个匹配符, 让你的所有链接都可以访问这个路由. (译者: 其实这个例子很差)
 
 最后, 这个路由会返回一个只有简单HTML代码的`页面内容(view)`.
 
@@ -309,7 +309,7 @@ Route.resource('users', 'UserController')
 .Output
 [options="header"]
 |====
-| 链接 | 行为 | 管理器里面对应方法 | 目的
+| 链接 | 动词 | 管理器里面对应方法 | 目的
 | /users | GET | UserController.index | Show list of all users
 | /users/create | GET | UserController.create | Display a form to create a new user.
 | /users | POST | UserController.store | Save user submitted via form to the database.
@@ -361,7 +361,7 @@ Route
 2. `posts`(文章)路由可以添加几个路由来添加或展示文章的评论, 当然你也可以给文章评论分配一个单独资源路由.
 
 ==== addCollection(route, [verbs=GET], [callback])
-`addCollection`方法就可以让你给当前资源路由添加一个新的路由, 默认使用的是*GET*行为, 在管理器的方法名和你设置路由名一样(下面小例子为例就是popular).
+`addCollection`方法就可以让你给当前资源路由添加一个新的路由, 默认使用的是*GET*动词, 在管理器的方法名和你设置路由名一样(下面小例子为例就是popular).
 
 [source, javascript]
 ----
@@ -377,7 +377,7 @@ Route
 | /authors/popular | GET | AuthorsController.popular | List popular authors
 |====
 
-当然, 你可以添加一个不同行为的路由, 并让它对应一个你想要的管理器的方法.
+当然, 你可以添加一个不同动词的路由, 并让它对应一个你想要的管理器的方法.
 
 [source, javascript]
 ----
@@ -401,7 +401,7 @@ Route
 .输出
 [options="header"]
 |====
-| 路由 | 行为 | 管理器方法 | 目的
+| 路由 | 动词 | 管理器方法 | 目的
 | /posts/:id/comments | GET | PostsController.comments | List comments for a given post
 |====
 
