@@ -10,7 +10,7 @@
 
 ## 章节认领
 1. 序言
-1. @wxs77577 AdonisJs一览
+1. **@wxs77577 AdonisJs一览**
 1. 贡献导引
 1. 发行说明
 1. 核心理论
@@ -18,11 +18,11 @@
 1. IoC容器 & Service Providers
 1. 生命周期
 1. 起步
-1. @linganmin 安装
-1. @linganmin 目录结构
+1. **@linganmin 安装**
+1. **@linganmin 目录结构**
 1. 配置
 1. 环境变量
-1. 路由 
+1. **@copydog 路由**
 1. @copydog 请求
 1. @copydog 响应
 1. @copydog 中间件
