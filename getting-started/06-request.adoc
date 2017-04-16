@@ -6,6 +6,7 @@ categories:
 = 请求
 
 toc::[]
+
 在AdonisJs里, 获得HTTP请求的数据非常容易. 所有的管理器方法和路由闭包都会获得一个`Request`类, 这个类是通过 link:https://nodejs.org/dist/latest-v6.x/docs/api/http.html#http_class_http_server[Node.js HTTP request, window="_blank"] 类进行封装的.
 
 TIP: 如果你想获得Node.js原生的*request*对象, 可以调用`request.request`获得.
