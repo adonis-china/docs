@@ -1,0 +1,60 @@
+---
+permalink: overview
+categories:
+- prologue
+---
+= AdonisJs一览
+
+toc::[]
+
+AdonisJs是一个可以使用较少代码编写Web应用程序的 link:https://nodejs.org[Node.js, window="_blank"]  MVC框架。我们专注于编写优雅的代码，并成为Node社区中最稳定的框架之一。与其他框架不同，AdonisJs配备了一堆经过测试的模块，可以让您的开发体验愉快。
+以下是核心功能列表：
+
+[pretty-list]
+1. 利用强大的 link:https://en.wikipedia.org/wiki/Object-relational_mapping[ORM, window="_blank"] 进行安全的SQL查询。
+2. 基于API和Session的认证系统。
+3. 通过SMTP或Web服务（Mailgun，Mandrill等）轻松发送电子邮件
+4. 验证和过滤用户的所有输入。
+5. 强调安全。
+6. 可扩展的应用程序布局。
+
+== 约定优于配置
+
+这个软件范例是AdonisJs的核心。我们尝试通过以下流行框架（如Rails，Django或Laravel）的众所周知的惯例来为您*节约时间*，而不会损失任何灵活性。例如，如果您有一个用户模型，则默认情况下，数据库中的对应表应该命名为“users”（当然，您可以通过覆盖模型上的属性来更改此表）。
+您可以在 link:https://en.wikipedia.org/wiki/Convention_over_configuration[维基百科, window="_blank"] 上了解更多关于此范例的信息。
+
+== 最简单的例子
+
+正如我们所说的，AdonisJs试图用*简单易读的API*来消除一大堆难于管理的代码。
+
+AdonisJs从代码中删除不必要的回调，并引入了 link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators[ES2015 生成器, window="_blank"]。
+它将所有内容组织到不同的目录中，以便您可以快速了解文件的位置。
+它不会添加任何东西到全局变量，除了`use`和`make`函数，你将会很快学到。
+
+如果我们告诉你，在六行代码中，您可以从数据库中获取所有用户，并将其发送回“JSON”响应，您会相信我们吗？
+
+[source, javascript]
+----
+const Route = use('Route')
+const User = use('App/Model/User')
+
+Route.get('/', function * (request, response) {
+  const users = yield User.all()
+  response.json(users)
+})
+----
+
+希望这个快速的概述让你感兴趣，不要担心，如果你不完全理解上面的代码 -- “入门”章节就是为您而设的！
+
+== 从哪里开始
+首先学习一个新的框架可能是压倒性的。由于AdonisJs配有一系列预先配置的模块/插件，您将始终感觉到在家，而不用花时间寻找最好的模块。
+
+要开始您的开发之旅，我们建议您阅读以下主题：
+
+[support-list]
+* link:routing[路由]
+* link:request[请求]
+* link:response[响应]
+* link:views[视图] 和 link:controllers[控制器]
+
+请确保遵循 link:installation[安装] 指南做基础设置。
