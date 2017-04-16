@@ -7,6 +7,9 @@
 1. 得到回复后即可在你本地翻译对应章节，为保证效率，强烈建议配合 [Google Translate](https://translate.google.cn/)
 1. 请务必于3日内完成翻译，完成后发送Pull Request
 
+## 提示
+1. Mac 上的WebStorm
+
 ## 章节认领
 1. 序言
 1. AdonisJs一览 @wxs77577
@@ -21,13 +24,13 @@
 1. 目录结构 @linganmin
 1. 配置
 1. 环境变量
-1. 路由
-1. 请求
-1. 响应
-1. 中间件
-1. 控制器
-1. 文件
-1. 视图
+1. 路由 @copydog
+1. 请求 @copydog
+1. 响应 @copydog
+1. 中间件 @copydog
+1. 控制器 @copydog
+1. 文件 @copydog
+1. 视图 @copydog
 1. Nunjucks模板
 1. 表单生成器
 1. 数据库
