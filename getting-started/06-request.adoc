@@ -345,7 +345,7 @@ Http.onStart = function () {
 ----
 
 ==== 通过服务提供者(Provider)
-如果你想写一个AdonisJs的模块和插件, 你可以在你的服务提供者(Service Provider)里面的`boot`方法里面添加一个宏.
+如果你想写一个AdonisJs的模块和插件, 你可以在你的服务提供者(Service Provider)的`boot`方法里面添加一个宏.
 
 [source, javascript]
 ----
