@@ -3,16 +3,16 @@ permalink: adonis-blog-part1
 categories:
 - tutorial
 ---
-= Getting Started
+= 起步
 
 toc::[]
 
-This is the first part of the tutorial. By the end of this series, you will find yourself comfortable with the concepts of AdonisJs to create your next ambitious WebApp.
+这是教程的第一部分。 在这个系列的结尾, 你会发现自己舒服的adonisjs概念创造你的下一个雄心勃勃的webapp.
 
-Make sure you have followed the link:installation[installation] process and able to run AdonisJs server to see the welcome page. In this tutorial, we will start by creating a new app and register some routes to render views.
+确保您遵循的链接：link:installation[安装]安装过程，能够运行adonisjs服务器看到的欢迎页面。在本教程中，我们将首先创建一个新的应用程序，并注册一些路由来渲染视图。
 
-== Creating New Application
-We'll make use of the *adonis* executable to create a new application.
+== 创建新的应用
+我们将可以执行*adonis*去创建一个新的应用。
 
 [source, bash]
 ----
@@ -30,7 +30,7 @@ installing dependencies may take a while
 installing dependencies....
 ----
 
-Above command will create a new project *blog*. Now `cd` into the directory and start the server.
+以上命令将创建一个新的项目*blog*。现在使用cd进入目录并启动服务器。
 
 [source, bash]
 ----
@@ -45,8 +45,9 @@ npm run dev
 info adonis:framework serving app on http://localhost:3333
 ----
 
-== Creating Routes
+== 创建路由
 AdonisJs comes with a pre-defined route that renders the *welcome.njk* view. Let's remove this route and start from scratch.
+AdonisJs带有一个预先定义的路由，使得能到达 *welcome.njk* 这个页面。让我们删除这条路由，从头开始。
 
 .app/Http/routes.js
 [source, javascript]
@@ -59,10 +60,10 @@ Route.on('/').render('home')
 Route.on('/about').render('about')
 Route.on('/contact').render('contact')
 ----
-We have registered 3 different routes to render the *home*, *about* and the *contact* page.
+我们已经注册了3个不同的路由去渲染*home*,*about*和*contact*这三个页面;
 
-== Creating Views
-Let's create these three views by typing the below commands on the terminal.
+== 创建视图
+让我们在终端上输入下面的命令来创建这三个视图。
 
 [source, bash]
 ----
@@ -71,9 +72,9 @@ Let's create these three views by typing the below commands on the terminal.
 ./ace make:view contact
 ----
 
-link:interactive-shell[Ace] is a command line utility tool comes with AdonisJs. You can make use of ace commands to generate *views*, *controllers* and *models*, etc.
+link:interactive-shell[Ace]是AdonisJs提供一个命令行工具。您可以利用ACE命令生成*views*，*controllers*和*models*等
 
-Views live inside `resources/views` directory and must have `.njk` extension. Let's open the `home.njk` view and write some HTML inside it.
+视图放在`resources/views`目录里面并且必须是`.njk`的后缀。让我们打开`home.njk`这个文件写一些html到这个文件中。
 
 .resources/views/home.njk
 [source, html]
@@ -117,7 +118,7 @@ It is so simple to render nunjucks views in AdonisJs. Let's write some HTML insi
 </html>
 ----
 
-The `master.njk` is the base template that we will extend in every view. Now copy and paste the below code inside `home.njk` file.
+`master.njk`是一个基础的模板每一个视图都应该继承它，现在复制并粘贴下面的代码到`home.njk`这个文件中
 
 .resources/views/home.njk
 [source, twig]
@@ -129,7 +130,7 @@ The `master.njk` is the base template that we will extend in every view. Now cop
 {% endblock %}
 ----
 
-We will also need some *CSS* to make the output look little nicer. So copy and paste the below snippet to `public/style.css` file.
+我们还需要一些*CSS*使这个页面更加好看一些。因此，复制和粘贴下面的片段到`public/style.css`中。
 
 .public/style.css
 [source, css]
@@ -157,12 +158,12 @@ body {
 }
 ----
 
-Now refresh the browser to see the home page.
+现在去刷新浏览器查看下首页。
 
-=== Home Page Preview
+=== 首页预览
 image:http://res.cloudinary.com/adonisjs/image/upload/v1472841283/home-page_uab9il.png[]
 
-Let's also complete the other views
+让我们去完成其他页面
 
 .resources/views/about.njk
 [source, twig]
