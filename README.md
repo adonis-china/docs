@@ -17,8 +17,8 @@
 1. IoC容器 & Service Providers
 1. 生命周期
 1. 起步
-1. 安装
-1. 目录结构
+1. 安装 @linganmin
+1. 目录结构 @linganmin
 1. 配置
 1. 环境变量
 1. 路由
