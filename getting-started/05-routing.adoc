@@ -31,6 +31,7 @@ Route.get('/', function * (request, response) {
 [pretty-list]
 1. 闭包是一个 ES2015 规范下的生成器, 也就是说, 你可以用yield关键字来执行异步操作. 你可以看看Strongloop写的关于生成器的link:https://strongloop.com/strongblog/write-your-own-co-using-es2015-generators/[文章, window="_blank"]
 2. AdonisJs 使用了全称 `request` 和 `response`, 而不是缩写 `req` 和 `res`.
+
 ==== 中间件(...中间件)
 为一个路由定义一个中间件
 
