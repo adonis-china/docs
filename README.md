@@ -7,9 +7,6 @@
 1. 得到回复后即可在你本地翻译对应章节，为保证效率，强烈建议配合 [Google Translate](https://translate.google.cn/)
 1. 请务必于3日内完成翻译，完成后发送Pull Request
 
-## 提示
-1. Mac 上的WebStorm
-
 ## 章节认领
 1. 序言
 1. AdonisJs一览 @wxs77577
