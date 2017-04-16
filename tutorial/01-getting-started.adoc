@@ -7,9 +7,9 @@ categories:
 
 toc::[]
 
-这是教程的第一部分。 在这个系列的结尾, 你会发现自己舒服的adonisjs概念创造你的下一个雄心勃勃的webapp.
+这是教程的第一部分。 在这个系列的结尾, 你会发现自己舒服的Adonisjs概念创造你的下一个雄心勃勃的WebApp。
 
-确保您遵循的链接：link:installation[安装]安装过程，能够运行adonisjs服务器看到的欢迎页面。在本教程中，我们将首先创建一个新的应用程序，并注册一些路由来渲染视图。
+确保您遵循的链接：link:installation[安装]安装过程，能够运行Adonisjs服务器看到的欢迎页面。在本教程中，我们将首先创建一个新的应用程序，并注册一些路由来渲染视图。
 
 == 创建新的应用
 我们将可以执行 *adonis* 去创建一个新的应用。
@@ -71,7 +71,7 @@ Route.on('/contact').render('contact')
 ./ace make:view contact
 ----
 
-link:interactive-shell[Ace]是AdonisJs提供一个命令行工具。您可以利用ACE命令生成 *views* ，*controllers* 和 *models* 等
+link:interactive-shell[Ace]是AdonisJs提供一个命令行工具。您可以利用Ace命令生成 *views* ，*controllers* 和 *models* 等
 
 视图放在 `resources/views` 目录里面并且必须是 `.njk` 的后缀。让我们打开 `home.njk` 这个文件写一些html到这个文件中。
 
@@ -117,7 +117,7 @@ It is so simple to render nunjucks views in AdonisJs. Let's write some HTML insi
 </html>
 ----
 
-`master.njk` 是一个基础的模板每一个视图都应该继承它，现在复制并粘贴下面的代码到`home.njk`这个文件中
+`master.njk` 是一个基础的模板每一个视图都应该继承它，现在复制并粘贴下面的代码到 `home.njk` 这个文件中
 
 .resources/views/home.njk
 [source, twig]

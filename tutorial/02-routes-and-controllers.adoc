@@ -3,18 +3,19 @@ permalink: adonis-blog-part2
 categories:
 - tutorial
 ---
-= Routes And Controllers
+= 路由和控制器
 
 toc::[]
 
-In the link:adonis-blog-part1[last tutorial] we created a new app and registered routes to render views without making use of Controllers.
+在link:adonis-blog-part1[上一个教程]我们创建了一个新的应用并注册一些路由去渲染视图而并没有使用控制器。
 
-Rendering simple views is fine without Controllers. To create real apps, you need to deal with Domain logic and create views with dynamic data. In this tutorial, we will learn how to create controllers and bind them to routes.
+没有控制器的渲染的视图固然很好，但要创建真正的应用，需要处理一些逻辑并使用动态数据去创建视图。在本教程中，
+我们将学习如何创建控制器并将它们绑定到路由。
 
-== Creating Controllers
-Controllers are *ES2015* classes stored inside `app/Http/Controllers` directory. Each file defines a single controller, and you are free to create as many methods as you want on a single controller.
+== 创建控制器
+这些控制器一个存放在 `app/Http/Controllers` 文件下的 *ES2015* 。 每个文件定义了一个控制器，你可以自由地在一个控制器上创建尽可能多的方法。
 
-Let's dive in quickly and create a new controller. Since we will turn this app into a blog, let's name the controller *PostsController*. As always we are going to make use of ace to create the controller for us.
+让我们快速创建一个新的控制器。因为我们会把这个应用到博客，所以我们创建一个名为 *PostsController* 的控制器。一如既往，我们将利用Ace为我们创建控制器。
 
 [source, bash]
 ----
@@ -27,7 +28,8 @@ Let's dive in quickly and create a new controller. Since we will turn this app i
 create: app/Http/Controllers/PostsController.js
 ----
 
-We have created our first controller. Let's bind this controller to the route and render a view from the controller instead. We need to replace `Route.on('/').render('home')` with the below line of code.
+我们已创建完了第一个控制器。让我们将此控制器绑定到路由上，并通过控制器渲染这个视图。我们需要将
+`Route.on('/').render('home')` 替换 `Route.get('/', 'PostsController.index')`。
 
 .app/Http/routes.js
 [source, javascript]
@@ -45,7 +47,7 @@ Route.on('about').render('about')
 Route.on('contact').render('contact')
 ----
 
-There is a complete guide on link:routing[Routes] you can reference. For now, we will write some code inside the PostsController to render a view.
+可以参考完整的link:routing[路由]例子。现在，我们将写一些代码到 PostsController 里面去渲染一个视图
 
 .app/Http/Controllers/PostsController.js
 [source, javascript]
@@ -63,6 +65,6 @@ class PostsController {
 module.exports = PostsController
 ----
 
-<1> We created a controller method called `index` which is an ES2015 generator method making it simple to write async code.
-<2> Next we make use of `sendView` method to render the *home* view.
+<1> 我们在这个控制器中创建了一个 `index` 的方法，通过ES2015 generator去实现简单的异步代码
+<2> 接下来我们使用 `sendView` 方法去渲染 *home* 视图
 
