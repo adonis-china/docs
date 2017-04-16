@@ -1,5 +1,6 @@
 ## AdoninJs 中文文档
-> Founded by [Adonis China](http://adonis-china.org)
+
+> Founded by [Adonis China](http://adonis-china.org) (域名备案中，请移步[临时访问地址](http://adonis.genyii.com))
 
 ## 贡献流程
 1. Fork本项目到你自己的账号下，并clone到本地
@@ -55,12 +56,12 @@
 1. 基于Ally的社交登陆
 1. WebSocket
 1. 教程
-1. 起步
-1. 路由和控制器
-1. 数据库模型
-1. 显示博客列表
-1. 创建博客
-1. 整理
+1. @river-lee 起步
+1. @river-lee 路由和控制器
+1. @river-lee 数据库模型
+1. @river-lee 显示博客列表
+1. @river-lee 创建博客
+1. @river-lee 整理
 1. 安全
 1. 介绍
 1. CORS
