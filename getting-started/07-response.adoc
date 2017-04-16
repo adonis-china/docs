@@ -97,7 +97,7 @@ response.download(Helpers.storagePath('report.xls'))
 ----
 
 ==== attachment(filePath, [name], [disposition=attachment])
-强制下载一个文件, 通过设置*Content-Disposition*响应头.
+强制下载一个文件, (通过设置*Content-Disposition*响应头).
 
 [source, javascript]
 ----
@@ -135,7 +135,7 @@ response.location('back')
 ----
 
 ==== redirect(url, [status=302])
-通过状态吗, 重定向到一个指定链接.
+通过状态码, 重定向到一个指定链接.
 
 [source, javascript]
 ----
@@ -174,7 +174,6 @@ response.unauthorized('请登录~')
 response.status(401).send('请登录~')
 ----
 
-Below is the list of all descriptive methods and their corresponding HTTP statuses. Check link:https://httpstatuses.com[httpstatuses.com, window="_blank"] to learn more about HTTP status codes.
 下面是描述方法的列表, 你可以看看 link:https://httpstatuses.com[httpstatuses.com, window="_blank"] 来理解状态码.
 
 [options="header"]

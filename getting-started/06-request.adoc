@@ -135,7 +135,7 @@ request.subdomains()
 ----
 
 ==== ajax
-检测这个请求不是一个ajax请求*Ajax(XMLHttpRequest)*
+检测这个请求是不是一个ajax请求*Ajax(XMLHttpRequest)*
 
 [source, javascript]
 ----
@@ -261,7 +261,7 @@ request.headers()
 </form>
 ----
 
-在上面, 我们定义了`email[]`和`password[]`数组, 让我们可以要吃提交多个用户, 服务器上会获得以下格式的内容.
+在上面, 我们定义了`email[]`和`password[]`数组, 让我们可以要提交多个用户, 服务器上会获得以下格式的内容.
 
 .你得到的是这样
 [source, javascript]
@@ -312,7 +312,7 @@ const isPlain = request.is('html', 'plain')
 ----
 
 ==== accepts(...keys)
-检测请求头里面的`Accept`字段, 来选择最好的返回类型.
+检测请求头里面的`Accept`字段, 以此选择最好的返回类型.
 
 [source, javascript]
 ----
