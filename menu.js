@@ -8,7 +8,7 @@ module.exports = {
       "categories": [
         "web开发工具"
       ],
-      "title": "交互式shell Aka Ace",
+      "title": "交互式Shell Aka Ace",
       "weight": 0
     },
     {
