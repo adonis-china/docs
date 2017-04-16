@@ -7,21 +7,22 @@ categories:
 
 toc::[]
 
-Installing AdonisJs is a relatively straightforward process and will only take a few minutes. Feel free to link:https://github.com/adonisjs/adonis-framework/issues[file an issue, window="_blank"] if you ever face any problems during the installation process.
+安装AdonisJs是一个相对简单的过程，只需要几分钟。 如果在安装过程中遇到任何问题，请随时link:https://github.com/adonisjs/adonis-framework/issues[提出问题, window="_blank"]
 
-== Installing Node.js & Npm
-Being a Node.js framework, AdonisJs has a core dependency on Node.js. Make sure the installed version of link:https://nodejs.org/en/[Node.js, window="_blank"] is *4.0* or greater.
+== 安装 Node.js和Npm
+作为一个Node.js框架，AdonisJs对Node.js有核心依赖。请确保已安装版本的link:https://nodejs.org/en/[Node.js, window="_blank"]为4.0或更高版本。
 
-link:https://www.npmjs.org/[Npm, window="_blank"] is a package manager for Node.js. During the development process, you will find yourself using `npm install` a lot. Hence all dependencies are pulled from npm only.
+link:https://www.npmjs.org/[Npm, window="_blank"] 是一个Node.js的包管理器
+link:https://www.npmjs.org/[Npm, window="_blank"] is a package manager for Node.js. 在开发过程中，你会发现自己大量使用到了 `npm install` ，因此，所有依赖关系仅从npm拉出。
 
-NOTE: In October 2016 `v6.x.x` of Node.js will be under LTS and also the newer versions of AdonisJs will be targeted towards Node.js v6.0 or greater. So it is recommended to use one of the latest releases of Node.js.
-The existing version of the framework will be compatible with Node.js 4.0 or greater.
+NOTE: 从2016年10月开始，Node.js的 `v6.x.x` 开始成为长期技术支持版本（LTS），而较新版本的AdonisJ将面向Node.js v6.0或更高版本，所以建议使用最新版本的Node.js。
 
-=== Downloading
-You can download the installer for your OS from link:https://nodejs.org/en/download[Node.js downloads page, window="_blank"], or should make use of link:https://github.com/creationix/nvm#install-script[Nvm, window="_blank"]. Nvm is a command line tool to install and use multiple versions of Node.js on a single machine.
 
-=== Verifying Installation
-Once you are done with the download process, make sure to verify the installed version of Node.js and npm.
+=== 下载
+您可以从link:https://nodejs.org/en/download[Node.js下载页面, window="_blank"]下载操作系统的安装程序，或者使用link:https://github.com/creationix/nvm#install-script[Nvm, window="_blank"]。Nvm是在单个机器上安装和使用多个版本的Node.js的命令行工具。
+
+=== 验证安装（开发环境）
+完成下载过程后，请确保验证已安装的Node.js版本和npm。
 
 [source, bash]
 ----
@@ -37,15 +38,16 @@ npm -v
 # >= 3.0.0
 ----
 
-== Installing Adonis-CLI
-Adonis-CLI is a command line tool to install stable and dev releases of AdonisJs with all required dependencies. It is an link:https://www.npmjs.com/package/adonis-cli[npm package, window="_blank"] and needs to be installed globally.
+== 安装Adonis-CLI
+Adonis-CLI是一个用于安装具有所有必需依赖关系的AdonisJs的稳定版和开发版的命令行工具。 这是一个link:https://www.npmjs.com/package/adonis-cli[npm 软件包, window="_blank"]，需要在全局安装。
+
 
 [source, bash]
 ----
 npm i -g adonis-cli
 ----
 
-Run the following command to verify the installation of `adonis-cli`. Sometimes you may have to open a new terminal tab to get it working.
+运行以下命令来验证`adonis-cli`的安装。你可能需要打开一个新的终端标签才能使其工作。
 
 [source, bash]
 ----
@@ -70,16 +72,16 @@ Usage: index [options] [command]
 ----
 
 
-== Creating New Project
-Once the `adonis-cli` has been installed, you can make use of the `adonis` global from your command line. Let's use it to create a new project.
+== 创建新项目
+一旦 `adonis-cli` 安装成功, 你便可以在命令行中使用全局命令`adonis`，我们来用它创建一个新项目
 
 [source, bash]
 ----
 adonis new yardstick
 ----
 
-=== Using Yarn
-If you are thrilled with link:https://yarnpkg.com/[yarn, window="_blank"] and do not want to install your dependencies using npm. Run the following command.
+=== 使用 Yarn
+如果您对link:https://yarnpkg.com/[yarn, window="_blank"]十分青睐，并且不想使用npm安装您的依赖项。 运行以下命令。
 
 [source, bash]
 ----
@@ -97,27 +99,27 @@ adonis new yardstick --yarn
 ⠧ Installing dependencies using npm
 ----
 
-`new` command will create a project called *yardstick* with pre-defined directory structure and will also install all the required dependencies from npm.
+`new`命令将创建一个名为* yardstick *的项目，具有预定义的目录结构，并且还将从npm安装所有必需的依赖项。
 
-NOTE: If `new` command fails in the middle, make sure to `cd` into the newly created project and manually run `npm install`.
+NOTE: 如果`new`命令在中间失败，请确保使用`cd`命令切换进新创建的项目，并手动运行`npm install`。
 
-=== Scaffold Options
-You can provide number of options to mimic the scaffold process.
+=== 脚手架选项
+您可以提供多个选项来模拟脚手架过程。
 
 [options="header"]
 |====
 | Flag | Value | Description
-| --skip-install | Boolean | To skip the dependecies installation from npm or yarn
-| --branch | String | Adonisjs makes use of master branch when creating a new project. For bleeding edge changes, you can create a project from `develop` branch.
-| --blueprint | String | Blueprint is the incremental path to the Github repo. By default AdonisJs makes use of `adonisjs/adonis-app`.
-| --yarn | Boolean | Make use of yarn for installing modules
-| --npm | Boolean | Make use of npm for installing modules
+| --skip-install | Boolean | 从npm或yarn跳过依赖安装
+| --branch | String | Adonisjs在创建新项目时默认使用主分支。 对于边缘变化，可以创建开发分支项目。
+| --blueprint | String | Blueprint 是Github repo的增量路径。 默认情况下，AdonisJs使用`adonisjs/adonis-app`.
+| --yarn | Boolean | 使用yarn安装模块
+| --npm | Boolean | 使用npm安装模块
 |====
 
-== Getting Proxies Error
-Older versions of Node.js requires `--harmony_proxies` flag to add support for *ES2015 Proxies*. If you are using *Node.js < 6.0*, make sure to make following changes.
+== 获取Proxies错误
+较早版本的Node.js需要`--harmony_proxies`标志来添加对* ES2015 Proxies *的支持。 如果您正在使用* Node.js <6.0 *，请确保进行以下更改。Node.js的旧版本需要`--harmony_proxies`标志才能添加对* ES2015 Proxies *的支持。 如果您正在使用* Node.js <6.0 *，请确保进行以下更改。
 
-Replace the scripts inside `package.json` file with following
+将`package.json`文件中的脚本替换为以下内容
 
 .package.json
 [source, json]
@@ -128,15 +130,15 @@ Replace the scripts inside `package.json` file with following
 }
 ----
 
-Replace the first line of the `ace` file with following
+用下面的代码替换`ace`文件的第一行
 .ace
 [source, bash]
 ----
 #!/usr/bin/env node --harmony_proxies
 ----
 
-== Serving The App
-You are all set to see your brand new project. Run the below commands to start a development server.
+== 服务应用程序
+运行以下命令启动开发服务器，你将看到你的全新的项目运行起来了。
 
 [source, bash]
 ----
@@ -151,12 +153,12 @@ npm run serve:dev
 info adonis:framework serving app on http://localhost:3333
 ----
 
-By default, AdonisJs will use port `3333` to start the server, which is configurable via `.env` file. Now open http://localhost:3333 to see the welcome page.
+默认情况下，AdonisJs将使用端口3333启动服务器，可以通过`.env`文件进行配置。现在打开http://localhost:3333查看欢迎页面。
 
 image:http://i.imgbox.com/xAYvmnBq.png[Welcome page]
 
-== Manual Installation
-If for any reasons you are not using xref:_installing_adonis_cli[Adonis CLI] ( which you should ), you have to perform following steps to clone the repo from GitHub and manually install dependencies.
+== 手动安装
+如果因为一些原因您不使用xref:_installing_adonis_cli[Adonis CLI] , 您必须执行以下步骤从GitHub克隆repo并手动安装依赖关系。
 
 [source, bash]
 ----
