@@ -7,60 +7,59 @@ categories:
 
 toc::[]
 
-HTTP routes open the gateway for outside world to interact with your application using URLs. AdonisJs router maps URL's to actions and will invoke them once the end-user calls a certain URL.
+HTTP 路由器向所有的网站浏览的用户提供了一个可以访问你的网站的链接(URL), AdonisJs 路由通过绑定Url和网站后台功能, 让用户可以访问某个链接来执行对应的操作.
 
-All routes are defined inside `app/Http/routes.js` file which at the time of starting the HTTP Server gets autoloaded. Let's start with a basic example
+所有的路由都保存在 `app/Http/routes.js` 文件里面, 他们都会在HTTP服务器启动的时候自动载入.
 
-NOTE: All examples in this document makes use of `Closures` as route actions, whereas it is recommended to create *Controllers* and bind them next to your routes. This way you will keep your routes file clean and your route actions testable.
+NOTE: 所有本文档的小例子, 都使用 `闭包 (Closures)` 的方式定义一个路由的行为, 但是依然推荐创建 *管理器(Controllers)* 来管理你的路由, 这样你就可以让你的路由文件变得简洁, 方便测试.
 
 video::w7LD7E53w3w[youtube, width=100%, height=480]
 
-== Basic Example
+== 小例子
 .app/Http/routes.js
 [source, javascript]
 ----
 const Route = use('Route')
 
 Route.get('/', function * (request, response) {
-  response.send('This is the home page')
+  response.send('这是我的网站首页~')
 })
 ----
 
-Above we defined a route for the *root URL(/)* and attached a closure to it. Here are a couple of things to notice about the closure.
+在上面的例子中, 我们为根链接 *URL(/)* 创建了一个路由, 并且绑定上了一个闭包, 这里有几件关于闭包的几件事:
 
 [pretty-list]
-1. The closure is an ES2015 generator which means you can make use of the `yield` keyword to perform async operations. Check out this link:https://strongloop.com/strongblog/write-your-own-co-using-es2015-generators/[post, window="_blank"] by Strongloop on generators.
-2. AdonisJs uses the terms `request` and `response` in place of `req` and `res`.
-
-==== middleware(...middleware)
-Define middleware to a single route
+1. 闭包是一个 ES2015 规范下的生成器, 也就是说, 你可以用yield关键字来执行异步操作. 你可以看看Strongloop写的关于生成器的link:https://strongloop.com/strongblog/write-your-own-co-using-es2015-generators/[文章, window="_blank"]
+2. AdonisJs 使用了全称 `request` 和 `response`, 而不是缩写 `req` 和 `res`.
+==== 中间件(...中间件)
+为一个路由定义一个中间件
 
 .app/Http/routes.js
 [source, javascript]
 ----
 Route.get('/authenticated', function * (request, response) {
-  response.send('This route is authenticated')
+  response.send('你的访问已被授权~')
 }).middleware('auth')
 ----
 
-Or add multiple middlewares
+也可以添加多个中间件
 
 .app/Http/routes.js
 [source, javascript]
 ----
 Route.get('/secured', function * (request, response) {
-  response.send('This route is authenticated')
+  response.send('你的访问已被授权~')
 }).middleware(['auth', 'custom'])
 ----
 
-== HTTP Verbs
-HTTP verbs also known as HTTP methods defines the type of request. A very classic example of HTTP verbs is using a form where we define the `method` as POST since we want to submit the forms securely to the web server.
+== HTTP 行为(verbs)
+HTTP行为也被称为HTTP方法, 最简单的例子就是, 我们用POST安全地去提交一个表单.
 
-HTTP verbs are not limited to `GET` and `POST` only, there are a handful of other commonly used verbs all supported by AdonisJs.
+HTTP行为不仅仅有`GET`和`POST`, 这里有很多有用的其他方法在AdonisJs里面可以使用
 
 [options="header"]
 |====
-| Verb | Route method
+| 行为 | 路由方法
 | GET | Route.get
 | POST | Route.post
 | PUT | Route.put
@@ -68,7 +67,7 @@ HTTP verbs are not limited to `GET` and `POST` only, there are a handful of othe
 | DELETE | Route.delete
 |====
 
-For different HTTP verbs/methods, you can make use of the `route` method which gives the freedom of defining any HTTP verb.
+如果你想用自定义的HTTP行为/方法, 你可以使用`route`来定义他们.
 
 ==== route(url, verbs, action)
 [source, javascript]
@@ -84,8 +83,8 @@ Route.route('/', ['COPY', 'MOVE'], function * (request, response) {
 })
 ----
 
-== Routes For SPA's
-Routing in single page applications (SPA's) is handled by the front-end frameworks and often you are required only to serve a single web page to the browser for all the URLs. AdonisJs has a handy method to achieve this functionality.
+== 单页面网页程序(SPA)的路由
+在单页面网页程序的路由通常被前端JS框架(Angular, Vue, React)接手管理了, 所以通常你的大部分操作都是用API来实现的, AdonisJs也为此提供了非常方便的解决方案.
 
 ==== any(url, action)
 [source, javascript]
@@ -95,51 +94,51 @@ Route.any('*', function * (request, response) {
 })
 ----
 
-`any` method will bind all the HTTP verbs with the defined URL. Whereas `*` wildcard will make sure this route definition handles every URL.
+这个小例子里的`any`方法将会绑定所有的路由行为到这个链接, 而'*'这个匹配符, 让你的所有链接都可以访问这个路由. (译者: 其实这个例子很差)
 
-Finally, you can serve an HTML `view` with the startup code for your frontend application.
+最后, 这个路由会返回一个只有简单HTML代码的`页面内容(view)`.
 
-== Route Parameters
-Route parameters are dynamic segments of a URL which mean you can define URL's and accept dynamic data as part of the URL itself. Consider this example:
+== 路由参数
+路由参数让你的路由可以动态的匹配一个链接(URL), 这样你就可以动态的接受一些参数, 看看这个小例子
 
 [source, javascript]
 ----
 Route.get('users/:id', function * (request, response) {
   const id = request.param('id')
-  response.send(`Profile for user with id ${id}`)
+  response.send(`耶, 我得到了一个动态ID: ${id}`)
 })
 ----
 
-In the above route definition `:id` is the dynamic segment. URL's like `/user/1`, or `/user/20` will be valid, and you can grab the defined id inside the route action using the `param` method.
+在这个小例子中, `:id`就是一个动态的参数, 像`/user/1` 或 `/user/20`这样的链接将会被匹配上.
 
-You can also keep route parameters optional depending upon the nature of your application.
+你可以把这个动态参数设置为可选的(可有可无).
 
 [source, javascript]
 ----
 Route.get('make/:drink?', function * (request, response) {
   const drink = request.param('drink', 'coffee')
-  response.send(`Order for ${drink} has been placed`)
+  response.send(` ${drink} 如果没有被传入, 我会得到coffee这个字段哦~`)
 })
 ----
 
-`?` makes a parameter optional which means both URL's `/make` or `/make/shake` are valid.
+`?` 让`/make`或`/make/shake`链接都匹配上~
 
-You may also want to have a parameter that can have every character you want (including `/`). This is generaly use to simulate a storage with URL like `/~/media/xyz.pdf`. If it is the case you can use the `*` parameter and get whatever string you want.
+也许你想匹配任意个数的参数, 你可以用`*`, 这样你就可以模拟访问一个文件啦~, 比如:`/~/media/xyz.pdf`, 看看下面这个小例子:
 
 [source, javascript]
 ----
 Route.get('/~/*', function * (request, response) {
   const media = request.param(0)
-  response.send(`You want to download the ${media} file`)
+  response.send(`哟~ 这个${media}文件, 不给你哦~`)
 })
 ----
 
 [NOTE]
 ====
-You are still able to use query parameter with an `*` parameter.
+这个小例子里面, 你任然可以使用`*`
 [source, javascript]
 ----
-// url: `/~/media/xyz.pdf?download`
+// 链接: `/~/media/xyz.pdf?download`
 Route.get('/~/*', function * (request, response) {
   const media = request.param(0)
 
@@ -147,18 +146,18 @@ Route.get('/~/*', function * (request, response) {
     // ...
   }
 
-  response.send(`You want to download the ${media} file`)
+  response.send(`哎~ 这个${media}文件, 送你了~`)
 })
 ----
 ====
 
 
-== Content Negotiation Via Routes
-link:https://en.wikipedia.org/wiki/Content_negotiation[Content negotiation, window="_blank"] is a way of finding the best output type for a given request. Ideally, HTTP header *Accept* is used to negotiate the content, but some modern apps make the output more explicit by defining the output extension within the URL. For example:
+== 路由内容协商
+link:https://en.wikipedia.org/wiki/Content_negotiation[(内容协商)Content negotiation, window="_blank"] 让你找到一个合适的方法返回数据.一般来说, HTTP表头*Accept*字段就是用来告诉服务器想要的内容类型, 但是一些现代的Apps通过定义后缀名来清楚的要求它们想要的文件类型.
 
-A URL `/users.json` will return the JSON output, whereas `/users.html` will render a view.
+一个`/users.json`链接将会返回一个JSON结果, 也就是说访问`/users.html`你将会得到一个html页面.
 
-AdonisJs routes give you the option to define the formats next to your routes.
+AdonisJs让可以在定义路由方法的同时定义返回类型.
 
 ==== formats(types, [strict=false])
 [source, javascript]
@@ -170,17 +169,17 @@ Route
   .formats(['json', 'html'])
 ----
 
-<1> URL `/users.json` will have the format of `json` and `/users.html` will have the format of `html`. Also `/users` will work and this time format will be *undefined*, if you want to restrict this behavior make sure to set the `strict` option to true when defining formats.
+<1> 链接`/users.json`将会返回`json`结果, `/users.html`将会放回一个html结果. 与此同时, `/users`也会工作, 不过, 这时候的类型就是未定义的(undefined), 如果你想强制访问`json`或`html`类型, 可以设置`strict`为true.
 
-== Route Renderer
-Every application has a requirement of creating some *dumb HTML views*. The reason we call them dumb, because these views do not require any dynamic data or logical processing. For example:
+== 路由渲染
+每个网站都有一些静态的HTML页面, 之所以称之为静态, 是因为这些页面都是没有任何逻辑和数据库里数据, 小例子:
 
-1. An about page.
-2. Contact page to display company contact information.
+1. 关于我们的页面
+2. 联系我们的页面
 
-Let's take the classical example of rendering an about page.
+我们就从这个简单的例子入手, 来渲染一个关于我们页面
 
-.Not ideal
+.不太好的例子
 [source, javascript]
 ----
 Route.get('about', function * (request, response) {
@@ -188,22 +187,23 @@ Route.get('about', function * (request, response) {
 })
 ----
 
-Above we have registered a route for `/about` URL and inside the closure, we render a view using the `sendView` method. Ideally, there is nothing bad about it, but once the number of routes increase, you will end up writing these one liners quite often.
+上面这个例子, 我们注册了一个路由, 传入了一个闭包, 然后渲染了一个页面, 之所以不优秀是因为它占用了我们3排代码空间~
 
-AdonisJs routing layer eliminates this behavior by introducing the `render` which is called together with the `on` method.
 
-.Ideal
+AdonisJs路由层提供了一个简化方法, 使用`on`和`render`
+
+.优秀的例子
 [source, javascript]
 ----
 Route.on('about').render('about')
 ----
 
-This is a small feature, but it will save you from typing few more characters and is more explicit about rendering a view.
+这仅仅是一个很小的功能, 但省下了很多的代码空间和时间, 而且看上去很简单.
 
-TIP: *BONUS*: Views rendered via the `render` method has access to the link:/request[request] object.
+TIP: *BONUS*: 通过render函数渲染的html模板是使用了 link:/request[request] 对象.
 
-== Route Groups
-Grouping of routes is required when you want a bunch of routes to share the same attributes without defining them over and over again. For example: Prefixing all routes the current API version `(api/v1)`.
+== 路由组
+路由分组在你需要给多个路由定义相同属性的时候特别有用, 这样你就不用重复的定义这些属性了. 举个例子, 给多个路由添加链接前缀`(api/v1)`.
 
 ==== group(uniqueName, callback)
 [source, javascript]
@@ -215,12 +215,12 @@ Route.group('version1', function () {
 }).prefix('api/v1')
 ----
 
-All routes inside the above group get prefixed with `/api/v1` which means `/api/v1/users` will invoke the route action defined next to the above route definition.
+所有路由在以上分组里面都会被添加上`/api/v1`前缀, 也就是说通过访问`/api/v1/users`才可以访问到小例子中定义的`/users`
 
-Route groups are not only limited to prefixing, but also you can define other properties too.
+路由组不仅可以添加前缀, 还可以添加很多东西~
 
-==== middleware(...middleware)
-Define middleware to all the routes inside the group
+==== 中间件(...中间件)
+为路由组里面的所有路由添加中间件
 
 [source, javascript]
 ----
@@ -229,8 +229,8 @@ Route.group('authenticated', function () {
 }).middleware('auth')
 ----
 
-==== domain(subdomain)
-Define a subdomain for a group of routes.
+==== 域名(子域名)
+为一个路由组定义一个属于它们自己的子域名.
 
 [source, javascript]
 ----
@@ -241,20 +241,22 @@ Route.group('my-group', function () {
 }).domain('blog.mydomain.dev')
 ----
 
-Routes defined under a subdomain will be invoked when the URL belongs to a subdomain. For example: `blog.mydomain.dev/posts` will invoke the action for the above route.
+只有访问`blog.mydomain.dev/posts` 才会调用定义的`/posts`路由.
 
-==== formats(formats, [strict=false])
-You can also define `formats` to a group of routes. See xref:_formats_types_strict_false[formats]
+==== 类型(formats, [strict=false])
+你可以给路由组添加内容协商
 
-== Named Routes
-Routes are defined inside `app/Http/routes.js` file, but they are used everywhere. For example:
+== 命名路由
+路由都定义在`app/Http/routes.js`文件里, 但是你可以在任何地方使用.
 
-1. Inside a view, to create the navigation bar.
-2. Inside Controllers, to redirect to a different URL, etc.
+
+1. 在html里面, 你想创建一个导航栏
+2. 在一个管理器里面你想跳转到另外一个链接.
 
 As you application will grow, new requirements will lead to changing routes quite often. Now changing them inside the routes file is pretty straight forward but finding their references inside all the views and controllers is not something you are going to enjoy.
+当你的网站越来越大, 你可能会频繁的修改链接与路由的对应, 这时候你到处去修改html对应的链接, 你肯定要爆炸了.
 
-It is better to give unique names to your commonly referenced routes and use their name as a reference instead of the URL.
+这是个给路由取个名字, 就算路由对应链接改了, 你也能轻松找到到这个新的链接.
 
 ==== as(name)
 [source, javascript]
@@ -265,7 +267,7 @@ Route
 ----
 
 
-Now you can reference the name inside your views as using the linkTo helper.
+这时候, 你可以调用linkTo这个帮助函数, 来帮你找到对应链接.
 
 [source, twig]
 ----
@@ -273,28 +275,28 @@ Now you can reference the name inside your views as using the linkTo helper.
 {{ linkTo('profile', 'View Profile', { id: 1 } , '_blank') }}
 ----
 
-.output
+.生成代码
 [source, html]
 ----
 <a href="/users/1"> View Profile </a>
 <a href="/users/1" target="_blank"> View Profile </a>
 ----
 
-`linkTo` limits you to an anchor tag, there is a general purpose view filter called `route`, which can be used to resolve a named route inside your views.
+`linkTo`函数只会为你生成一个包含链接的a标签, 而你可以用`route`这个模板过滤器来帮助你生成一个链接.
 
 [source, twig]
 ----
 <form action="{{ 'profile' | route({id: 1}) }}" method="POST"></form>
 ----
 
-.output
+.输出
 [source, html]
 ----
 <form action="/user/1" method="POST"></form>
 ----
 
-== Resourceful Routes
-Routing layer makes it easier for you to define conventional routes for CRUD based operations. Let's quickly review the syntax of defining resources and their output.
+== 资源路由
+路由层让你更快的定义一个增删改查(CURD)操作的路由, 你就不用自己手动定义很多路由了.
 
 ==== resource(name, controller)
 [source, javascript]
@@ -306,7 +308,7 @@ Route.resource('users', 'UserController')
 .Output
 [options="header"]
 |====
-| Url | Verb | Controller Method | Purpose
+| 链接 | 行为 | 管理器里面对应方法 | 目的
 | /users | GET | UserController.index | Show list of all users
 | /users/create | GET | UserController.create | Display a form to create a new user.
 | /users | POST | UserController.store | Save user submitted via form to the database.
@@ -316,24 +318,24 @@ Route.resource('users', 'UserController')
 | /users/:id | DELETE | UserController.destroy | Delete a given user with id.
 |====
 
-Here is a couple of things to notice.
+这里有几个注意事项
 
-1. You always have to register a controller with route resource.
-2. AdonisJs will automatically bind the methods for each route, and you cannot customize them. It is nice to stick with the defaults since others contributing to your code will find it easier to follow.
+1. 你永远都要记得给资源路由注册一个管理器
+2. AdonisJs将会自动给每个路由自动绑定上对应的方法, 你不能自定义.
 
-=== Nested resources
-Resources can also be nested by making use of `dot notation`.
+=== 嵌套资源路由
+资源路由可以使用`.`符号来定义嵌套资源路由
 
 [source, javascript]
 ----
 Route.resource('posts.comments', 'CommentsController')
 ----
 
-=== Filtering resources
-`resource` will create a total of seven routes. Depending upon the nature of your application you may or may not need all the registered routes. AdonisJs makes it so easier to filter the routes.
+=== 过滤路由
+`资源路由`会创建一个7个路由. 可能有些你用不到, 所以AdonisJs给你了一个方法来去除他们.
 
 ==== except(...actions)
-`except` will remove routes for the given actions.
+`except`将会去除你提供的方法
 [source, javascript]
 ----
 Route
@@ -342,7 +344,7 @@ Route
 ----
 
 ==== only(...actions)
-`only` is the opposite of xref:_except_actions[except].
+`only` 与 xref:_except_actions[except] 恰恰相反.
 
 [source, javascript]
 ----
@@ -351,14 +353,14 @@ Route
   .only('index', 'store', 'show', 'update', 'delete')
 ----
 
-=== Extending Resources
-You can also extend the existing resources by adding custom routes and controller actions to them. In the practical world, there are a handful of use cases for extending resources. For example:
+=== 扩展资源路由
+如果你想扩展资源路由, 你需要添加自定义的路由和管理器方法, 给你讲几个非常实用例子来解释:
 
-1. `authors` can be extended to have a route for *Popular* authors.
-2. `posts` can be extended to have multiple routes for submitting/fetching comments. You can also extract and make *comments* a different resource, but sometimes it is more logical to extend the parent resource.
+1. `authors`(作家)路由可以被扩展一个新的路由来展示受欢迎的作家(popular authors)
+2. `posts`(文章)路由可以添加几个路由来添加或展示文章的评论, 当然你也可以给文章评论分配一个单独资源路由.
 
 ==== addCollection(route, [verbs=GET], [callback])
-The `addCollection` method will add a new route to the existing resource. By default it binds the route using *GET* verb and controller action name is same as the route name.
+`addCollection`方法就可以让你给当前资源路由添加一个新的路由, 默认使用的是*GET*行为, 在管理器的方法名和你设置路由名一样(下面小例子为例就是popular).
 
 [source, javascript]
 ----
@@ -367,14 +369,14 @@ Route
   .addCollection('popular')
 ----
 
-.Output
+.输出
 [options="header"]
 |====
 | Url | Verb | Controller Method | Purpose
 | /authors/popular | GET | AuthorsController.popular | List popular authors
 |====
 
-Of course, you can define a different HTTP verb and assign a different controller method.
+当然, 你可以添加一个不同行为的路由, 并让它对应一个你想要的管理器的方法.
 
 [source, javascript]
 ----
@@ -386,7 +388,7 @@ Route
 ----
 
 ==== addMember(route, [verbs=GET], [callback])
-The `addMember` method has the same signature as xref:_addcollection_route_verbs_get_callback[addCollection], but instead it adds the member for a specific item inside the resource.
+这个方法和 xref:_addcollection_route_verbs_get_callback[addCollection] 写法一样, 不过它为资源路由的每一个的结果添加了一个路由.
 
 [source, javascript]
 ----
@@ -395,14 +397,14 @@ Route
   .addMember('comments')
 ----
 
-.Output
+.输出
 [options="header"]
 |====
-| Url | Verb | Controller Method | Purpose
+| 路由 | 行为 | 管理器方法 | 目的
 | /posts/:id/comments | GET | PostsController.comments | List comments for a given post
 |====
 
-As you can notice, `comments` route has been added to a single post. Also you can define xref:_middleware_middleware[middleware] and xref:_as_name[name] on the extended routes.
+你可以注意到, `comments` (评论)路由, 添加在了每一个具体的文章上, 你也可以定义一个xref:_middleware_middleware[中间件]和xref:_as_name[命名]来扩展路由.
 
 [source, javascript]
 ----
@@ -413,4 +415,4 @@ Route
   })
 ----
 
-TIP: Middleware can also be added to the entire resource. For Example: `Route.resource().middleware()`
+TIP: 中间件可以添加在一整个资源路由上`Route.resource().middleware()`
