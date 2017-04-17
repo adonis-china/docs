@@ -3,21 +3,22 @@ permalink: app-lifecycle
 categories:
 - core-concepts
 ---
-= Application LifeCycle
+= 应用程序生命周期
 
 toc::[]
 
-The guide is geared towards giving you an in-depth understanding of the AdonisJs application flow. The flow is divided into three broad categories of *HTTP Server*, *Ace Command* and *HTTP Request*.
+该指南旨在让您深入了解AdonisJs应用程序执行流程。流程分为*HTTP服务器*，*Ace命令*和*HTTP请求*三大类。
 
-== HTTP Server
+== HTTP服务器
 
-The HTTP server involves wiring the pieces of application together and booting the HTTP server. This is a one-time job since the HTTP server is a long running process.
+HTTP服务器包括将应用程序连接在一起并引导HTTP服务器。这是一个一次性的工作，因为HTTP服务器是持续运行的进程。
 
-The first step is to load all the providers and set up their aliases. Let's talk about all the involved steps:
+第一步是加载所有提供者并设置别名。我们来谈谈所有涉及的步骤：
 
-1. Providers and their aliases are defined inside `bootstrap/app.js` file.
-2. The `bootstrap/http.js` file will make use of the `providers` array and will register them with the IoC container.
-3. Next, we register the autoloading directory defined inside `package.json` file. You free to change the directory or the autoloading namespace which is set to `App`.
+1. 提供者及其别名在 `bootstrap/app.js` 文件中定义。
+2. `bootstrap/http.js` 文件将使用 `providers` 数组，并将其注册到IoC容器。
+3. 接下来，我们注册在`package.json`文件中定义的自动加载目录。您可以随意更改设置名为`App`的目录或自动加载命名空间。
+
 +
 [source, json]
 ----
@@ -27,28 +28,33 @@ The first step is to load all the providers and set up their aliases. Let's talk
   }
 }
 ----
-4. The boot process will then load the following files in defined sequence.
+4. 然后，引导过程将按照定义的顺序加载以下文件。
   * bootstrap/events.js
   * app/Http/kernel.js
   * app/Http/routes.js
   * database/factory.js
-5. Finally, it will start the HTTP server by listening on the host and port defined inside `.env` file and emits `Http.start` event, which you can listen to hook your custom implementations.
+5. 最后，它将通过监听`.env`文件中定义的主机和端口启动HTTP服务器，并发出`Http.start`事件，您可以侦听该事件并添加自己的逻辑。
 
 
-== Ace Command
-The process of wiring up the ace command is similar to the xref:_http_server[Http Server] but following differences.
+== Ace命令
+连接ace命令的过程类似于 xref:_http_server[Http Server] ，但是有以下区别。
 
 1. All Providers defined inside `bootstrap/app.js` file will be loaded. Which means `aceProviders` and `providers` will be concatenated and sent to the IoC container.
 2. All `commands` array will be registered with link:interactive-shell[Ace].
 3. This time `Ace.start` event gets emitted instead of `Http.start`.
 
-== HTTP Request
+1. 在`bootstrap/app.js`文件中定义的所有提供程序将被加载。这意味着`aceProviders`和`provider`将被连接并发送到IoC容器。
+2. 所有`commands`数组都将注册为 link:interactive-shell[Ace]。
+3. 这次将触发`Ace.start`事件而不是`Http.start`。
 
-HTTP request is a dynamic flow of processing one or more HTTP requests at a given time.
 
-1. The incoming request URL is checked against a static file inside the `public` directory and if found the static file will be served.
-2. Next, a corresponding route will get searched against the request URL and following steps are performed.
-  * Run all global middleware
-  * Run all route specific middleware
-  * Execute route action which can be a *Controller method* or a *Closure*.
-3. If above 2 are false a 404 `HttpException` will be thrown.
+== HTTP请求
+
+HTTP请求是在给定时间处理一个或多个HTTP请求的动态流程。
+
+1. 根据`public`目录中的静态文件检查传入请求URL，如果发现静态文件就直接返回。
+2. 否则，将根据请求URL搜索相应的路由，然后执行以下步骤。
+  * 运行所有全局中间件
+  * 运行所有特定于路由的中间件
+  * 执行路由动作，可以是*控制器方法*或*闭包*。
+3. 如果以上两个都不符合，将会抛出一个404的`HttpException`。

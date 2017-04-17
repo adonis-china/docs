@@ -17,8 +17,8 @@
 
 ### 核心理论
 1. **@wxs77577 MVC模式**
-1. @wxs77577 IoC容器 & Service Providers
-1. @wxs77577 生命周期
+1. **@wxs77577 IoC容器 & Service Providers**
+1. **@wxs77577 生命周期**
 
 ### 起步
 1. **@linganmin 安装**
