@@ -16,7 +16,7 @@
 1. **@wxs77577 发行说明**
 
 ### 核心理论
-1. @wxs77577 MVC模式
+1. **@wxs77577 MVC模式**
 1. @wxs77577 IoC容器 & Service Providers
 1. @wxs77577 生命周期
 
