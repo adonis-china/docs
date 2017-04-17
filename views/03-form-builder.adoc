@@ -3,15 +3,15 @@ permalink: form-builder
 categories:
 - views
 ---
-= Form Builder
+= 表单构建器
 
 toc::[]
 
-Form builds make it easier to create quick and maintainable HTML forms. Think of a situation where you set the form action to a registered route and when route definition gets changed you have to come back to the views making sure your form action points to the right URL.
+表单构建使得更容易创建快速和可维护的HTML表单。 考虑一种情况，您将表单操作设置为注册路由，并且当路由定义更改时，您必须回到视图，确保您的表单操作指向正确的URL。
 
-Form builder gives you the API to bind routes and controllers directly to your forms, making it easier to make changes at one place and same gets reflected within your views.
+表单构建器为您提供了将路由和控制器直接绑定到表单的API，从而更容易在一个地方进行更改，同样会在您的视图中反映出来。
 
-== Basic Example
+== 基本例子
 Let's take an example of creating a new user form using the form builder.
 
 .Route
