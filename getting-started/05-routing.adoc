@@ -3,7 +3,7 @@ permalink: routing
 categories:
 - getting-started
 ---
-= Routing
+= 路由
 
 toc::[]
 

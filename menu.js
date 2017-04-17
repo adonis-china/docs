@@ -174,7 +174,7 @@ module.exports = {
       "categories": [
         "起步"
       ],
-      "title": "安装",
+      "title": "安装（已完成）",
       "weight": 0
     },
     {
@@ -182,7 +182,7 @@ module.exports = {
       "categories": [
         "起步"
       ],
-      "title": "目录结构",
+      "title": "目录结构（已完成）",
       "weight": 0
     },
     {
@@ -190,7 +190,7 @@ module.exports = {
       "categories": [
         "起步"
       ],
-      "title": "配置",
+      "title": "配置（已完成）",
       "weight": 0
     },
     {
@@ -198,7 +198,7 @@ module.exports = {
       "categories": [
         "起步"
       ],
-      "title": "环境变量",
+      "title": "环境变量（已完成）",
       "weight": 0
     },
     {
@@ -206,7 +206,7 @@ module.exports = {
       "categories": [
         "起步"
       ],
-      "title": "路由",
+      "title": "路由（已完成）",
       "weight": 0
     },
     {
@@ -290,7 +290,7 @@ module.exports = {
       "categories": [
         "序言"
       ],
-      "title": "AdonisJs一览",
+      "title": "AdonisJs一览（已完成）",
       "weight": 0
     },
     {

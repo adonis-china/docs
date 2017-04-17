@@ -7,24 +7,23 @@ categories:
 
 toc::[]
 
-We all write applications in a development environment and deploy them in the production environment on our servers. Now it is not only the terms or operating systems which get changed in development or production environment, instead quite a few other
-things get changed. For example:
+我们都在开发环境中编写应用程序，并将它们部署在我们服务器上的生产环境中。现在不但在开发或生产环境中改变了运行条件或操作系统，而且改变了其他一些事情。例如：
 
-1. In the development environment, you will use your personal email to send emails, whereas in production you may use the company email. Same holds true for 3rd party services API keys.
-2. During development, you may not want to cache the views, whereas in production views caching is required for performance.
+1. 在开发环境中，您将使用您的个人电子邮件发送电子邮件，而在生产中您可以使用公司电子邮件，而他们都有适用于自己的第三方服务API密钥。
+2. 在开发期间，您可能不想缓存视图，而在生产视图中，缓存是性能必要的。
 
-There are a couple of ways of dealing with the complexity of the environment switch.
+处理环境切换的复杂性有几种方法：
 
-=== Not recommended
+=== 不推荐
 [support-list]
-1. Add `if/else` clauses inside your app and check for the current env, before taking the action.
-2. Create multiple copies of `configuration` files for each environment.
+1. 在您的应用程序中添加`if/else`子句并检查当前的env，然后再执行该操作。
+2. 为每个环境创建多个`configuration`文件副本
 
-=== Solution
-To overcome this problem AdonisJs makes use of link:https://en.wikipedia.org/wiki/Env[Environment variables, window="_blank"], which are very common in bash scripts and now also used by modern frameworks across different communities.
+=== 解决方法
+为了克服这个问题，AdonisJs利用了在bash脚本中非常常见且被不同社区的现代框架所使用的link:https://en.wikipedia.org/wiki/Env[环境变量, window="_blank"],现在也。
 
-== The (.env) file
-There is a `.env` file inside the root of every brand new AdonisJs project. The purpose of this file is to keep all the configuration variables, which are supposed to change across environments. Following is the default .env file.
+== （.env）文件
+有一个`.env`文件在每一个新AdonisJs项目的根目录内。此文件的目的是保留所有配置变量，这些变量可以在不同环境中进行更改，以下是默认的.env文件。
 
 .(.env)
 [source]
@@ -37,13 +36,14 @@ CACHE_VIEWS=false
 SESSION_DRIVER=cookie
 ----
 
-This file is autoloaded at the time of booting the HTTP server or running Ace commands. You can read values from this file with the help of `Env` provider or access them using the Node.js `process.env` global.
+该文件在引导HTTP服务器或运行Ace命令时自动加载。您可以在`Env`提供者的帮助下从该文件读取值，或使用Node.js `process.env`全局访问它们。
 
-== Reading/Writing Values
-Values from this file are accessible via `process.env` or by using inbuilt Env provider. Ideally, it is recommended to use the *Env provider* since it may handle some inconsistency for you.
+== 读/写 值
+来自此文件的值可以通过`process.env`或使用内置的Env提供程序访问，理想情况下，建议您使用*Env提供商*，因为它可能会为你处理一些不一致。
 
 ==== get(value, [defaultValue])
-`get` method will return the value of an environment variable. Also it accepts an optional `defaultValue`, which is returned when the actual value is `undefined` or `null`.
+`get` 方法是用来读取配置值得，他也可以接受一个可选项的`defaultValue`的默认值, 当实际值为`undefined` 或 `null`时返回默认值。
+
 
 [source, javascript]
 ----
@@ -52,7 +52,7 @@ Env.get('NODE_ENV', 'development')
 ----
 
 ==== set(key, value)
-`set` method will update the existing value with the new value. Also, it will create the key/value pair if it does not exist.
+`set` 方法将更新现有的配置的键的值，如果它不存在，将会创建新的键值对。
 
 [source, javascript]
 ----
@@ -60,17 +60,17 @@ const Env = use('Env')
 Env.set('NODE_ENV', 'production')
 ----
 
-NOTE: Updating environment variables after a certain part of the application have read them has no effect. It is recommended to override env variables via command line when starting the HTTP server. For example: `PORT=8000 npm start`.
+NOTE: 如果在应用程序的某个部分读取它们之后更新环境变量没有任何效果。建议在启动HTTP服务器时通过命令行覆盖env变量。例如： `PORT=8000 npm start`.
 
-== File Location
-AdonisJs will automatically load the `.env` file from the root of your project. You can override the location of the file by defining a different path at the time of starting the server.
+== 文件位置
+AdonisJs将从您的项目根目录加载`.env`文件。您可以通过在启动服务器时定义不同的路径来覆盖文件的位置。
 
 [source, bash]
 ----
 ENV_PATH=/etc/config/.env npm start
 ----
 
-At times you may set env variables using your hosting provider dashboard. In that case having `.env` file makes no sense and to ignore the Env provider error, you must start the server with `ENV_SILENT`.
+有时您可以使用主机提供商仪表板设置env变量,在这种情况下，.env文件没有任何意义，忽略Env提供程序错误，您必须启动服务器`ENV_SILENT`。
 
 [source, bash]
 ----

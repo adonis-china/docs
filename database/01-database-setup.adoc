@@ -3,13 +3,13 @@ permalink: database-setup
 categories:
 - database
 ---
-= Database Setup
+= 数据库设置
 
 toc::[]
 
-AdonisJs has out of the box for SQL databases and offers a unified Javascript API to interact with databases. Below is the list of supported databases.
+AdonisJs具有开箱即用的SQL数据库，并提供统一的Javascript API与数据库进行交互。以下是支持的数据库的列表。
 
-== Supported Databases
+== 支持的数据库
 [support-list]
 * PostgreSQL
 * SQLite
@@ -18,10 +18,10 @@ AdonisJs has out of the box for SQL databases and offers a unified Javascript AP
 * Oracle
 * MSSQL
 
-== Configuration
-Every AdonisJs application ships with the pre-configured support for link:query-build[Query builder] and link:lucid[Lucid Orm] all you have to do is tweak the configuration as per your needs.
+== 配置
+每个AdonisJs应用程序附带预先配置link:query-build[查询构建器]和link:lucid[易懂的Orm]您只需要根据需要调整配置。
 
-By default configuration is set to make use of SQLite as the database under development, which can be changed using the `config/database.js` file.
+默认情况下，配置将使用SQLite作为正在开发的数据库，可以使用`config / database.js`文件来更改。
 
 .config/database.js
 [source, javascript]
@@ -39,13 +39,13 @@ module.exports = {
 }
 ----
 
-<1> `connection` property defines the default connection to be used for making SQL queries.
-<2> Individual connection config is set next to the connection name. You are free to create multiple config blocks.
+<1>`connection`属性定义用于进行SQL查询的默认连接。
+<2>连接名称旁边设置个人连接配置。您可以自由创建多个配置块
 
-== Basic Example
-Let's start playing the Database provider to by selecting all users from the `users` table.
+== 基本例子
+让我们从“users”表中选择所有用户，开始播放数据库提供者。
 
-.Route
+.路由
 [source, javascript]
 ----
 Route.get('/users', 'UsersController.index')
@@ -68,17 +68,17 @@ class UsersController {
 }
 ----
 
-TIP: The query builder syntax is fluent which means you can chain methods to build a complete SQL query. Also, you will not have to change a line of code when you switch between multiple databases.
+Note:查询构建器语法流畅，这意味着您可以链接方法来构建完整的SQL查询。此外，当您在多个数据库之间切换时，您不必更改一行代码。
 
-== Database Drivers & Their Settings
-Since AdonisJs supports all popular SQL databases, you have to install their equivalent drivers from npm and configure them as defined below.
+== 数据库驱动程序及其设置
+由于AdonisJs支持所有流行的SQL数据库，因此您必须从npm安装其等效的驱动程序，并按如下定义进行配置
 
 === MySQL
-Available Driver(s)::
+可用的驱动程序::
 link:https://www.npmjs.com/package/mysql[mysql] +
 link:https://www.npmjs.com/package/mysql2[mysql2]
 
-Configuration::
+组态::
 +
 
 [source, javascript]
@@ -95,7 +95,7 @@ mysql: {
 }
 ----
 
-Also, you can define a socket path to building the MySQL connection. Giving the socket path will ignore the host and port options.
+此外，您可以定义一个套接字路径来构建MySQL连接。给出套接字路径会忽略主机和端口选项。
 
 [source, javascript]
 ----
@@ -111,10 +111,10 @@ mysql: {
 ----
 
 === SQLite
-Available Driver(s)::
+可用的驱动程序::
 link:https://www.npmjs.com/package/sqlite3[sqlite3]
 
-Configuration::
+组态::
 +
 
 [source, javascript]
@@ -128,10 +128,10 @@ sqlite: {
 ----
 
 === PostgreSQL
-Available Driver(s)::
+可用的驱动程序::
 link:https://www.npmjs.com/package/pg[pg]
 
-Configuration::
+组态::
 +
 
 [source, javascript]
@@ -149,7 +149,7 @@ pg: {
 }
 ----
 
-Also, you can pass a connection string
+此外，您可以传递一个连接字符串
 
 [source, javascript]
 ----
@@ -160,7 +160,7 @@ pg: {
 ----
 
 === Oracle
-Available Driver(s)::
+可用的驱动程序::
 link:https://www.npmjs.com/package/oracle[oracle] +
 link:https://www.npmjs.com/package/strong-oracle[strong-oracle]
 
@@ -183,10 +183,10 @@ oracle: {
 
 === MariaDB
 
-Available Driver(s)::
+可用的驱动程序::
 link:https://www.npmjs.com/package/mariasql[mariasql]
 
-Configuration::
+组态::
 +
 
 [source, javascript]
@@ -204,10 +204,10 @@ maria: {
 ----
 
 === MSSQL
-Available Driver(s)::
+可用的驱动程序::
 link:https://www.npmjs.com/package/mssql[mssql]
 
-Configuration::
+组态::
 +
 
 [source, javascript]
@@ -224,11 +224,11 @@ mssql: {
 }
 ----
 
-== Debugging
-Debugging database queries are handy to check database response time or to make sure that the query builder performs the correct query. Let's go through a handful of different debugging strategies.
+== 调试
+调试数据库查询可方便地检查数据库响应时间，或确保查询构建器执行正确的查询。我们来看几个不同的调试策略。
 
-=== Globally
-The easiest way to globally debug queries is to set the `debug` flag on the configuration block.
+=== 全局
+全局调试查询的最简单的方法是在配置块上设置`debug`标志。
 
 .config/database.js
 [source, javascript]
@@ -240,7 +240,7 @@ mysql: {
 }
 ----
 
-Also, you can turn debugging on within your code by listening for the `query` or `sql` events on the Database provider. The best place to register a listener is under `app/Listeners/Http.js` file.
+此外，您可以通过监听数据库提供程序上的“query”或“sql”事件来在代码中调试开关。注册一个监听器的最佳位置是`app / Listeners / Http.js`文件。
 
 .app/Listeners/Http.js
 [source, javascript]
@@ -251,9 +251,9 @@ Http.onStart = function () {
 }
 ----
 
-The only difference between `query` and the `sql` event is the output.
+`query`和`sql`的唯一区别
 
-SQL event output::
+SQL事件输出::
 +
 
 [source, mysql]
@@ -261,7 +261,7 @@ SQL event output::
 + 1.38 ms : select * from `users` where `username` = 'doe'
 ----
 
-Query event output::
+查询事件输出::
 +
 
 [source, javascript]
@@ -274,8 +274,8 @@ Query event output::
 }
 ----
 
-=== Individual Query
-Also, you can debug a single query by chaining the event listener when running the query.
+=== 个人查询
+此外，您可以通过在运行查询时链接事件侦听器来调试单个查询。
 
 [source, javascript]
 ----
@@ -285,7 +285,7 @@ yield Database
   .where('username', 'doe')
 ----
 
-Or
+要么
 
 [source, javascript]
 ----

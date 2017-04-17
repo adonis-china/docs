@@ -3,18 +3,18 @@ permalink: response
 categories:
 - getting-started
 ---
-= Response
+= 响应
 
 toc::[]
 
-To finish an HTTP request, you must explicitly end the response. AdonisJs *Response* class instance makes it easier for you render nunjucks views or send formatted JSON for building RESTful API's.
+完成一次HTTP请求, 你必须给予一个响应, *Response*这个类让你轻松的渲染nunjucks模板, 或者为api返回一个JSON数据.
 
-TIP: You can access Node.js raw *response object* as `response.response`.
+TIP: 你可以通过`response.response`访问到Node.js原生的*response对象*.
 
-== Basic Example
-Response instance is passed along `request` instance to all the controllers and route closures, and same is used to render views or make JSON response
+== 小例子
+响应实例通过`request`实例传入所有的控制器和路由闭包, 你可以用它来渲染模板, 或者是返回JSON数据.
 
-=== Rendering Views
+=== 渲染模板
 [source, javascript]
 ----
 Route
@@ -23,7 +23,7 @@ Route
   })
 ----
 
-=== JSON Response
+=== 返回JSON数据
 [source, javascript]
 ----
 Route
@@ -33,11 +33,11 @@ Route
   })
 ----
 
-== Response Methods
-Below is the list of methods to send HTTP response, headers, and cookies.
+== 响应方法
+下面这个表列出了HTTP响应的方法, 它可以操作内容, 响应头, 和cookies.
 
 ==== send(body)
-Send method will end the request by sending the given data. You can send different data types, and AdonisJs knows how to parse them and set correct headers for them.
+这个方法可以给用户返回一个指定数据, 你可以返回任意数据类型, AdonisJs知道怎么处理这些数据和响应头.
 
 [source, javascript]
 ----
@@ -49,7 +49,7 @@ response.send(1)
 ----
 
 === status(code)
-Set HTTP status code a given request. Which is 200 by default.
+设置响应状态码, 默认200.
 
 [source, javascript]
 ----
@@ -57,7 +57,7 @@ response.status(201).send('Created')
 ----
 
 ==== json(body)
-Creating a JSON response with Content-Type header set to *application/json*.
+返回一个json数据, 并且响应头里面的Content-Type被设置为*application/json*.
 
 [source, javascript]
 ----
@@ -73,7 +73,7 @@ response.jsonp({ name: 'doe' })
 ----
 
 ==== vary(field)
-Adds vary header to the response. Understanding the need of Vary is quite broad. Learn more about it link:https://www.fastly.com/blog/best-practices-for-using-the-vary-header[here, window="_blank"]
+添加一个Vary响应头. 你可以看看link:https://www.fastly.com/blog/best-practices-for-using-the-vary-header[这里, window="_blank"]来理解Vary.
 
 [source, javascript]
 ----
@@ -81,7 +81,7 @@ response.vary('Accept-Encoding')
 ----
 
 ==== sendView(path)
-Render a nunjucks view.
+渲染nunjucks模板.
 
 [source, javascript]
 ----
@@ -89,7 +89,7 @@ yield response.sendView('welcome')
 ----
 
 ==== download(filePath)
-Stream a file for download.
+返回一个可以下载的文件.
 
 [source, javascript]
 ----
@@ -97,17 +97,17 @@ response.download(Helpers.storagePath('report.xls'))
 ----
 
 ==== attachment(filePath, [name], [disposition=attachment])
-Force download file by setting *Content-Disposition* header.
+强制下载一个文件, (通过设置*Content-Disposition*响应头).
 
 [source, javascript]
 ----
 response.attachment(Helpers.storagePath('report.xls'), 'Daily-Report.xls')
 ----
 
-== Response Headers
+== 响应头
 
 ==== header(key, value)
-Append header to the response.
+添加一个响应头.
 
 [source, javascript]
 ----
@@ -115,39 +115,39 @@ response.header('Content-type', 'application/json')
 ----
 
 ==== removeHeader(key)
-Remove existing header from the response.
+去掉一个响应头.
 
 [source, javascript]
 ----
 response.removeHeader('Accept')
 ----
 
-== Redirects
+== 重定向
 
 ==== location(url)
-Set *Location* header for the response. You can also pass the `back` keyword, which will use the request *Referrer* header.
+通过设置*Location*响应头, 来让用户跳转页面, 你可以传入`back`来跳转到前一个页面(这个方法通过*Referrer*来判断前一个页面的链接).
 
 [source, javascript]
 ----
 response.location('/signup')
-// or
+// 或
 response.location('back')
 ----
 
 ==== redirect(url, [status=302])
-Finish the response by redirecting the request to the given URL.
+通过状态码, 重定向到一个指定链接.
 
 [source, javascript]
 ----
 response.redirect('back')
-// or
+// 或
 response.redirect('/welcome', 301)
 ----
 
 ==== route(route, data, status)
-Redirect to a defined route.
+重定向到一个指定的路由上.
 
-NOTE: If AdonisJs cannot find a route with the name given it will consider it as an url and redirect to it.
+NOTE: 如果这个路由找不到, 这个路由将会被认为是一个链接, 将会直接重定向到这个连接上.
 
 [source, javascript]
 ----
@@ -156,25 +156,25 @@ Route
   .as('profile')
 
 response.route('profile', {id: 1})
-// redirects to /user/1
+// 重定向到 /user/1
 ----
 
-== Descriptive Methods
-AdonisJs ships with a bunch of descriptive messages, which are more readable than the `send` method. Let's take this example.
-
-[source, javascript]
-----
-response.unauthorized('Login First')
-----
-
-is more readable than
+== 描述方法
+AdonisJs有很多描述方法, 这些方法比单纯的`send`方法更易懂.
 
 [source, javascript]
 ----
-response.status(401).send('Login First')
+response.unauthorized('请登录~')
 ----
 
-Below is the list of all descriptive methods and their corresponding HTTP statuses. Check link:https://httpstatuses.com[httpstatuses.com, window="_blank"] to learn more about HTTP status codes.
+上面这个例子比下面这个例子更易懂.
+
+[source, javascript]
+----
+response.status(401).send('请登录~')
+----
+
+下面是描述方法的列表, 你可以看看 link:https://httpstatuses.com[httpstatuses.com, window="_blank"] 来理解状态码.
 
 [options="header"]
 |====
@@ -223,11 +223,12 @@ Below is the list of all descriptive methods and their corresponding HTTP status
 | httpVersionNotSupported | 505
 |====
 
-== Extending Response
-Quite often you have the requirement of extending the `Response` prototype by attaching new methods. Same can be done by defining a macro on the Response class.
+== 扩展响应
+可能你想为`Response`类添加新的原型方法, 可以通过定义宏来实现.
 
-==== Application Specific
-If your macros are specific to your application only, then make use of the `app/Listeners/Http.js` file to listen for the *start* event and add a custom macro.
+==== 程序独有的
+如果你的宏是你自己程序独有的, 你可以配置`app/Listeners/Http.js`文件去监听*start*事件, 来添加自定义宏.
+
 
 .app/Listeners/Http.js
 [source, javascript]
@@ -240,8 +241,8 @@ Http.onStart = function () {
 }
 ----
 
-==== Via Provider
-If you are writing a module/addon for AdonisJs, you can add a macro inside the `boot` method of your service provider.
+==== 通过服务提供者(Provider)
+如果你想写一个AdonisJs的模块和插件, 你可以在你的服务提供者(Service Provider)的`boot`方法里面添加一个宏.
 
 [source, javascript]
 ----
@@ -257,13 +258,13 @@ class MyServiceProvider extends ServiceProvider {
   }
 
   * register () {
-    // register bindings
+    // 注册你的绑定
   }
 
 }
 ----
 
-Defined macros can be used like any other `response` method.
+你可以像使用其他`response`方法一样使用你定义的宏.
 
 [source, javascript]
 ----
