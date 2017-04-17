@@ -9,7 +9,7 @@ toc::[]
 
 跨站点请求伪造（CSRF）允许攻击者在没有他们的标识或许可的情况下代表另一个用户执行操作。
 
-AdonisJs通过拒绝不明身份的请求来保护您的应用免受CSRF攻击。检查具有*POST*, *PUT*和*DELETE*方法的HTTP请求，以确保正确的人从正确的位置调用这些请求。您可以了解有关CSRF链接的更多信息：https：//www.owasp.org/index.php/Cross-Site_Request_Forgery [here，window =“_ blank”]
+AdonisJs通过拒绝不明身份的请求来保护您的应用免受CSRF攻击。检查具有*POST*, *PUT*和*DELETE*方法的HTTP请求，以确保正确的人从正确的位置调用这些请求。您可以了解有关CSRF链接的更多信息：https：//www.owasp.org/index.php/Cross-Site_Request_Forgery [点击这里, window="_blank"]
 
 == 工作原理
 

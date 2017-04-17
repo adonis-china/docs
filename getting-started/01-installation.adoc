@@ -99,7 +99,7 @@ adonis new yardstick --yarn
 ⠧ Installing dependencies using npm
 ----
 
-`new`命令将创建一个名为* yardstick *的项目，具有预定义的目录结构，并且还将从npm安装所有必需的依赖项。
+`new`命令将创建一个名为*yardstick*的项目，具有预定义的目录结构，并且还将从npm安装所有必需的依赖项。
 
 NOTE: 如果`new`命令在中间失败，请确保使用`cd`命令切换进新创建的项目，并手动运行`npm install`。
 
@@ -117,7 +117,7 @@ NOTE: 如果`new`命令在中间失败，请确保使用`cd`命令切换进新�
 |====
 
 == 获取Proxies错误
-较早版本的Node.js需要`--harmony_proxies`标志来添加对* ES2015 Proxies *的支持。 如果您正在使用* Node.js <6.0 *，请确保进行以下更改。Node.js的旧版本需要`--harmony_proxies`标志才能添加对* ES2015 Proxies *的支持。 如果您正在使用* Node.js <6.0 *，请确保进行以下更改。
+较早版本的Node.js需要`--harmony_proxies`标志来添加对*ES2015 Proxies*的支持。 如果您正在使用*Node.js <6.0*，请确保进行以下更改。Node.js的旧版本需要`--harmony_proxies`标志才能添加对*ES2015 Proxies*的支持。 如果您正在使用*Node.js <6.0*，请确保进行以下更改。
 
 将`package.json`文件中的脚本替换为以下内容
 

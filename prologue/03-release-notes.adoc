@@ -8,10 +8,10 @@ categories:
 toc::[]
 
 == 如何管理发行版？
-AdonisJs是名为* Service providers *的多个npm包的组合。所有包都可以自由发布周期和版本。这些包的组合形成了AdonisJs的发行版。简单来说，您应该查看项目的“package.json”文件中的版本号，以了解当前版本。
+AdonisJs是名为*Service providers*的多个npm包的组合。所有包都可以自由发布周期和版本。这些包的组合形成了AdonisJs的发行版。简单来说，您应该查看项目的`package.json`文件中的版本号，以了解当前版本。
 
 == AdonisJs 3.2
-版本v3.2是一个小的更新，具有少量或错误修复和增量API更新。 * v3.1 *的所有功能、方法完全支持，并兼容* v3.2 *，以下是各个模块的更改日志。
+版本v3.2是一个小的更新，具有少量或错误修复和增量API更新。 *v3.1*的所有功能、方法完全支持，并兼容*v3.2*，以下是各个模块的更改日志。
 
 ==== adonis-framework (3.0.4 - 3.0.9)
 这个repo没有显着的变化，3.1中的所有现有功能将继续运行。查看  link:https://github.com/adonisjs/adonis-framework/blob/develop/CHANGELOG.md[git changelog, window="_blank"]
@@ -20,8 +20,8 @@ AdonisJs是名为* Service providers *的多个npm包的组合。所有包都可
 ==== adonis-lucid (3.0.8 - 3.0.13)
 以下是显著变化的列表：
 
-1. 添加对更新的支持和“belongsToMany”中间表，并使用`withPivot`方法获取附加字段。 link:https://github.com/adonisjs/adonis-lucid/commit/1d00425[Related commit]
-2. 模型静态接口现在有一个“first”和“last”方法来从与模型相关的表中拉取第一行和最后一行。link:https://github.com/adonisjs/adonis-lucid/commit/2a74d6e[Related commit]
+1. 添加对更新的支持和`belongsToMany`中间表，并使用`withPivot`方法获取附加字段。 link:https://github.com/adonisjs/adonis-lucid/commit/1d00425[Related commit]
+2. 模型静态接口现在有一个`first`和`last`方法来从与模型相关的表中拉取第一行和最后一行。link:https://github.com/adonisjs/adonis-lucid/commit/2a74d6e[Related commit]
 +
 [source, javascript]
 ----
