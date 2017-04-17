@@ -3,7 +3,7 @@ permalink: query-builder
 categories:
 - database
 ---
-= Query Builder
+= 查询构建器
 
 toc::[]
 
