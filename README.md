@@ -44,8 +44,8 @@
 1. **@dxc1996 填充和工厂**
 
 ### LUCID
-1. @linganmin Lucid
-1. @linganmin 关联
+1. **@linganmin Lucid**
+1. **@linganmin 关联**
 1. @linganmin 数据库Hooks
 1. @linganmin Getters & Setters
 
