@@ -3,38 +3,38 @@ permalink: migrations
 categories:
 - database
 ---
-= Migrations
+= 迁移
 
 toc::[]
 
-Database Migrations is a process of creating, altering and dropping database tables from code, instead of writing SQL queries. AdonisJs has out of the box support for database migrations so that you can set up your database tables within the application codebase.
+数据库迁移是一种从代码创建，更改和删除数据库表而不是编写SQL查询的过程。 AdonisJs具有开箱即用的数据库迁移支持功能，可以在应用程序代码库中设置数据库表。
 
-== Introduction
+== 介绍
 
-=== Naive Way
-The *naive* approach of database management is to create the SQL database tables manually. Which work, but it is not great as it requires a lot of manual re-work.
+=== Naive方式
+数据库管理的*naive*方法是手动创建SQL数据库表这些工作，但它不是优雅的，因为它需要大量的手动重新工作。
 
-Let's take an example of a standard procedure of creating database tables.
+我们举一个创建数据库表的标准过程的例子。
 
-1. Login to SequelPro(or similar) and create database tables.
-2. Now when someone wants to work on the same application, you need to share the database schema or dump with them.
-3. When they make some changes in the database, they have to re-share the new database dump with you.
-4. You cannot run automated tests on TravisCI(or similar) as you need access to the server to create the database tables.
-5. Finally, when deploying the app in production, you need to make a remote connection to your server database to create those tables manually.
+1.登录到SequelPro（或类似的）并创建数据库表。
+2.现在当有人想要在同一个应用程序上工作时，您需要与它们共享数据库模式或转储。
+3.当数据库进行一些更改时，他们必须与您重新共享新的数据库转储。
+4.您无法对TravisCI（或类似的）运行自动测试，因为您需要访问服务器才能创建数据库表。
+5.最后，在生产中部署应用程序时，需要与服务器数据库进行远程连接以手动创建这些表。
 
-=== Migrations
-With migrations *SQL schema* is part of your code base which means once your co-workers will check out the code from a git client, they will get the database schema with it, and any progressive changes made by them are available to you.
+=== 迁移
+使用迁移*SQL schema*是您的代码库的一部分，这意味着一旦您的同事将从git客户端检出代码，它们将获得数据库模式，并且可以对其进行任何渐进更改。
 
-== About Migrations
+== 关于迁移
 [pretty-list]
-1. Migrations are stored inside `database/migrations` folder.
-2. Each schema file is an ES2015 class with two required methods called `up` and `down`.
-3. The `up` method get executed when running the migrations.
-4. The `down` method get called during migrations rollback.
-5. Migrations are executed in a batch and give you the flexibility to rollback to a given batch.
+1. 迁移存储在`database / migrations`文件夹中。
+2. 每个架构文件都是一个ES2015类，其中有两个必需的方法叫做`up`和`down`。
+3. 运行迁移时执行`up`方法。
+4. 在迁移回滚期间调用`down`方法。
+5. 批处理执行迁移，使您可以灵活地回滚到给定的批处理。
 
-== Basic Example
-Now as you know about the benefits of migrations, let's take a closer look on how to create SQL database tables using Javascript.
+== 基本例子
+现在，您了解迁移的好处，让我们进一步了解如何使用Javascript创建SQL数据库表。
 
 [source, bash]
 ----
@@ -70,40 +70,40 @@ class UsersSchema extends Schema {
 module.exports = UsersSchema
 ----
 
-== Running Migrations
-The `migration:run` command is used to execute all the migrations stored inside `database/migrations` directory. AdonisJs will smartly skip the migrations which have been executed already and no executes the new ones.
+== 运行迁移
+`migration:run`命令用于执行`database/migrations`目录中存储的所有迁移。 AdonisJs将会巧妙地跳过已经执行的迁移，而不执行新迁移。
 
 [source, bash]
 ----
 ./ace migration:run
 ----
 
-It is recommended to work with incremental migrations, instead of modifying the same schema file every time. For example
+建议使用增量迁移，而不是每次修改相同的schema文件。例如
 
 [pretty-list]
-1. Create a new schema file when you want to create a new table.
-2. Down the line, you realized that you need two extra fields in the same table. Create a new schema file to alter the existing table and add those two new fields.
-3. Again after few days, you have a requirement to rename an existing field. Create a new schema file for that also.
+1. 要创建一个新的表时，创建一个新的schema文件。
+2. 沿着这条线，你意识到你需要两个额外的字段在同一个表。创建一个新的schema文件来改变现有的表并添加这两个新字段。
+3. 再过几天，您需要重命名现有的字段。为此创建一个新的schema文件。
 
-Incremental migrations help you in tracking changes like Version control. When writing code, it is a good practice to make small code commits, so that you have cleaner code history. You must treat your migrations the same way.
+增量迁移可帮助您跟踪版本控制等更改。编写代码时，做一个小的代码提交是一个很好的做法，这样你就可以获得更清晰的代码历史。您必须以相同的方式对待您的迁移。
 
-== List Of Commands
-Below is the list of ace commands specific to migrations only.
+== 命令列表
+以下是仅适用于迁移的ace命令的列表。
 
 [options="header"]
 |====
-| Command | Options | Purpose
-| migration:run | none  | Run all pending migrations by executing up method of all schema files.
-| migration:rollback | [batch=last] | Rollback migrations to a given batch or default to last batch.
-| migration:refresh | none | Refresh migrations by dropping and re-running all migrations
-| migration:reset | none | Rollback to the initial state.
-| migration:status | none | Check the current status of migrations.
+| 命令 | 参数 | 目的
+| migration:run | none  | 通过执行所有模式文件的方法来运行所有挂起的迁移。
+| migration:rollback | [batch=last] | 将迁移回滚到给定批次或默认为最后一批。
+| migration:refresh | none | 通过删除并重新运行所有迁移来刷新迁移。
+| migration:reset | none | 回滚到初始状态。
+| migration:status | none | 检查当前的迁移状态。
 |====
 
-== Interacting With Tables
+== 与表交互
 
 ==== create(tableName, callback)
-Create a new database table.
+创建一个新的数据库表。
 
 [source, javascript]
 ----
@@ -117,7 +117,7 @@ class UserSchema {
 ----
 
 ==== createIfNotExists(tableName, callback)
-Only creates the table if it does not exists, otherwise silently ignores the *create* command.
+只有表不存在时创建，否则默认忽略*create*命令。
 
 [source, javascript]
 ----
@@ -131,7 +131,7 @@ class UserSchema {
 ----
 
 ==== rename(from, to)
-Rename an existing database table.
+重命名现有的数据库表。
 
 [source, javascript]
 ----
@@ -143,7 +143,7 @@ class UserSchema {
 ----
 
 ==== drop(tableName)
-Drop an existing database table.
+删除现有的数据库表。
 
 [source, javascript]
 ----
@@ -155,7 +155,7 @@ class UserSchema {
 ----
 
 ==== dropIfExists(tableName)
-Drop database table only if it exists, otherwise silently ignores the *drop* command.
+只有当数据库表存在时删除，否则默认忽略*drop*命令。
 
 [source, javascript]
 ----
@@ -167,7 +167,7 @@ class UserSchema {
 ----
 
 ==== has(tableName)
-Resolves with a *boolean* indicating whether a database table exists or not.
+返回一个*boolean*表示数据库表是否存在。
 
 [source, javascript]
 ----
@@ -183,7 +183,7 @@ class UserSchema {
 ----
 
 ==== table(tableName, callback)
-Select a table for *alter*.
+用*alter*选择一个表。
 
 [source, javascript]
 ----
@@ -197,7 +197,7 @@ class UserSchema {
 ----
 
 ==== raw(statement)
-Run an arbitrary SQL query in the schema builder chain.
+在schema构建器链中运行任意SQL查询。
 
 [source, javascript]
 ----
@@ -212,7 +212,7 @@ class UserSchema {
 ----
 
 ==== db(closure)
-The `db` method will give you the access to the link:query-builder[Database query builder] within your migrations. It is helpful if you want to migrate data while altering the database tables.
+`db`方法可以让您访问迁移中的 link:query-builder[数据库查询构建器]。如果要在更改数据库表时迁移数据，这将非常有用。
 
 [source, javascript]
 ----
@@ -225,8 +225,8 @@ class UserSchema {
 }
 ----
 
-== Schema Builder
-Please refer to the docs of link:http://knexjs.org/#Schema-Building[Knex Schema Building, window="_blank"], everything from knex is fully supported. Below is the example making use of schema builder to create the *users* table.
+== Schema构建器
+请参阅文档link:http://knexjs.org/#Schema-Building[Knex Schema Building, window="_blank"]，完全支持knex中的所有内容。以下是使用模式构建器创建*users*表的示例。
 
 [source, javascript]
 ----
