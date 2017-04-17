@@ -9,15 +9,15 @@
 1. 请务必于3日内完成翻译，完成后发送Pull Request
 
 ## 章节认领
-1. 序言
+### 序言
 1. **@wxs77577 AdonisJs一览**
-1. 贡献导引
-1. 发行说明
-1. 核心理论
-1. MVC模式
-1. IoC容器 & Service Providers
-1. 生命周期
-1. 起步
+1. @wxs77577 贡献导引
+1. @wxs77577 发行说明
+### 核心理论
+1. @wxs77577 MVC模式
+1. @wxs77577 IoC容器 & Service Providers
+1. @wxs77577 生命周期
+### 起步
 1. **@linganmin 安装**
 1. **@linganmin 目录结构**
 1. **@linganmin 配置**
@@ -28,20 +28,21 @@
 1. @copydog 中间件
 1. @copydog 控制器
 1. @copydog 文件
+### 视图
 1. @copydog 视图
 1. Nunjucks模板
 1. 表单生成器
 1. 数据库
-1. 数据库设置
-1. Query Builder
+1. **@dxc1996 数据库设置**
+1. @dxc1996 Query Builder
 1. 迁移
 1. 填充和工厂
-1. LUCID
+### LUCID
 1. Lucid
 1. 关联
 1. 数据库Hooks
 1. Getters & Setters
-1. WEB开发工具
+### WEB开发工具
 1. 交互式Shell Aka Ace
 1. 认证
 1. Cookies
@@ -55,14 +56,14 @@
 1. 国际化
 1. 基于Ally的社交登陆
 1. WebSocket
-1. 教程
+### 教程
 1. @river-lee 起步
 1. @river-lee 路由和控制器
 1. @river-lee 数据库模型
 1. @river-lee 显示博客列表
 1. @river-lee 创建博客
 1. @river-lee 整理
-1. 安全
+### 安全
 1. 介绍
 1. CORS
 1. CSRF保护
