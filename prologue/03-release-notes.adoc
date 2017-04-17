@@ -14,7 +14,7 @@ AdonisJs是名为* Service providers *的多个npm包的组合。所有包都可
 版本v3.2是一个小的更新，具有少量或错误修复和增量API更新。 * v3.1 *的所有功能、方法完全支持，并兼容* v3.2 *，以下是各个模块的更改日志。
 
 ==== adonis-framework (3.0.4 - 3.0.9)
-这个repo没有显着的变化，3.1中的所有现有功能将继续运行。查看 There are no notable changes for this repo and all existing features from 3.1 will continue to work. Checkout the link:https://github.com/adonisjs/adonis-framework/blob/develop/CHANGELOG.md[git changelog, window="_blank"] link:https://github.com/adonisjs/adonis-framework/blob/develop/CHANGELOG.md[git changelog, window="_blank"]
+这个repo没有显着的变化，3.1中的所有现有功能将继续运行。查看  link:https://github.com/adonisjs/adonis-framework/blob/develop/CHANGELOG.md[git changelog, window="_blank"]
 
 
 ==== adonis-lucid (3.0.8 - 3.0.13)
