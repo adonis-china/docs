@@ -81,9 +81,10 @@ link:interactive-shell[Ace]是AdonisJs提供一个命令行工具。您可以利
 <h2> This is the home page </h2>
 ----
 
-Now refresh the browser and you will see the heading we wrote inside the home view.
+现在刷新浏览器，您将看到我们在home视图中写入的标题。
 
-It is so simple to render nunjucks views in AdonisJs. Let's write some HTML inside all the views and link them together. We will be making use of link:http://v4-alpha.getbootstrap.com/[Bootstrap, window="_blank"] to design the web pages.
+在AdonisJs中渲染Nunjucks模板非常简单。 让我们在所有的视图中写一些HTML，并将它们链接在一起。
+我们将使用 link:http://v4-alpha.getbootstrap.com/[Bootstrap, window="_blank"] 来设计网页。
 
 .resources/views/master.njk
 [source, twig]
