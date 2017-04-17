@@ -12,15 +12,15 @@ toc::[]
 表单构建器为您提供了将路由和控制器直接绑定到表单的API，从而更容易在一个地方进行更改，同样会在您的视图中反映出来。
 
 == 基本例子
-Let's take an example of creating a new user form using the form builder.
+让我们举一个使用表单生成器创建新用户表单的例子。
 
-.Route
+.路由
 [source, javascript]
 ----
 Route.post('/users', 'UserController.store')
 ----
 
-.View
+.视图
 [source, twig]
 ----
 {{ form.open({action: 'UserController.store'}) }}
@@ -49,13 +49,14 @@ Route.post('/users', 'UserController.store')
 {{ form.close() }}
 ----
 
-`form.open` lets you bind the route controller action, which means if later you will change the route URL from `/users` to something else, you will not have to make changes inside your view since it is bound to the controller.
+`form.open` 可以绑定路由控制器，这意味着如果以后你会将路由URL从 `/users` 更改为别的东西，那么你不必在视图内进行更改，因为它绑定到控制器上。
 
 == Open/Close Forms
-The `form.open` method can setup form *action* and *method* using one of the following properties.
+`form.open` 方法可以使用以下属性之一设置表单 *action* 和 *method* 。
 
 action::
-Fetch form action and method using the controller method.
+关联控制器的相应方法
+
 +
 [source, twig]
 ----
@@ -64,7 +65,8 @@ Fetch form action and method using the controller method.
 ----
 
 route::
-Fetch form action and method using the route name.
+关联控制器的路由
+
 +
 [source, twig]
 ----
@@ -73,7 +75,8 @@ Fetch form action and method using the route name.
 ----
 
 url::
-Manually define a custom url and form method.
+手动定义一个自定义的url和form method。
+
 +
 [source, twig]
 ----
@@ -82,7 +85,8 @@ Manually define a custom url and form method.
 ----
 
 params::
-Passing route parameters as an object. *action* and *route* properties will use the parameters to form the correct URL
+将路由参数作为对象传递。 *action* 和 *route* 属性将使用参数形成正确的URL
+
 +
 [source, twig]
 ----
@@ -90,8 +94,8 @@ Passing route parameters as an object. *action* and *route* properties will use 
 {{ form.close() }}
 ----
 
-== Uploading Files
-To upload files using the form builder, you are required to set `files` property to true on the `open` method.
+== 上传文件
+要使用表单构建器上传文件，需要在 `open` 方法中将 `files` 属性设置为true。
 
 [source, twig]
 ----
@@ -104,8 +108,8 @@ To upload files using the form builder, you are required to set `files` property
 {{ form.close() }}
 ----
 
-== Form Builder Methods
-Here is the list of all the available methods available on form builder instance.
+== 表单生成器的方法列表
+以下是表单构建器实例上可用的所有可用方法的列表。
 
 ==== label
 [source, twig]
@@ -114,7 +118,7 @@ Here is the list of all the available methods available on form builder instance
 {{ form.label('username', 'Enter Username', {class: 'label-class'}) }}
 ----
 
-.Output
+.输出
 [source, html]
 ----
 <label name="username"> Enter Username </label>
@@ -127,13 +131,13 @@ Here is the list of all the available methods available on form builder instance
 {{ form.text('username', 'John', {class: 'input'}) }}
 ----
 
-.Output
+.输出
 [source, html]
 ----
 <input type="text" name="username" value="John" class="input" />
 ----
 
-Just like `text` you can create input fields for all given types.
+就像 `text` 一样，您可以为所有给定的类型创建输入字段。
 
 [options="header"]
 
@@ -150,7 +154,7 @@ Just like `text` you can create input fields for all given types.
 
 
 ==== file
-Create a file upload button
+创建一个上传文件的按钮
 
 [source, twig]
 ----
@@ -185,7 +189,7 @@ Create a file upload button
 {{ form.select('countries', ['India', 'US', 'UK'], null, 'Select Country') }}
 ----
 
-.Output
+.输出
 [source, html]
 ----
 <select name="countries">
@@ -196,14 +200,14 @@ Create a file upload button
 </select>
 ----
 
-Also, you can pass an object of key/value pairs in place of the plain array.
+此外，您可以传递键/值对的对象来代替纯数组。
 
 [source, twig]
 ----
 {{ form.select('countries', {ind: 'India', us: 'Usa'}) }}
 ----
 
-.Output
+.输出
 [source, html]
 ----
 <select name="countries">
@@ -212,7 +216,7 @@ Also, you can pass an object of key/value pairs in place of the plain array.
 </select>
 ----
 
-You can also define *selected* options for a select box.
+您还可以为下拉框定义 *selected* 选项。
 
 [source, twig]
 ----
@@ -226,7 +230,7 @@ You can also define *selected* options for a select box.
 }}
 ----
 
-.Output
+.输出
 
 [source, html]
 ----
@@ -239,14 +243,14 @@ You can also define *selected* options for a select box.
 ----
 
 ==== selectRange
-Create a select box with multiple options inside the given range.
+在给定范围内创建一个包含多个选项的选择框。
 
 [source, twig]
 ----
 {{ form.selectRange('days', 1, 30) }}
 ----
 
-.Output
+.输出
 
 [source, html]
 ----
@@ -264,7 +268,7 @@ Create a select box with multiple options inside the given range.
 {{ form.submit('Create Account', 'create') }}
 ----
 
-.Output
+.输出
 [source, html]
 ----
 <input type="submit" name="create" value="Create Account" />
@@ -276,7 +280,7 @@ Create a select box with multiple options inside the given range.
 {{ form.button('Create Account', 'create') }}
 ----
 
-.Output
+.输出
 [source, html]
 ----
 <button type="submit" name="create"> Create Account </button>
@@ -288,7 +292,7 @@ Create a select box with multiple options inside the given range.
 {{ form.resetButton('Clear') }}
 ----
 
-.Output
+.输出
 [source, html]
 ----
 <button type="reset" name="Clear"> Clear </button>
