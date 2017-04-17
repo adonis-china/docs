@@ -235,7 +235,7 @@ class Country extends Lucid {
 }
 ----
 
-Now to fetch posts for a given country, you need to call the `posts` method on the *Country model*.
+现在为某个国家提取帖子, 你只需要在*Country 模型中*调用`posts方法`
 
 [source, javascript]
 ----
@@ -244,26 +244,26 @@ const posts = yield country.posts().fetch()
 response.json(posts)
 ----
 
-The `hasManyThrough` method accepts given options.
+`hasManyThrough` 方法接收参数选项
 
 [options="header"]
 |====
-| Parameter | Required  | Default Value
+| 参数 | 必须  | 默认值
 | relatedModel | Yes | null
 | throughModel | Yes | null
-| primaryKey | No | Model primary key
-| foreignKey | No | Model foreign key
-| throughPrimaryKey | No | Related model primary key
-| throughForeignKey | No | Related model foreign key
+| primaryKey | No | 当前模型主键
+| foreignKey | No | 当前模型外键
+| throughPrimaryKey | No | 远层关联表主键
+| throughForeignKey | No | 远层关联表外键
 |====
 
-== Querying Relationships
-Querying database for relationships is so straightforward and intuitive with Lucid. You just have to call defined relationship methods without worrying about the *join* queries.
+== 查询关系
+使用Lucid查询数据库的关系是简单直观的，你只需要调用定义的关系方法，而不用担心连接查询。
 
-Also querying relations is divided into three broad categories of *Lazy Loading*, *Eager Loading* and *Lazy Eager Loading*.
+当然，查询关系也分延迟加载（懒加载），预加载（积极加载），惰性加载三大类
 
-=== Lazy Loading
-Lazy loading is a process of loading relationships after fetching the primary/parent record from the database
+=== 延迟加载（懒加载）（Lazy Loading）
+延迟加载是从数据库获取主/父记录之后加载关系的过程
 
 [source, javascript]
 ----
@@ -282,11 +282,11 @@ const user = yield User.find(1) <1>
 const profile = yield user.profile().fetch() <2>
 ----
 
-<1> First we `find` a user with the primary key.
-<2> Then we call the previously defined `profile` method to fetch the related profile for the given user.
+<1> 首先我们find是一个主键的用户
+<2> 然后我们调用先前定义的`profile`方法来获取指定用户的相关信息。
 
-==== Defining Query Constraints
-You can also attach query builder methods to your relationship definitions, and Lucid will make sure to execute them.
+==== 定义查询约束（Defining Query Constraints）
+您还可以将查询构建器方法附加到关系定义中，Lucid将确保执行它们。
 
 [source, javascript]
 ----
@@ -301,10 +301,10 @@ class User extends Lucid {
 }
 ----
 
-<1> Now when you will fetch the related profile for a given user, it will only include the record where is_active=true.
+<1> 现在，当您为某个指定的用户获取信息时，它将只包含`is_active = true`的记录
 
-==== Runtime Query Constraints
-You can also define runtime query constraints, just by chaining the query builder methods.
+==== 运行时查询约束（Runtime Query Constraints）
+您也可以通过链式查询构建器方法来定义运行时查询约束。
 
 [source, javascript]
 ----
@@ -315,8 +315,9 @@ const profile = user
   .fetch()
 ----
 
-=== Eager Loading
-Lazy loading may create *N+1* problem in certain scenarios. For example Loading profile for ten users, one by one will make a total of *11* queries. To eliminate this behavior you can preload/eager load profiles which will result in a total of *2* database queries.
+=== 预加载（积极加载）（Eager Loading）
+延迟加载可能会在某些情况下产生 *N+1* 的问题。例如，为十个用户加载个人信息，一个接一个共查询11个，要解决这个问题，你可以预加载个人信息，这样会产生两个数据库查询结果。
+
 
 [source, javascript]
 ----
@@ -344,10 +345,9 @@ console.log(users.toJSON())
 ]
 ----
 
-<1> The `with` method can be used to eager load relationships with the parent record. Also, you can load multiple/nested relationships using the `with` method.
+<1> 这个`with`方法可用于与父记录的热负荷关系，此外，您可以使用`with`方法加载多个、嵌套关系。
 
-==== Eager Loading Multiple Relations
-
+==== 预加载（积极加载）多个关系（Eager Loading Multiple Relations）
 [source, javascript]
 ----
 const users = yield User
@@ -356,7 +356,7 @@ const users = yield User
   .fetch()
 ----
 
-==== Eager Loading Nested Relations
+==== 预加载（积极加载）嵌套关系（Eager Loading Nested Relations）
 
 [source, javascript]
 ----
@@ -366,8 +366,8 @@ const user = yield User
   .fetch()
 ----
 
-==== Runtime Query Constraints
-Also, you can build upon the query builder to filter the results from the related models.
+==== 运行时查询约束（Runtime Query Constraints）
+此外，您可以建立在查询构建器上以过滤相关模型的结果
 
 [source, javascript]
 ----
@@ -382,10 +382,10 @@ const user = yield User
   .fetch()
 ----
 
-<1> The `scope` method gives you the access to the query builder of the related model which means you can add `where` clause to filter the results.
+<1> 该`scope`方法允许您访问相关模型的查询构建器，这意味着您可以添加`where`子句来过滤结果。
 
-=== Lazy Eager Loading
-Lazy eager loading is a combination of xref:_lazy_loading[Lazy loading] and xref:_eager_loading[Eager Loading] instead of preloading all the relationships, you fetch the parent model instance and then eager load all related models.
+=== 惰性加载（Lazy eager loading）
+惰性加载时xref:_lazy_loading[Lazy loading] 和 xref:_eager_loading[Eager Loading] ，并不是预先加载所有关系。您获取父模型实例，然后加载所有相关模型。
 
 [source, javascript]
 ----
@@ -411,16 +411,16 @@ console.log(user.toJSON())
 ]
 ----
 
-== Filtering Records
+== 过滤记录
 
-NOTE: Supported by adonis-lucid 3.0.13 or greater
+NOTE: adonis-lucid 3.0.13或更高版本支持
 
-A quite common use case is to filter top-level results based upon some conditions on a relationship. For example:
+一个很常见的用例是根据关系中的某些条件过滤顶层结果。例如：
 
-1. Display all users who have contributed at least one post.
-2. Fetch all cars with 2 or more owners in a lifetime.
+1. 显示所有贡献了至少一个帖子的用户
+2. 在一生中拥有2名或更多业主的所有汽车
 
-Ideally, it requires some complex joins, but Lucid makes it so easier for you.
+理想情况下，它需要一些复杂的连接，但Lucid使您更容易
 
 ==== has(relation, [expression], [value])
 
@@ -450,7 +450,7 @@ const users = yield User.query().whereHas('posts', (builder) => {
 }).fetch()
 ----
 
-Also, you can make use of `doesntHave` and `whereDoesntHave` methods, which are opposite of the above ones.
+此外，您可以使用 `doesntHave` 和 `whereDoesntHave` 方法, 这俩方法与上述方法相关。
 
 ==== doesntHave(relation)
 
@@ -468,8 +468,8 @@ const users = yield User.query().whereDoesntHave('friends', (builder) => {
 }).fetch()
 ----
 
-=== Counting Related Models
-Getting counts of relationships is commonly used by web applications. For example: *Fetching comments count for every post*.
+=== 计数相关模型
+web应用通常使用关系统计数量，例如：为每个帖子获取评论数量
 
 ==== withCount(relation)
 
@@ -489,13 +489,13 @@ const posts = yield Posts.query().withCount('comments').fetch()
 console.log(posts.first().comments_count)
 ----
 
-== Insert, Updates & Deletes
-Relationships can also be *created*, *updated* and *deleted* with the same ease as fetching them. Whereas each relationship type has slightly different methods to persist related data.
+== 插入，更新和删除
+关系也可以创建，更新和删除，同样轻松取得它们。而每种关系类型具有稍微不同的方法来持久存在相关数据。
 
 ==== save(modelInstance, [pivotValues])
-The `save` method can be used to create/update related model instance. It works with following relations.
+该save方法可用于创建/更新相关的模型实例。它需要满足以下关系
 
-NOTE:: `pivotValues` are only supported by *belongsToMany* relationship. Checkout xref:_attach_rows_pivotvalues[attach] method documentation on how pivotValues are defined.
+NOTE:: `pivotValues` 仅仅由*belongsToMany* 关系支持， 关于如何定义pivotValues的请阅读 xref:_attach_rows_pivotvalues[attach] 文档
 
 [support-list]
 1. hasOne
@@ -514,7 +514,7 @@ yield user.profile().save(profile)
 ----
 
 ==== create(values, [pivotValues])
-The `create` method is almost similar to the `save` method whereas you pass an arbitrary object instead of passing a model instance.
+该`create`方法几乎类似于` save`方法，而您传递的参数应该是任意对象而不是传递模型实例。
 
 [source, javascript]
 ----
@@ -526,7 +526,7 @@ yield user
 ----
 
 ==== saveMany(arrayOfInstances)
-Save multiple related records for a given model instance. `saveMany` works with following relation types.
+保存给定模型实例的多个相关记录。`saveMany`适用于以下关系类型。
 
 1. hasMany
 2. belongsToMany
@@ -542,7 +542,7 @@ yield user.profile.saveMany([profile, anotherProfile])
 ----
 
 ==== createMany(arrayOfValues)
-The `createMany` method will also create multiple records whereas you pass an array of objects instead of model instances.
+该`createMany`方法还将创建多个记录，您应该传递的参数对象数组而不是模型实例。
 
 [source, javascript]
 ----
@@ -553,7 +553,7 @@ const profiles = yield user
 ----
 
 ==== attach(rows, [pivotValues])
-The `attach` method only works with *belongsToMany* relationship. You attach existing records to form a relationship.
+该`attach`方法仅适用于`belongsToMany`关系。您应该附加现有记录以形成关系。
 
 [source, javascript]
 ----
@@ -563,14 +563,14 @@ const coursesIds = yield Courses.ids()
 yield Student.courses().attach(coursesIds)
 ----
 
-Optionally, you can pass an object to populate fields inside the *pivotTable*.
+或者，您可以传递一个对象来填充*pivotTable*内的字段。
 
 [source, javascript]
 ----
 yield Student.courses().attach(coursesIds, {enrollment_confirmed: false})
 ----
 
-Or you can also define different pivotValues for each related row.
+者您还可以为每个相关行定义不同的pivotValues。
 
 [source, javascript]
 ----
@@ -592,9 +592,9 @@ yield Student.courses().attach(enrollment)
 ----
 
 ==== detach(rows)
-The `detach` method is the opposite of the xref:_attach_rows_pivot_values[attach] and will remove the relationships from pivotTable.
+该 `detach` 方法与 xref:_attach_rows_pivot_values[attach]相反，并将从pivotTable中删除关系
 
-NOTE: The `detach` method does not remove the rows from the related model. It just removes the relationship from the pivot table.
+NOTE: 该`detach`方法不会从相关模型中删除行。它只是从数据透视表中删除关系。
 
 [source, javascript]
 ----
@@ -605,9 +605,9 @@ yield Student.courses().detach(coursesIds)
 ----
 
 ==== sync(rows, [pivotValues])
-The `sync` will remove all existing relations and will only add given relations. Think of it as calling xref:_detach_rows[detach] and xref:_attach_rows_pivot_values[attach] together.
+该`sync`会删除所有现有的关系，只会增加特定关系，吧xref:_detach_rows[detach] 和 xref:_attach_rows_pivot_values[attach] together联系起来理解
 
-TIP: You can also pass *pivotValues* to the sync method similar to the attach method.
+TIP: 您也可以将*pivotValues*传递给类似于attach方法的sync方法。
 
 [source, javascript]
 ----
@@ -618,7 +618,7 @@ yield Student.courses().sync(coursesIds)
 ----
 
 ==== updatePivot(values, [relatedModelId])
-In order to update the values inside the pivot table you can make use of `updatePivot` method.
+为了更新数据透视表中的值，您可以使用updatePivot方法。
 
 [source, javascript]
 ----
@@ -626,7 +626,7 @@ const student = yield Student.find(1)
 Student.courses().updatePivot({marks: 90})
 ----
 
-Or
+或者
 
 [source, javascript]
 ----
@@ -636,9 +636,9 @@ Student.courses().updatePivot({marks: 90}, maths.id)
 ----
 
 ==== withPivot(keys)
-When fetching records for *belongsToMany* lucid will not select any rows from the pivot table. In order to fetch additional fields you can make use of `withPivot` method.
+获取`belongsToMany` lucid的记录将不会从数据透视表中选择任何行。为了获取其他字段，您可以使用withPivot方法。
 
-NOTE: Pivot table fields will be prefixed with `\_pivot_`. In below example the marks will be returned as `_pivot_marks`
+NOTE: 数据透视表字段将作为前缀_pivot_,在下面的示例中，标记将作为返回_pivot_marks`_pivot_marks`
 
 [source, javascript]
 ----
@@ -653,7 +653,7 @@ class Student extends Lucid {
 }
 ----
 
-Also you can define fields when running the select query.
+还可以在运行select查询时定义字段
 
 [source, javascript]
 ----
@@ -662,7 +662,7 @@ const courses = yield student.courses().withPivot('marks').fetch()
 ----
 
 ==== associate(modelInstance)
-The `associate` method is used with *belongsTo* relationship to associate an existing database row.
+该`associate`方法与*belongsTo*关系一起使用以关联现有的数据库行。
 
 [source, javascript]
 ----
@@ -675,7 +675,7 @@ yield profile.save()
 ----
 
 ==== dissociate
-The `dissociate` method is the opposite of xref:_associate_model_instance[associate] and will remove the existing relationship
+该`dissociate`方法与xref:_associate_model_instance[associate]方法相反，并将删除现有的关系
 
 [source, javascript]
 ----
