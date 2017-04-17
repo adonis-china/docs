@@ -3,20 +3,20 @@ permalink: query-builder
 categories:
 - database
 ---
-= Query Builder
+= 查询构建器
 
 toc::[]
 
-AdonisJs Query builder gives you a unified syntax to interact with SQL databases using Javascript methods. This guide is a reference to all the available methods on query builder.
+AdonisJs查询构建器为您提供统一的语法，以使用JavaScript方法与SQL数据库进行交互。本指南是对查询构建器的所有可用方法的引用。
 
-Checkout link:database-setup[Database Setup] guide to check the list of *supported databases*, *configuration options* and *debugging queries*.
+检出 link:database-setup[数据库设置]指南，以查看*支持的数据库的列表*，*配置选项*和*调试查询*。
 
-== Introduction
-Writing SQL queries can be tedious in so many ways, even if you are good with SQL. Let's imagine you write all of your queries for MySQL and after some time your manager asks you to migrate everything to PostgreSQL. Now you will have to re-write/amend your MySQL queries to make sure they work well with PostgreSQL.
+== 介绍
+编写SQL查询在很多方面可能会乏味，即使您擅长使用SQL。让我们想象你写的所有查询MySQL，经过一段时间你的经理要求你迁移到PostgreSQL的一切。现在您将不得不重新编写/修改您的MySQL查询，以确保它们能够与PostgreSQL一起使用
 
-Another issue can be of building incremental queries with conditional blocks.
+另一个问题可能是使用条件块构建增量查询。
 
-.Without Query Builder
+.不使用查询生成器
 [source, javascript]
 ----
 const sql = 'SELECT * FROM `users`'
@@ -26,7 +26,7 @@ if (username) {
 }
 ----
 
-.With Query Builder
+.使用查询生成器
 [source, javascript]
 ----
 const query = Database.table('users')
@@ -36,8 +36,8 @@ if (username) {
 }
 ----
 
-== Basic Example
-Let's review a basic example of working with the query builder by chaining different methods.
+== 基本例子
+我们来看一下使用链接不同方法处理查询生成器的基本示例。
 
 [source, javascript]
 ----
@@ -57,8 +57,8 @@ class UserController {
 }
 ----
 
-== Selects
-The `select` method will define the fields to be selected for a given *SELECT* query.
+== 选择
+`select`方法将定义要为给定*SELECT*查询选择的字段。
 
 [source, javascript]
 ----
@@ -67,17 +67,17 @@ yield Database.select('id', 'username').from('users')
 yield Database.select('*').from('users')
 ----
 
-.SQL Output
+.SQL输出
 [source, sql]
 ----
 select `id`, `username` from `users`
 select * from `users`
 ----
 
-== Where Clauses
-Query builder offers a bunch of dynamic methods to add *where* clauses. Also, it supports sub-queries by passing a `closure` instead of the actual value.
+== Where子句
+查询构建器提供了一堆动态方法来添加*where*子句。而且，它通过传递一个`closure`而不是实际的值来支持子查询。
 
-NOTE: Passing `undefined` to the where clause will cause an error during SQL compilation. Make sure that dynamic values are not `undefined` before passing them.
+注意：将`undefined`传递给where子句会在SQL编译期间导致错误。确保动态值在传递之前不是'undefined`。
 
 ==== where(mixed)
 
@@ -88,16 +88,16 @@ const users = yield Database.from('users').where('id', 1)
 const users = yield Database.from('users').where({ id: 1 })
 ----
 
-Also, you can define the comparison operator to the where clause.
+此外，您可以将比较运算符定义为where子句。
 
 [source, javascript]
 ----
 const adults = yield Database.from('users').where('age', '>', 18)
 ----
 
-You can also add a callback to the *where* clause. Callback outputs a little different SQL query, and will group all where clauses inside a callback.
+您还可以向*where*子句添加回调。回调输出一些不同的SQL查询，并将所有where子句组合在回调内。
 
-.Passing Closure
+.传递闭包
 [source, javascript]
 ----
 yield Database.from('users').where(function () {
@@ -189,14 +189,14 @@ yield Database.table('users').whereNotBetween('age',[45,60])
 ----
 
 ==== whereRaw(mixed)
-Convenience helper for .where(Database.raw(query))
+.where(Database.raw(query))便利的助手类
 
 [source, javascript]
 ----
 yield Database.from('users').whereRaw('id = ?', [20])
 ----
 
-== Joins
+== 连接
 
 ==== innerJoin(column, mixed)
 
@@ -207,7 +207,7 @@ yield Database
   .innerJoin('accounts', 'user.id', 'accounts.user_id')
 ----
 
-Also, you can pass a closure to construct the join.
+此外，您可以传递一个闭包来构建连接。
 
 [source, javascript]
 ----
@@ -218,7 +218,7 @@ yield Database.table('users').innerJoin('accounts', function () {
 })
 ----
 
-Other Joins Methods::
+其他连接方法::
 |====
 | leftJoin
 | leftOuterJoin
@@ -230,7 +230,7 @@ Other Joins Methods::
 | joinRaw
 |====
 
-== Ordering and Limits
+== 排序和限制
 
 ==== distinct(...columns)
 [source, javascript]
@@ -263,7 +263,7 @@ yield Database.table('users').orderBy('col NULLS LAST DESC')
 ----
 
 ==== having(column, operator, value)
-NOTE: `groupBy()` clause is always required before making use of `having()` method.
+Note:在使用`having()`方法之前，必须使用`groupBy()`子句。
 
 [source, javascript]
 ----
@@ -276,8 +276,9 @@ yield Database.table('users').groupBy('age').having('age', '>', 18)
 yield Database.table('users').offset(11).limit(10)
 ----
 
-== Inserts
-Insert operation will return the `id` of the inserted row. In the case of bulk inserts, the `id` of the first record will be returned, and it is more of a limitation with MYSQL itself. link:http://dev.mysql.com/doc/refman/5.6/en/information-functions.html#function_last-insert-id[LAST_INSERT_ID].
+== 插入
+
+插入操作将返回插入行的`id`。在批量插入的情况下，第一条记录的`id`将被返回，它更多的限制了MySQL本身。link:http://dev.mysql.com/doc/refman/5.6/en/information-functions.html#function_last-insert-id[LAST_INSERT_ID].
 
 ==== insert(values)
 [source, javascript]
@@ -293,7 +294,7 @@ const firstUserId = yield Database
 ----
 
 ==== into(tableName)
-Method `into` is more readable than `table/from` when insert rows to the database.
+当将数据插入数据库时​​，方法`into`比`table/from`更容易读取。
 
 [source, javascript]
 ----
@@ -303,7 +304,7 @@ const userId = yield Database
 ----
 
 === PostgreSQL Only
-For PostgreSQL, you will have to define the returning column explicitly. All other database clients will ignore this statement.
+对于PostgreSQL，您必须明确定义返回列。所有其他数据库客户端将忽略此语句。
 
 [source, javascript]
 ----
@@ -313,8 +314,8 @@ const userId = yield Database
   .returning('id')
 ----
 
-== Updates
-All update operations will return the number of affected rows.
+== 更新
+所有更新操作将返回受影响的行数。
 
 [source, javascript]
 ----
@@ -324,7 +325,7 @@ const affectedRows = yield Database
   .update('lastname', 'Virk')
 ----
 
-Pass an object for multiple columns.
+传递多个列的对象。
 
 [source, javascript]
 ----
@@ -334,11 +335,12 @@ const affectedRows = yield Database
   .update({ lastname: 'Virk', firstname: 'Aman' })
 ----
 
-== Deletes
-Delete operations will also return the number of affected rows.
+== 删除
+删除操作也会返回受影响的行数。
 
 ==== delete
-Also, you can make use of `del()`, since `delete` is a reserved keyword in Javascript.
+此外，您可以使用`del()`，因为`delete`是Javascript中的保留关键字。
+
 
 [source, javascript]
 ----
@@ -349,7 +351,7 @@ const affectedRows = yield Database
 ----
 
 ==== truncate
-Truncate will remove all the rows from a database and will set auto increment id back to *0*.
+Truncate将从数据库中删除所有行，并将自动递增ID设置为*0*。
 
 [source, javascript]
 ----
@@ -357,7 +359,7 @@ yield Database.truncate('users')
 ----
 
 == Pagination
-Query builder provides a handful of convenient ways to paginate results from the database.
+查询构建器提供了一些方便的方法来分页数据库中的结果。
 
 ==== forPage(page, [limit=20])
 [source, javascript]
@@ -375,9 +377,10 @@ const results = yield Database
   .paginate(2, 10)
 ----
 
-NOTE: The output of the `paginate` method is different from the `forPage` method.
+NOTE: `paginate`方法的输出与`forPage`方法不同。
 
-.Output
+
+.输出
 [source, javascript]
 ----
 {
@@ -389,11 +392,11 @@ NOTE: The output of the `paginate` method is different from the `forPage` method
 }
 ----
 
-== Database Transactions
-Database transactions are safe operations, which are not reflected in the database until and unless you explicitly commit your changes.
+== 数据库事务
+数据库事务是安全操作，除非您明确提交更改，否则数据库事务不会反映在数据库中。
 
 ==== beginTransaction
-The `beginTransaction` method will return the transaction object, which can be used to perform any queries.
+`beginTransaction`方法将返回事务对象，可用于执行任何查询。
 
 [source, javascript]
 ----
@@ -405,7 +408,7 @@ trx.rollback() // will not insert anything
 ----
 
 ==== transaction
-Also, you can wrap your transactions inside a *callback*. The major difference is, you will not have to call `commit or `rollback` manually if any of your queries throws an error, the transaction will rollback automatically. Otherwise, it will commit.
+另外，你可以将你的交易包装在*callback*中。主要的区别是，如果您的任何查询引发错误，您将不必手动调用`commit或`rollback'，事务将自动回滚。否则，它将提交。
 
 [source, javascript]
 ----
@@ -415,7 +418,7 @@ yield Database.transaction(function * (trx) {
 ----
 
 == Chunks
-The `chunk` method will pull records in small chunks and will execute the closure until there are results. This method is helpful when you are planning to select thousands of records.
+`chunk`方法将以块的方式拉出记录，并执行关闭，直到有结果。当您计划选择数千条记录时，此方法很有用。
 
 [source, javascript]
 ----
@@ -424,7 +427,7 @@ yield Database.from('logs').chunk(200, function (logs) {
 })
 ----
 
-== Aggregates
+== 聚合函数
 
 ==== count([column])
 [source, javascript]
@@ -439,7 +442,7 @@ const total = yield Database.from('users').count('id as id')
 ----
 
 ==== countDistinct
-The `countDistinct` is same as count, but adds distinct expression.
+`countDistinct`与count相同，但增加了不同的表达。
 
 [source, javascript]
 ----
@@ -491,7 +494,7 @@ yield Database.from('users').avgDistinct('age as age')
 ----
 
 ==== increment(column, amount)
-Increment the column existing value by *1*.
+将列现有值增加*1*。
 
 [source, javascript]
 ----
@@ -515,14 +518,14 @@ yield Database
 == Helpers
 
 ==== pluck(column)
-The `pluck` method will return an array of values for the selected column.
+`pluck`方法将返回所选列的值的数组。
 [source, javascript]
 ----
 const usersIds = yield Database.from('users').pluck('id')
 ----
 
 ==== pluckAll(...columns)
-The `pluckAll` method returns an array of objects.
+`pluckAll`方法返回一个对象数组。
 
 NOTE: `pluckAll` has been added as of `adonis-lucid@3.0.12`
 
@@ -534,7 +537,7 @@ const users = yield Database.from('users').pluckAll('id', 'username')
 ----
 
 ==== first
-The `first` method will add a *limit 1* clause to the query.
+`first`方法将向查询添加一个*limit 1*子句。
 
 [source, javascript]
 ----
@@ -542,7 +545,7 @@ yield Database.from('users').first()
 ----
 
 ==== clone
-Clone the current query chain for re-usability.
+克隆当前的查询链以实现可重用性。
 
 [source, javascript]
 ----
@@ -556,7 +559,7 @@ yield query
 ----
 
 ==== columnInfo([columnName])
-Returns information for a given column.
+返回给定列的信息。
 
 [source, javascript]
 ----

@@ -7,14 +7,14 @@ categories:
 
 toc::[]
 
-MVC pattern separates the application into three main logical components known as *Model*, *View* and *Controller*. AdonisJs supports all three and makes it so simple glue them together. Along with this Adonis Router also plays a major role in handling HTTP requests and passing them to the controller.
+MVC模式将应用程序分为称为* Model *，* View *和* Controller *的三个主要逻辑组件。 这些AdonisJs都支持，并将它们简单地整合在一起。Adonis路由器在处理HTTP请求并将其传递给控制器​​方面也起着重要作用。
 
 image:http://res.cloudinary.com/adonisjs/image/upload/v1472842310/MVC-Flow-Chart_ccz2zb.jpg[]
 
-== Model
-Model is the data layer responsible for fetching data from the database which is SQL in the case of AdonisJs. To make the process of fetching data simple and secure AdonisJs ships with a beautiful ORM called link:lucid[Lucid].
+== 模型（Model）
+模型是负责从数据库中获取数据的数据层，在AdonisJs中是使用SQL。为了使获取数据的过程简单安全，AdonisJs带有一个优雅的ORM，名为link：lucid [Lucid]。
 
-.Defing A Model
+.定义一个模型
 [source, javascript]
 ----
 'use strict'
@@ -26,24 +26,25 @@ class User extends Lucid {
 }
 ----
 
-.Using Model
+.使用模型
 [source, javascript]
 ----
 const User = use('App/Model/User')
 
-// All Users
+// 全部用户
 const users = yield User.all()
 
-// Using where clause
+// 使用where子句
 const activeUsers = yield User.query().where('status', 'active').fetch()
 ----
 
-== Controller
-Controller, as the name suggests, controls the flow of an HTTP request. It makes use of the *Model* to fetch the required data and pass that data to the *View* for creating an HTML page.
+== 控制器（Controller）
 
-Controllers also contain business/domain logic for your application, whereas you will often find people abstracting the domain logic into reusable services but still those services are consumed directly by the controllers, and you never access them inside the models or views.
+控制器，顾名思义，控制HTTP请求的流程。它使用* Model *来获取所需的数据，并将该数据传递给* View *以创建HTML页面。
 
-.Example Of Controller
+控制器还包含您的应用程序的业务（bussiness）逻辑和领域（domain）逻辑，而您经常会发现人们将领域逻辑抽象为可重用的服务（Service），但是这些服务仍然由控制器直接使用，并且您不会在模型或视图中访问它们。
+
+.控制器示例
 [source, javascript]
 ----
 const User = use('App/Model/User') <1>
@@ -58,13 +59,13 @@ class UsersController {
 }
 ----
 
-<1> Here we import the *User Model*.
-<2> Next we render the `users/list.njk` view and pass it the user's object which can be used by the view to display a list of users.
+<1> 这里我们导入*用户模型*（User Model）。
+<2> 接下来，我们渲染 `users/list.njk` 视图，并传入用户对象，以显示用户列表。
 
-== View
-The view is the final part of the flow, it makes use of the dynamic data and renders HTML. To keep your views declarative, AdonisJs offers a nice data-binding syntax to consume dynamic data and make use of it. You can learn more about the templating link:templating[here].
+== 视图（View）
+视图是流程的最后一部分，它利用动态数据并呈现HTML。为了保持你的视图的声明性（declarative），AdonisJs提供了一个很好的数据绑定语法来使用动态数据。您可以详细了解 link:templating[模板]
 
-.Example Of View
+.视图的例子
 [source, twig]
 ----
 <ul>
