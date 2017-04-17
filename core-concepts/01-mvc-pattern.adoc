@@ -12,7 +12,7 @@ MVC模式将应用程序分为称为*Model*，*View*和*Controller*的三个主�
 image:http://res.cloudinary.com/adonisjs/image/upload/v1472842310/MVC-Flow-Chart_ccz2zb.jpg[]
 
 == 模型（Model）
-模型是负责从数据库中获取数据的数据层，在AdonisJs中是使用SQL。为了使获取数据的过程简单安全，AdonisJs带有一个优雅的ORM，名为link：lucid [Lucid]。
+模型是负责从数据库中获取数据的数据层，在AdonisJs中是使用SQL。为了使获取数据的过程简单安全，AdonisJs带有一个优雅的ORM，名为link:lucid [Lucid]。
 
 .定义一个模型
 [source, javascript]
