@@ -7,7 +7,7 @@ categories:
 
 toc::[]
 
-到目前为止，我们已经创建了一个新的AdonisJs应用并为它创建了路由，控制器和渲染的视图。本教程，我们将进一步学习  *Database Models* 。
+到目前为止，我们已经创建了一个新的AdonisJs应用并为它创建了路由，控制器和渲染的视图。本教程，我们将进一步学习  *数据库模型* 。
 
 AdonisJs 支持大多数的sql数据库。这是完整的例子 link:database-setup[数据库安装] 。我们将首先创建迁移和数据模型，这些模型也称为Lucid模型。
  
@@ -23,7 +23,7 @@ AdonisJs 支持大多数的sql数据库。这是完整的例子 link:database-se
 | Category | categories
 |====
 
-希望是有道理的。Now to interact with posts, 我们需要两件事情。
+希望是有道理的。现在要操作文章, 我们需要两件事情。
 
 [pretty-list]
 1. 一个帖子的模型。

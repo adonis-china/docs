@@ -5,7 +5,7 @@ categories:
 ---
 = 博客文章列表
 
-在本教程中，我们将在 *PostController* 中继续使用 link:adonis-blog-part3[数据库模型]。 确保您的服务器已启动并运行在htt://localhost:3333上。
+在本教程中，我们将在 *PostController* 中继续使用 link:adonis-blog-part3[数据库模型]。 确保您的服务器已启动并运行在http://localhost:3333上。
 
 == 获取博客文章
 快速打开 *PostController* 文件并将以下代码段粘贴到其中。
@@ -158,5 +158,5 @@ module.exports = DatabaseSeeder
 }
 ----
 
-=== 文章列表预留
+=== 文章列表预览
 image:http://res.cloudinary.com/adonisjs/image/upload/v1472841292/posts-list_wkpogd.png[]

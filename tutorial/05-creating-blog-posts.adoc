@@ -5,7 +5,7 @@ categories:
 ---
 = 创建博客
 
-在上一个连接 link:adonis-blog-part4[博客列表]中，我们通过从数据库中获取博客帖子来显示博客列表。 现在让我们向前一步，并添加创建文章的功能。
+在上一个教程 link:adonis-blog-part4[博客列表]中，我们通过从数据库中获取博客文章来显示博客列表。 现在让我们向前一步，并添加创建文章的功能。
 
 这一次，我们将探索AdonisJs的许多令人兴奋的功能，包括表单生成器和表达式 link:validator[校验器]。
 
@@ -19,7 +19,7 @@ Route.get('posts/create', 'PostsController.create')
 Route.post('posts', 'PostsController.store')
 ----
 
-我们注册2个路由，一个是显示文章，和另一个处理表单提交的 *文章* 的数据
+我们注册2个路由，一个是显示文章和另一个处理表单提交的 *文章* 的数据
 
 让我们在现有的 PostsController 中创建 `create` 和 `store` 两个方法。
 
@@ -57,7 +57,7 @@ create: resources/views/posts/create.njk
 ----
 
 == 表单生成器
-我们将使用link:form-builder[表单生成器]设置创建新文章的表单。
+我们将使用link:form-builder[表单生成器]创建新文章的表单。
 
 
 .resources/views/posts/create.njk
@@ -86,23 +86,23 @@ create: resources/views/posts/create.njk
 {% endblock %}
 ----
 
-在这里覆盖很多。 表单构建器提供了一些方便的方法来创建HTML表单。
+在这里覆盖很多。 表单构建器提供了一些便捷的方法来创建HTML表单。
 
 [pretty-list]
-1. `form.open` 创建表单标签。 这里我们使用 *action* 属性来定义用于处理POST请求的控制器方法。 表单操作和方法将自动为您填写。
+1. `form.open` 创建表单标签。 这里我们使用 *action* 属性来定义用于处理POST请求的控制器方法。 表单的action和method将自动为您填写。
 
 2. 所有表单都受保护 link:csrf-protection[CSRF保护]。所以我们需要设置 *csrfField* ，以确保我们可以提交表单而没有任何限制。
 
 3. 其他一切都是标准表单生成器API的一部分，用于创建输入字段和提交按钮。
 
-查看 link:http://localhost:3333/posts/create[http://localhost:3333/posts/create, window="_blank"] 你会看到一个漂亮的表单来创建文章。
+查看 link:http://localhost:3333/posts/create[http://localhost:3333/posts/create, window="_blank"] 你会看到一个漂亮的表单来提交文章。
 
 image:http://res.cloudinary.com/adonisjs/image/upload/v1472841279/create-posts_xgghpo.png[]
 
 == 表单校验
 校验用户输入非常重要，因为您永远不会相信提供给您的数据。AdonisJs得到了一个很棒的验证器，使您的这个任务更容易。
 
-link:validator[校验] 不是基础安装的一部分，这意味着我们需要通过npm去安照。
+link:validator[校验] 不是基础安装的一部分，这意味着我们需要通过npm去安装。
 
 [source, bash]
 ----
@@ -131,7 +131,7 @@ const aliases = {
 }
 ----
 
-这就是安装前的所有要求。 现在我们要校验 *PostsController* 中的表单输入。
+这就是校验前的所有准备工作。 现在我们要校验 *PostsController* 中的表单输入。
 
 .app/Http/Controllers/PostsController.js
 [source, javascript]
@@ -198,4 +198,4 @@ module.exports = PostsController
 
 image:http://res.cloudinary.com/adonisjs/image/upload/v1472841283/validation-failed_dz2d79.png[]
 
-哇，这很有趣。我们就得到了一个具有超级简单的校验和能就地错误处理的表单！
+哇，这很有趣。我们就得到了一个超级简单就能完成校验和能就地处理错误的表单！
