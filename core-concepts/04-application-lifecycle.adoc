@@ -39,10 +39,6 @@ HTTP服务器包括将应用程序连接在一起并引导HTTP服务器。这是
 == Ace命令
 连接ace命令的过程类似于 xref:_http_server[Http Server] ，但是有以下区别。
 
-1. All Providers defined inside `bootstrap/app.js` file will be loaded. Which means `aceProviders` and `providers` will be concatenated and sent to the IoC container.
-2. All `commands` array will be registered with link:interactive-shell[Ace].
-3. This time `Ace.start` event gets emitted instead of `Http.start`.
-
 1. 在`bootstrap/app.js`文件中定义的所有提供程序将被加载。这意味着`aceProviders`和`provider`将被连接并发送到IoC容器。
 2. 所有`commands`数组都将注册为 link:interactive-shell[Ace]。
 3. 这次将触发`Ace.start`事件而不是`Http.start`。
