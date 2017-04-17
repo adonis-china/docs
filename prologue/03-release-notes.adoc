@@ -32,7 +32,7 @@ yield User.last()
 查看整个 link:https://github.com/adonisjs/adonis-lucid/blob/develop/CHANGELOG.md[git chanagelog, window="_blank"].
 
 ==== adonis-auth(1.0.5)
-以下是显着变化的列表：
+以下是显著变化的列表：
 
 1. 现在可以将自定义对象传递给JWT token。将一些元信息添加到客户端要读取的token可能会有帮助。 link:https://github.com/adonisjs/adonis-auth/commit/2e413fe[Related commit].
 +
@@ -50,5 +50,5 @@ const payload = yield request.auth.getPayload()
 查看整个 link:https://github.com/adonisjs/adonis-auth/blob/develop/CHANGELOG.md[git changelog, window="_blank"]
 
 ==== adonis-commands(2.1.5)
-这个repo没有显着的变化，3.1中的所有现有功能将继续运行。
+这个repo没有显著的变化，3.1中的所有现有功能将继续运行。
 查看整个 link:https://github.com/adonisjs/adonis-commands/blob/develop/CHANGELOG.md[git chanagelog].
