@@ -20,8 +20,8 @@
 1. 起步
 1. **@linganmin 安装**
 1. **@linganmin 目录结构**
-1. 配置
-1. 环境变量
+1. **@linganmin 配置**
+1. **@linganmin 环境变量**
 1. **@copydog 路由**
 1. @copydog 请求
 1. @copydog 响应
