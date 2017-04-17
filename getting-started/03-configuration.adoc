@@ -7,12 +7,12 @@ categories:
 
 toc::[]
 
-The first step towards removing the spaghetti code is to find a dedicated place for storing application configuration. AdonisJs makes use of the `config` directory for same. Every new project created using `adonis-cli` comes with a bunch of pre-configured config files. Also, you are free to create your application config files inside the same directory.
+删除`面条代码`(Spaghetti Code 指的是冗长,控制结构复杂,混乱而难以理解的代码)的第一步是找到一个专门的存储应用程序配置的地方。AdonisJs同样使用`config`目录，使用`adonis-cli`创建的每个新项目都附带一堆预先配置的配置文件。此外，您可以在同一目录中自由创建应用程序配置文件。
 
-== The Config Provider
-To keep it straightforward and DRY, AdonisJs has an inbuilt *Config Provider* which autoloads all the configuration files (ending with .js) at the time of booting the server which means you have access to values from all the files in the `config` directory.
+== 配置程序提供者
+为了保持直观和DRY原则（Don't repeat yourself ），AdonisJs有一个内置的配置提供程序，它在启动服务器时自动加载以`.js`结尾的所有配置文件，这意味着您可以访问目录中所有文件的config值。
 
-Do make sure not to manually require config files inside your app and instead take advantage of the Config provider.
+确保不要在应用程序内手动引入配置文件，而是使用配置提供程序。
 
 .Wrong
 [source, javascript]
@@ -28,11 +28,12 @@ const Config = use('Config')
 console.log(Config.get('app.appKey'))
 ----
 
-== Reading/Writing Values
-Reading/writing values is a fairly simple task with the help of the *Config provider*. Also, you can make use of *dot notation* to get/set values.
+== 读/写 配置值
+在*Config程序提供者*的帮助下，读/写值是一项相当简单的任务。此外，您可以使用*点操作符号*来获取/设置值。
+
 
 ==== get(key, [defaultValue])
-`get` method is used to read values. Also it accepts an optional `defaultValue`, which is returned when the actual value is `undefined` or `null`.
+`get` 方法是用来读取配置值得，他也可以接受一个可选项的`defaultValue`的默认值, 当实际值为`undefined` 或 `null`时返回默认值。
 [source, javascript]
 ----
 const Config = use('Config')
@@ -40,7 +41,7 @@ Config.get('database.host', 'localhost')
 ----
 
 ==== set(key, value)
-`set` method will update the existing value with the new value. Also it will create the key/value pair if it does not exists.
+`set` 方法将更新现有的配置的键的值，如果它不存在，将会创建新的键值对。
 [source, javascript]
 ----
 const Config = use('Config')
