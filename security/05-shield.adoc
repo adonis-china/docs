@@ -3,16 +3,17 @@ permalink: shield
 categories:
 - security
 ---
-= Shield Middleware
+= Shield中间件
 
 toc::[]
 
-Apart from link:cors[Cors] and link:csrf-protection[CSRF], AdonisJs also prevents your web applications from other malware attacks like *XSS*, *Content Sniffing*, *Script Injection*, etc. Every new application is pre-configured to make use of the `shield` middleware which keeps your websites secure.
+除了link:cors[Cors]和link:csrf-protection[CSRF]，AdonisJs还可以防止您的Web应用程序遭受其他恶意软件攻击，如*XSS*, *Content Sniffing*, *Script Injection*等。每个新应用程序都是预先配置为利用`shield`中间件，保护您的网站安全。
 
-NOTE: There is no silver bullet to secure your websites completely. AdonisJs as a framework gives you handful of ways to prevent common web attacks.
+NOTE: 没有任何新完美的技术完全保护您的网站。 AdonisJs作为一个框架，为您提供了几种防止常见网络攻击的方法。
 
-== Setup & Config
-Make sure *shield* middleware is added to the list of global middleware inside `app/Http/kernel.js` file.
+== 设置＆配置
+确保将*shield*中间件添加到`app/Http/kernel.js`文件中的全局中间件列表中。
+
 
 .app/Http/kernel.js
 [source, javascript]
@@ -24,16 +25,17 @@ const globalMiddlewares = [
 ]
 ----
 
-The configuration file for shield is available inside `config/shield.js` file. You are free to configure it as per your needs.
+`config/shield.js`文件中提供了用于Shield的配置文件。您可以根据自己的需要自由配置。
 
-== Content Security Policy
+== 内容安全策略
 
-Content Security Policy(CSP) helps you in defining the trusted sources for loading and executing *scripts*, *styles*, *fonts* and various other resources.
+内容安全策略（CSP）可帮助您定义加载和执行*scripts*, *styles*, *fonts* 和各种其他资源的可信来源。
 
-It is a good practice to be strict when allowing the execution of scripts from different sources. You must read this interesting article by link:http://www.html5rocks.com/en/tutorials/security/content-security-policy[HTML5 rocks, window="_blank"].
+允许从不同来源执行脚本是一个很好的做法。你必须阅读这篇有趣的文章link:http://www.html5rocks.com/en/tutorials/security/content-security-policy[HTML5 rocks, window="_blank"].
 
-=== Configuration
-`csp` block inside the shield configuration file defines the rule for content security policy.
+
+=== 配置
+Shield配置文件中的`csp`块定义内容安全策略规则。
 
 [source, javascript]
 ----
@@ -52,32 +54,32 @@ csp: {
 
 [options="header"]
 |====
-| Key | Value | Description
-| directives | Object  | Directives helps you in defining policies to be applied on different resource types. You can get the list of all directives from link:http://content-security-policy.com[http://content-security-policy.com, window="_blank"].
-| reportOnly | Boolean | It will not stop the execution of your page, instead, will return a warning that some rules are violated.
-| setAllHeaders | Boolean | Shield sets different HTTP headers for different browsers. To disable this behavior, you can this value to true, and all headers will be set.
-| disableAndroid | Boolean | Android is buggy with CSP you can disable it for Android in case you face any troubles.
+| 键 | 值 | 描述
+| directives | Object  | 指令可帮助您定义要在不同资源类型上应用的策略。您可以获取所有指令的列表从link:http://content-security-policy.com[http://content-security-policy.com, window="_blank"]。
+| reportOnly | Boolean | 它不会停止执行您的页面，而是会返回一条警告，指出某些规则被违反。
+| setAllHeaders | Boolean | Shield为不同的浏览器设置不同的HTTP标头。要禁用此行为，您可以将此值设置为true，并且将设置所有标题。
+| disableAndroid | Boolean | Android可以使用CSP，您可以将其禁用，以防您遇到任何麻
 |====
 
-=== Browser Support
-Almost all modern browsers widely support CSP, but here is the most accurate link:http://caniuse.com/#feat=contentsecuritypolicy[list, window="_blank"] of supported browsers.
+=== 浏览器支持
+几乎所有现代浏览器都广泛支持CSP，但这里是支持浏览器的最准确的link:http://caniuse.com/#feat=contentsecuritypolicy[list, window="_blank"]。
 
-=== CSP Policy Via Meta Tags
-The `shield` middleware automatically sets the required HTTP headers for CSP to work but also gives you a view helper to set the meta tag.
+=== 通过元标签的CSP策略
+`shield`中间件自动设置CSP所需的HTTP标头工作，同时也为您提供一个视图帮助来设置元标记。
 
 [source, twig]
 ----
 {{ cspMeta }}
 ----
 
-.Output
+.shuchu 
 [source, html]
 ----
 <meta http-equiv="Content-Security-Policy" content="xxx">
 ----
 
-=== CSP Nonce
-Script tags with inline javascript code are automatically trusted and executed by the browser. To stop this behavior, you must only allow the trusted inline script blocks by adding `@nonce` to the`scriptSrc` array.
+=== CSP随机
+具有内联JavaScript代码的脚本标签由浏览器自动信任并执行。要停止此行为，您只能通过将`@nonce`添加到`scriptSrc`数组中来允许受信任的在线脚本块
 
 [source, javscript]
 ----
@@ -89,7 +91,7 @@ csp: {
 }
 ----
 
-Now you have to tell the browser that your selected inline script blocks should be executed, and that selection is made with the help of a view global.
+现在您必须告诉浏览器，您应该执行所选的内嵌脚本块，并且在视图全局的帮助下进行选择
 
 [source, twig]
 ----
@@ -98,11 +100,11 @@ Now you have to tell the browser that your selected inline script blocks should 
 </script>
 ----
 
-== Malware Protection
-Malware protection helps in protecting your website from *XSS* attacks, unwanted *iframe embeds*, *content-type sniffing* and stopping IE from executing unsolicited scripts in the context of your web page.
+== 恶意软件防护
+恶意软件防护有助于保护您的网站免受*XSS*攻击，不需要的*iframe embeds*，*content-type sniffing*，并阻止IE在您的网页上下文中执行未经请求的脚本。
 
 === XSS
-Make use of the below defined configuration to enable/disable XSS protection. It is done by setting `X-XSS-Protection=1; mode=block`
+利用以下定义的配置 enable/disable XSS保护。通过设置`X-XSS-Protection=1; mode=block`。
 
 [source, javascript]
 ----
@@ -113,9 +115,9 @@ xss: {
 ----
 
 === No Sniff
-The majority of modern browsers will try to detect the *Content-Type* of a request by sniffing its content. Which means a file ending in *.txt* can be executed as javascript file, if it contains javascript code. To disable this behavior set `nosniff=false`.
+大多数现代浏览器将尝试通过检索其内容来检测请求的* Content-Type *。这意味着以* .txt *结尾的文件可以作为javascript文件执行，如果它包含JavaScript代码。要禁用此行为设置`nosniff = false`。
 
-Below setting will set the value of `X-Content-Type-Options` header to *nosniff*.
+以下设置将`X-Content-Type-Options`标头的值设置为*nosniff*。
 
 [source, javascript]
 ----
@@ -125,7 +127,7 @@ Below setting will set the value of `X-Content-Type-Options` header to *nosniff*
 ----
 
 === No Open
-This setting will stop IE from executing unknown script in the context of your website. Below setting with set the value of `X-Download-Options` to *noopen*.
+此设置将阻止IE在您的网站上下文中执行未知的脚本。下面的设置将`X-Download-Options`的值设置为*noopen*。
 
 [source, javascript]
 ----
@@ -135,7 +137,7 @@ This setting will stop IE from executing unknown script in the context of your w
 ----
 
 === XFrame
-The xframe option within the `config/shield.js` file makes it easier for you to control the embed behaviour of your website inside an iframe. You can choose from `DENY`, `ALLOW` or `ALLOW-FROM http://mywebsite.com`.
+`config/shield.js`文件中的xframe选项可以更容易地控制您的网站在iframe中的嵌入行为。你可以选择DENY`, `ALLOW` or `ALLOW-FROM http://mywebsite.com`.。
 
 [source, javascript]
 ----
