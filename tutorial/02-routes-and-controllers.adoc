@@ -13,7 +13,7 @@ toc::[]
 我们将学习如何创建控制器并将它们绑定到路由。
 
 == 创建控制器
-这些控制器一个存放在 `app/Http/Controllers` 文件下的 *ES2015* 。 每个文件定义了一个控制器，你可以自由地在一个控制器上创建尽可能多的方法。
+这些控制器是放在 `app/Http/Controllers` 文件下的 *ES2015* 的类。 每个文件定义了一个控制器，你可以自由地在一个控制器上创建尽可能多的方法。
 
 让我们快速创建一个新的控制器。因为我们会把这个应用到博客，所以我们创建一个名为 *PostsController* 的控制器。一如既往，我们将利用Ace为我们创建控制器。
 
@@ -22,7 +22,7 @@ toc::[]
 ./ace make:controller Posts
 ----
 
-.Output
+.输出
 [source]
 ----
 create: app/Http/Controllers/PostsController.js

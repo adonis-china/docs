@@ -3,17 +3,17 @@ permalink: adonis-blog-part3
 categories:
 - tutorial
 ---
-= Database Models
+= 数据库模型
 
 toc::[]
 
-So far we have covered the basics of setting up a new AdonisJs application by creating Routes, Controllers and rendering Views. In this tutorial, we will take a step further by learning about *Database Models*.
+到目前为止，我们已经创建了一个新的AdonisJs应用并为它创建了路由，控制器和渲染的视图。本教程，我们将进一步学习  *Database Models* 。
 
-AdonisJs supports a majority of SQL databases. Here is a complete guide on link:database-setup[Database Setup]. We will start by creating migrations and Data models which are also known as Lucid models.
+AdonisJs 支持大多数的sql数据库。这是完整的例子 link:database-setup[数据库安装] 。我们将首先创建迁移和数据模型，这些模型也称为Lucid模型。
+ 
 
-
-== What is a Database Model?
-Each Database model represents a single SQL table inside your database. For example:
+== 什么是数据库模型？
+每个数据库模型表示数据库中的单个SQL表。 例如：
 
 [options="header"]
 |====
@@ -23,21 +23,21 @@ Each Database model represents a single SQL table inside your database. For exam
 | Category | categories
 |====
 
-Hope it makes sense. Now to interact with posts, we need two things.
+希望是有道理的。Now to interact with posts, 我们需要两件事情。
 
 [pretty-list]
-1. A Post Model.
-2. And a posts database table.
+1. 一个帖子的模型。
+2. 和一个帖子数据库表。
 
-== Creating Database Model
-Models live inside a dedicated directory called *app/Model*. Let's make use of ace to create the Post model.
+== 创建数据库模型
+模型是放在一个名为 *app/Model* 的专用目录中。让我们用ace来创建Post模型
 
 [source, bash]
 ----
 ./ace make:model Post
 ----
 
-.Output
+.输出
 [source]
 ----
 create: app/Model/Post.js
@@ -56,30 +56,31 @@ class Post extends Lucid {
 module.exports = Post
 ----
 
-Each model is a dedicated *ES2015 Class* just like our link:controllers[Controllers], but each model will extend Lucid to make it different from an ordinary class.
+每一个模型都是一个专门的 *ES2015 Class* 就像我们的链接 link:controllers[控制器]一样，但每一个模型
+都继承Lucid，使得它与普通类不同。
 
-You never have to touch your models in most cases. So we will leave this file as it is and switch to another task.
+在大多数情况下，你不必触及你的模型。所以我们将保留这个文件，并切换到另一个任务。
 
-== What are Migrations?
-Our next step is to choose a database we want to work with and create the necessary database tables. For the sake of simplicity, we will stick to *SQLite*. However, you are free to use *MYSQL* or *PostgreSQL*.
+== 什么是迁移?
+我们的下一步是选择一个我们要使用的数据库，并创建必要的数据库表。 为了简单起见，我们将坚持 *SQLite*。 但是，您可以自由使用 *MYSQL* 或 *PostgreSQL*。
 
-Migration is a process of creating database tables using the Javascript code. Migrations have lots of benefits as compared to the standard workflow of creating database tables using SequelPro, Workbench, etc. Check out the link:migrations[Migrations] guide to learn more about them.
+迁移是使用Javascript代码创建数据库表的过程。与使用SequelPro，Workbench等创建数据库表的标准工作流相比迁移具有很多好处。请查看以下链接：link:migrations[Migrations] 指南，以了解有关它们的更多信息。
 
-== Creating Migrations
-As always *ace (our buddy)* is going to create a migration for us.
+== 创建迁移
+一如往常 *ace (我们的好朋友)* 将为我们创造一个迁移。
 
 [source, bash]
 ----
 ./ace make:migration posts --create=posts
 ----
 
-.Output
+.输出
 [source]
 ----
 create: database/migrations/1464075245386_posts.js
 ----
 
-Quickly open this file and explore the options to create database table without touching the SQL interface.
+快速打开此文件，并探索创建数据库表的选项，而不通过SQL界面来操作。
 
 .database/migrations/1464075245386_posts.js
 [source, javascript]
@@ -108,31 +109,31 @@ class PostSchema extends Schema {
 module.exports = PostSchema
 ----
 
-Wow! It is so simple to define a database table within your standard Js files. Just keep a note of the following points when working with migrations
+哇！ 在标准Js文件中定义数据库表非常简单。 在处理迁移时，请注意以下几点
 
 [pretty-list]
-1. The `up` method is used to create a table, or add new fields to the existing table, etc.
-2. The `down` is always opposite of up. It is used when you want to undo the changes you just made, also known as *rollback*.
+1. `up` 方法用于创建一个表，或者添加新的字段到现有的表等。
+2. `down` 方法总是相反的，当你想要撤销刚才所做的更改时，将可以使用它，也称之为 *回滚*
 
-== SQLite Driver & Running Migrations
-Finally, we need to run this migration to execute SQL query and create the database table called *posts*. Before that, we need to make sure that SQLite is setup properly.
+== SQLite 驱动 & 运行 Migrations
+最后，我们需要运行此migration来执行sql创建 *posts* 的数据库，在此之前，我们需要确保SQLlite是正确安装。
 
-.Installing SQLite3 driver
+.安装 SQLite3 驱动
 [source, bash]
 ----
 npm i --save sqlite3
 ----
 
-.Running Migrations
+.运行 Migrations
 [source, bash]
 ----
 ./ace migration:run
 ----
 
-.Output
+.输出
 [source]
 ----
 ✔ Database migrated successfully.
 ----
 
-We covered a lot in this tutorial, especially if you are new to these concepts. That's the thing about frameworks you need to spend few days to get a solid grasp of available tools and options to make your development cycle a lot easier in future.
+我们在本教程中涵盖了很多，特别是哪些你觉得是新的概念。这是关于框架的事情，你需要花几天时间才能掌握现有的工具和选项，使你的开发周期在未来容易得多。

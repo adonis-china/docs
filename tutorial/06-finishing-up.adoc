@@ -3,12 +3,12 @@ permalink: adonis-blog-part6
 categories:
 - tutorial
 ---
-= Finishing Up
+=  整理
 
-Let's finish up this tutorial by making final changes to the entire flow. Intentionally it was a simple tutorial to make you feel comfortable with the framework.
+通过对整个流程进行最终更改，完成本教程。 故意地，这是一个简单的教程，让您对框架感到舒适。
 
-== Showing Individual Post
-We have got a view listing all the blog posts. But there is no way to view a single blog post. So quickly open the routes file and register a route for same.
+== 显示单个文章
+我们有一个列出所有博客文章的视图。 但是没有办法查看单个博文。 所以很快打开路由文件并注册一条路由。
 
 .app/Http/routes.js
 [source, javascript]
@@ -17,22 +17,23 @@ Route.get('posts/:id', 'PostsController.show')
 ----
 
 The `id` is a dynamic segment to pass the *post id* in the URL and access it from the controller. You can read more about link:routing#_route_parameters[Route parameters] in the docs.
+`id` 是一个动态字段，用于传递URL中的 *post id*，并从控制器得到它。 您可以在文档中阅读更多关于 link:routing#_route_parameters[路由参数]  的信息。
 
-Next, we need to create the view for showing a post.
+接下来，我们需要创建用于显示单个文章的视图。
 
 [source, bash]
 ----
 ./ace make:view posts/show
 ----
 
-.Output
+.输出
 [source]
 ----
 create: resources/views/posts/show.njk
 ----
 
 
-Paste the below code snippet to the showPost view.
+将以下代码段粘贴到showPost视图。
 
 .resources/views/posts/show.njk
 [source, twig]
@@ -51,7 +52,7 @@ Paste the below code snippet to the showPost view.
 {% endblock %}
 ----
 
-Finally, we need the `PostsController.show` method to fetch the post from the database and send to it view.
+最后，我们需要 `PostsController.show` 方法从数据库中获取这个文章并发送给它。
 
 .app/Http/Controllers/PostsController.js
 [source, javascript]
@@ -68,7 +69,7 @@ class PostsController {
 }
 ----
 
-This time, we make use of the `find` method to fetch the post for a given id, and finally, we send the json representation of the post to the view. We are not done yet. Let's open the *home.njk* view and add the link to the individual post.
+这一次，我们利用 `find` 方法来获取一个指定的id的文章，最后我们把这个文章的json发送给视图。 我们还没有完成 我们打开 *home.njk*视图，并添加到单个文章的链接。
 
 .resources/views/home.njk
 [source, twig]
@@ -76,12 +77,12 @@ This time, we make use of the `find` method to fetch the post for a given id, an
 <h2><a href="posts/{{ post.id }}"> {{ post.title }} </a></h2>
 ----
 
-Now refresh the browser and click on the individual posts to view a particular post.
+现在刷新浏览器并点击某个文章查看相应的文章。
 
 image:http://res.cloudinary.com/adonisjs/image/upload/v1472841295/individual-post_anaymc.png[]
 
-== Link To Add A New Post
-So far we have been visiting `post/create` route manually to create a new post. Let's add a link on the home page. Paste the below code snippet just before the posts-wrapper div.
+== 链接到新的文章
+到目前为止，我们一直在手动访问 `post/create` 路由以创建一个新的文章。 我们在主页上添加一个链接。 在 post-wrapper div之前粘贴以下代码段。
 
 .resources/views/home.njk
 [source, html]
@@ -96,12 +97,12 @@ So far we have been visiting `post/create` route manually to create a new post. 
 </div>
 ----
 
-Now, we have a big shiny button linked to the post create route.
+现在，我们有一个大闪亮的按钮链接到创建文章的页面。
 
 image:http://res.cloudinary.com/adonisjs/image/upload/v1472841278/add-new-post_d1pm4c.png[]
 
-== Ordering Posts
-Another thing we should fix is to list the posts in *desc order*, so that the recent post always shows on the top.
+== 文章排序
+我们应该解决的另一件事是以 *desc order* 列出文章，以便最新的文章总是显示在顶部。
 
 .app/Http/Controllers/PostsController.js
 [source, javascript]
@@ -118,9 +119,9 @@ class PostsController {
 }
 ----
 
-Now refresh the page and you will find the most recent post on the top instead of bottom.
+现在刷新页面，你会发现最新的文章在顶部，而不是底部。
 
-== Summary
-In the series of these tutorials, we learned a lot about the framework and tools offered by it. This is just the beginning, check out the documentation and cookbooks to explore new and expressive ways of writing maintainable code.
+== 总结
+在本系列教程中，我们学到了很多关于它提供的框架和工具。 这只是一个开始，查看文档和源码，探索编写可维护代码。
 
-Make sure to follow us on link:https://twitter.com/adonisframework[Twitter, window="_blank"] and star the project on link:https://github.com/adonisjs/adonis-framework[Github, window="_blank"].
+请记住我们的链接 link:https://twitter.com/adonisframework[Twitter, window="_blank"] 和 star这个项目 link:https://github.com/adonisjs/adonis-framework[Github, window="_blank"]。

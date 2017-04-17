@@ -3,14 +3,14 @@ permalink: adonis-blog-part5
 categories:
 - tutorial
 ---
-= Creating Blog Posts
+= 创建博客
 
-In the last link:adonis-blog-part4[tutorial] we displayed the list of blog posts by fetching them from the database. Now let's move one step ahead and add the functionality of creating posts.
+在上一个连接 link:adonis-blog-part4[博客列表]中，我们通过从数据库中获取博客帖子来显示博客列表。 现在让我们向前一步，并添加创建文章的功能。
 
-This time, we are going to explore a lot of exciting features of AdonisJs including Form Builder and expressive link:validator[Validator].
+这一次，我们将探索AdonisJs的许多令人兴奋的功能，包括表单生成器和表达式 link:validator[校验器]。
 
-== Creating Routes and Views
-Quickly register a couple of new routes inside the routes file.
+== 创建路由和视图
+在路由文件中快速注册几条新路由。
 
 .app/Http/routes.js
 [source, javascript]
@@ -19,9 +19,9 @@ Route.get('posts/create', 'PostsController.create')
 Route.post('posts', 'PostsController.store')
 ----
 
-We registered two routes. One is to show the form to create the post, and the other one is to handle the *POST* data of the submitted form.
+我们注册2个路由，一个是显示文章，和另一个处理表单提交的 *文章* 的数据
 
-Let's create the `create` and `store` methods on the existing PostsController.
+让我们在现有的 PostsController 中创建 `create` 和 `store` 两个方法。
 
 .app/Http/Controllers/PostsController.js
 [source, javascript]
@@ -43,21 +43,21 @@ class PostsController {
 module.exports = PostsController
 ----
 
-Finally, we need to create the view using the ace command.
+最后，我们需要使用ace命令创建视图。
 
 [source, bash]
 ----
 ./ace make:view posts/create
 ----
 
-.Output
+.输出
 [source]
 ----
 create: resources/views/posts/create.njk
 ----
 
-== Form Builder
-We will make use of link:form-builder[Form Builder] to set up the form for creating a new post.
+== 表单生成器
+我们将使用link:form-builder[表单生成器]设置创建新文章的表单。
 
 
 .resources/views/posts/create.njk
@@ -86,30 +86,30 @@ We will make use of link:form-builder[Form Builder] to set up the form for creat
 {% endblock %}
 ----
 
-Quite a lot to cover here. Form builder provides some convenient methods to create HTML forms.
+在这里覆盖很多。 表单构建器提供了一些方便的方法来创建HTML表单。
 
 [pretty-list]
-1. The `form.open` creates the form tag. Here we make use of *action* property to define the controller method for handling the POST request. Form action and the method will be filled automatically for you.
+1. `form.open` 创建表单标签。 这里我们使用 *action* 属性来定义用于处理POST请求的控制器方法。 表单操作和方法将自动为您填写。
 
-2. All of the forms are protected by link:csrf-protection[CSRF protection]. So we need to set the *csrfField* to make sure we can submit forms without any restrictions.
+2. 所有表单都受保护 link:csrf-protection[CSRF保护]。所以我们需要设置 *csrfField* ，以确保我们可以提交表单而没有任何限制。
 
-3. Everything else is a part of standard Form Builder API to create the input fields and the submit button.
+3. 其他一切都是标准表单生成器API的一部分，用于创建输入字段和提交按钮。
 
-Visit link:http://localhost:3333/posts/create[http://localhost:3333/posts/create, window="_blank"] and you will see a nice looking form to create the posts.
+查看 link:http://localhost:3333/posts/create[http://localhost:3333/posts/create, window="_blank"] 你会看到一个漂亮的表单来创建文章。
 
 image:http://res.cloudinary.com/adonisjs/image/upload/v1472841279/create-posts_xgghpo.png[]
 
-== Validating Form Inputs
-Validating user input is so important as you can never trust the data provided to you. AdonisJs got a beautiful validator to make this task a lot easier for you.
+== 表单校验
+校验用户输入非常重要，因为您永远不会相信提供给您的数据。AdonisJs得到了一个很棒的验证器，使您的这个任务更容易。
 
-link:validator[Validator] is not part of the base installation, which means we need to pull it off from the npm.
+link:validator[校验] 不是基础安装的一部分，这意味着我们需要通过npm去安照。
 
 [source, bash]
 ----
 npm i --save adonis-validation-provider
 ----
 
-Next, we need to register the provider and create an alias. Don't worry if you do not understand the providers completely. It is not something you are supposed to know from day 1.
+接下来，我们需要注册校验的提供者并创建一个别名。 不要担心，如果你不完全了解校验的供应商。 这不是你从第一天开始就知道的。
 
 .bootstrap/app.js
 [source, javascript]
@@ -131,7 +131,7 @@ const aliases = {
 }
 ----
 
-That's all required on the setup front. Now we are going to validate the form input inside *PostsController*.
+这就是安装前的所有要求。 现在我们要校验 *PostsController* 中的表单输入。
 
 .app/Http/Controllers/PostsController.js
 [source, javascript]
@@ -170,15 +170,15 @@ class PostsController {
 module.exports = PostsController
 ----
 
-<1> The `request.only` method will fetch the values of the defined keys.
-<2> Here we validate the user input with the defined rules using the `validate` method.
-<3> If validation fails, we redirect the user back and flash the *error message* along with the original values for `title` and `content`.
-<4> If validation passes, we create the post using the `Post.create` method.
+<1> `request.only` 方法将获取定义的键的值；
+<2> 这里我们使用 `validate` 方法根据定义的规则来校验的用户输入；
+<3> 如果验证失败，我们将重定向并将 *错误消息* 以及 `title` 和 `content` 的原始值一并返回；
+<4> 如果验证通过，我们使用`Post.create`方法创建该帖子。
 
-Next, we need make some modifications inside our *create.njk* view to show the errors returned as flash messages.
+接下来，我们需要在 *create.njk* 视图中进行一些修改，以显示返回的错误。
 
 
-Enter the below piece of code just before the `form.open` tag.
+在 `form.open` 标签之前输入下面的代码片段。
 
 .resources/views/posts/create.njk
 [source, twig]
@@ -192,10 +192,10 @@ Enter the below piece of code just before the `form.open` tag.
 {% endif %}
 ----
 
-The `old` method is used to fetch value for a given key from flash messages. Here we need to pull the errors key for getting the errors sent from the Controller.
+`old` 方法用于从消息中获取给定键的值。 在这里，我们需要拉出错误键来获取从Controller发送的错误。
 
-Let's refresh the page and try to create a new post with empty title and content.
+让我们刷新页面，尝试用空的标题和内容创建一个新的帖子。
 
 image:http://res.cloudinary.com/adonisjs/image/upload/v1472841283/validation-failed_dz2d79.png[]
 
-Wow, this is fun. We have got a working form with super easy validation and in-place error handling.
+哇，这很有趣。我们就得到了一个具有超级简单的校验和能就地错误处理的表单！
