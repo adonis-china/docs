@@ -28,7 +28,6 @@ toc::[]
 
 JavaScript有几个linters来保持编码风格的一致性。我们利用 link:http://standardjs.com[JavaScript Standard Style, window="_blank"]，这是一个不可配置的模块，使其更容易保持一致的代码风格。
 
-Each module of AdonisJs installs the *Standard Style Linter* as a development dependency. So before submitting your PR make sure to lint your code.
 AdonisJs的每个模块安装*Standard Style Linter*作为开发依赖。所以在提交你的PR之前，请确保lint你的代码。
 
 [source, bash]
@@ -36,22 +35,21 @@ AdonisJs的每个模块安装*Standard Style Linter*作为开发依赖。所以�
 npm run lint
 ----
 
-== Sharing PR's & Git Flow
-== 分享 PR's & Git Flow
+== Sharing PR's 和 Git Flow
 
 我们利用 https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow[Git Flow] 来处理新功能和管理版本。
 
-Below are the rules we follow every day.
+以下是我们一直以来遵循的规则。
 
 [pretty-list]
-1. When you start working, think of a feature or problem you are trying to fix.
-2. Fork the repository.
-3. Create a new feature branch from *develop branch*.
-4. Work on it until you feel comfortable to create a pull request.
-5. End this feature and push to your forked repository
-6. Create a pull request of your feature to AdonisJs repository *develop branch*.
-7. If all is good, we will merge the changes and thank you for your contribution.
+1. 当你开始工作时，想想你想修复的一个功能或问题。
+2. Fork 代码库。
+3. 从*develop 分支*创建一个新的特征分支。
+4. 开始开发，开发完成后准备发送Pull Request。
+5. 结束此功能并推送到您的分支存储库。
+6. 为你开发的功能创建一个pull request，并发送到AdonisJs 官方代码库的*develop 分支*.
+7. 如果一切顺利，我们将合并更改并感谢您的贡献。
 
 == Commitizen
 
-We make use of link:https://commitizen.github.io/cz-cli[Commitizen, window="_blank"] to follow naming conventions for commit messages.
+我们利用 link:https://commitizen.github.io/cz-cli[Commitizen, window="_blank"] 来保证commit message的命名规范。
