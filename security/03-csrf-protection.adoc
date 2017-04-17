@@ -3,28 +3,29 @@ permalink: csrf-protection
 categories:
 - security
 ---
-= CSRF Protection
+= CSRF保护
 
 toc::[]
 
-Cross-site request forgery(CSRF) allows an attacker to perform actions on behalf of another user without their knowledge or permission.
+跨站点请求伪造（CSRF）允许攻击者在没有他们的标识或许可的情况下代表另一个用户执行操作。
 
-AdonisJs protects your application from CSRF attacks by denying unidentified requests. HTTP requests with *POST*, *PUT* and *DELETE* methods are checked to make sure that these requests are invoked by right people from right place. You can learn more about CSRF link:https://www.owasp.org/index.php/Cross-Site_Request_Forgery[here, window="_blank"]
+AdonisJs通过拒绝不明身份的请求来保护您的应用免受CSRF攻击。检查具有*POST*, *PUT*和*DELETE*方法的HTTP请求，以确保正确的人从正确的位置调用这些请求。您可以了解有关CSRF链接的更多信息：https：//www.owasp.org/index.php/Cross-Site_Request_Forgery [here，window =“_ blank”]
 
-== How It Works?
+== 工作原理
 
-1. AdonisJs will create a *CSRF session* for each user visiting your website.
-2. Next, a *CSRF token* get generated for the previously created session. For security reasons, the token will be re-generated on every page refresh.
+1. AdonisJs将为访问您的网站的每个用户创建一个*CSRF会话*。
+2. 接下来，为以前创建的会话生成*CSRF令牌*。出于安全考虑，令牌将在每次刷新页面时重新生成。
 +
-Generated token can be accessed inside views as `csrfToken` or `csrfField`, so that you can pass this token when submitting HTML forms.
-3. Also, the same token is set to a cookie with key `XSRF-TOKEN`. Frontend Frameworks like *AngularJs* automatically reads this cookie and send it along with each Ajax request.
-4. Finally, when a *POST*, *PUT* or *DELETE* requests comes, the middleware will verify the token with the secret to make sure it is valid. It will try to access the token from following sources.
-  * `_csrf` field on the request body.
-  * Will also try to access *csrf-token*, *x-csrf-token* or *x-xsrf-token* headers.
+生成的令牌可以在视图内访问为`csrfToken`或`csrfField`，这样您可以在提交HTML表单时传递此令牌。
+3. 此外，同样的标记设置为带有`XSRF-TOKEN`键的cookie。像*AngularJs*这样的Frontend框架会自动读取这个cookie，并将其与每个Ajax请求一起发送。
+4. 最后，当*POST*, *PUT*和*DELETE*请求到来时，中间件将使用秘密验证令牌，以确保其有效。它将尝试从以下来源访问令牌。
+  * `_csrf`字段在请求体上。
+  * 还将尝试访问 *csrf-token*, *x-csrf-token*和*x-xsrf-token*标头。
 
 
-== Config
-The configuration for CSRF is saved inside `config/shield.js` file.
+
+== 配置
+CSRF的配置保存在`config/shield.js`文件中。
 
 [source, javascript]
 ----
@@ -37,14 +38,14 @@ csrf: {
 
 [options="header"]
 |====
-| Key | Value | Description
-| enable  | Boolean | A boolean to turn on/off CSRF for the entire application.
-| methods | Array | HTTP verbs to be protected by CSRF. Consider adding all verbs which allow the end user to add or modify data.
-| filterUris | Array | A list of URLs/Routes to ignore. You can pass actual routes definition or a regular expression to match.
+| 键 | 值 | 描述
+| enable  | Boolean | 一个布尔值，用于打开/关闭整个应用程序的CSRF。
+| methods | Array | HTTP动词被CSRF保护。考虑添加允许最终用户添加或修改数据的所有动词。
+| filterUris | Array | URL URLs/Routes的路由。您可以传递实际路由定义或正则表达式进行匹配。
 |====
 
-== Accessing CSRF Token
-To send the token along with each request, you need access to it. There are a few ways to get access to the CSRF token.
+== 访问CSRF令牌
+要发送令牌以及每个请求，您需要访问它。有几种方法可以访问CSRF令牌。
 
 ==== csrfField
 [source, twig]
@@ -52,7 +53,7 @@ To send the token along with each request, you need access to it. There are a fe
 {{ csrfField }}
 ----
 
-.Output
+.输出
 [source, html]
 ----
 <input type="hidden" name="_csrf" value="xxxxxx">
@@ -64,15 +65,15 @@ To send the token along with each request, you need access to it. There are a fe
 {{ csrfToken }}
 ----
 
-You can also access the token inside your controllers and route actions as follows.
+您还可以访问控制器内的令牌，并按如下所示路由操作。
 
 [source, javascript]
 ----
 request.csrfToken()
 ----
 
-== Handling CSRF Errors
-On validation failure, a named Exception called *EBADCSRFTOKEN* is thrown, and same can be handled within the `app/Listeners/Http.js` file.
+== 处理CSRF错误
+在验证失败时，抛出一个名为*EBADCSRFTOKEN* 的命名异常，并且可以在`app/Listeners/Http.js`文件中处理相同的异常。
 
 .app/Listeners/Http.js
 [source, javascript]

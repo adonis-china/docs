@@ -3,20 +3,21 @@ permalink: security-introduction
 categories:
 - security
 ---
-= Introduction
+= 介绍
 
 toc::[]
 
-Keeping web applications secure is one of the most important things. AdonisJs comes with a bunch of security and data sanitization layers to keep your web apps away from common attacks.
+保持Web应用程序安全是最重要的事情之一。 AdonisJs配备了一大堆安全和数据清理图层，可以让您的网络应用远离常见的攻击。
 
-NOTE: If you find any security bug, make sure to share it on virk@adonisjs.com. Please do not create a GitHub issue, since it may impact the applications running in production. We will disclose the issue after pushing the patch for the bug.
+NOTE: 如果您发现任何安全漏洞，请确保在virk@adonisjs.com上共享。请不要创建GitHub问题，因为它可能会影响在生产中运行的应用程序。推出补丁后，我们会公开这个问题。
 
-== SQL Injection
-SQL injection is one of the most common web attacks, where the end user will make use of the inputs and will pass the SQL query instead of the *username*, *email*, etc.
+== SQL注入
+SQL注入是最常见的Web攻击之一，在客户端用户输入非法内容，并将通过SQL查询而不是*username*，*email*等。
 
-Lucid models and database query builder will make sure to run prepared statements which in turn saves you from SQL injection. Whereas your application may have requirement of running `raw` SQL queries, instead of using the query builder method, so it is recommended to take advantage of the `raw` method and pass bindings as parameters.
+Lucid模型和数据库查询构建器将确保运行准备好的语句，从而节省SQL注入。而您的应用程序可能需要运行`raw`SQL查询，而不是使用查询构建器方法，因此建议您利用`raw`方法并将绑定作为参数。
 
-.Not Recommended
+
+.不建议
 [source, javascript]
 ----
 const username = request.param('username')
@@ -25,7 +26,7 @@ const users = yield Database
   .where(Database.raw(`username = ${username}`))
 ----
 
-.Correct Way
+.正确的方式
 [source, javascript]
 ----
 const username = request.param('username')
@@ -36,47 +37,47 @@ const users = yield Database
 
 ==== CheckList
 [pretty-list]
-* Make use of link:query-builer[database provider] or link:lucid[lucid] to perform database operations and never run direct SQL queries.
-* Make sure to sanitize user data using link:validator#_sanitize_data_rules[sanitizer] to keep your database secure.
-* Always run *prepared statements* statements by passing query values as an array to the `raw` method.
+* 使用link:query-builer[数据库提供程序]或link:lucid[lucid]执行数据库操作，不直接运行SQL查询。
+* 确保使用link:validator#_sanitize_data_rules[sanitizer]处理用户数据，以保护数据库的安全。
+* 通过将查询值作为数组传递给`raw`方法，始终运行*prepared statements*语句。
 
 
-== Session Security
-Sessions can leak important information if not handled with care. AdonisJs will encrypt and sign all the cookies using the `APP_KEY` defined in `.env` file. Make sure to keep `APP_KEY` secret and never share it with anyone and never push it to version control systems like Github.
+== Session安全
+如果不小心处理Session可能会泄漏重要信息。AdonisJs将使用`.env`文件中定义的`APP_KEY`对所有cookies进行加密和签名。确保保持`APP_KEY`的秘密，不要与任何人分享，不要将其推送到像Github这样的版本控制系统。
 
-=== Session Config
-Session configuration is saved inside `config/session.js` file you can configure options as per your requirements and make sure to give notice to following key/value pairs.
+=== Session配置
+Session配置保存在`config/session.js`文件中，您可以根据需要配置选项，并确保注意以下key/value对。
 
-==== Important Settings
+==== 重要设置
 [pretty-list]
-* Make sure `httpOnly` is set to *true*. Keeping it to *false* will make it accessible using Javascript via `document.cookie`.
-* Also `sameSite` property makes sure that your session cookie is not visible/accessible from different domains.
+* 确保`httpOnly`设置为*true*。保持*false*将使它可以通过`document.cookie`使用Javascript访问
+* 另外`sameSite`属性确保您的session cookie visible/accessible 不同的域。
 
 == Forms & Views
-To keep the development cycle simple and productive, AdonisJs ships with some features that you may want to consider before releasing your website to the public.
+为了保持开发周期的简单和高效，AdonisJs提供了您可能需要考虑的一些功能，然后向公众发布您的网站。
 
 === Form Method Spoofing
-HTML forms are only capable of making *GET* and *POST* requests, which means you cannot make use of all HTTP verbs to perform RESTful operations. To make this easy AdonisJs let you define the HTTP method as a query string inside the URL which is known as *Form method spoofing*.
+HTML表单只能使*GET*和*POST*请求，这意味着您无法使用所有HTTP动词执行RESTful操作。为了使这个简单的AdonisJs可以将HTTP方法定义为URL中的查询字符串，称为*Form method spoofing*。
 
-.Route
+.路由
 [source, javascript]
 ----
 Route.put('/users/:id', 'UserController.update')
 ----
 
-.View
+.视图
 [source, html]
 ----
 <form action="/users/1?_method=PUT" method="POST">
 </form>
 ----
 
-Setting `_method=PUT` will convert the HTTP method to `PUT` instead of `POST`. This makes it so easier to make use of any HTTP verb by simply spoofing it. Here are a couple of things you should be aware of.
+设置`_method = PUT`将把HTTP方法转换成`PUT`而不是`POST`。这使得通过简单地欺骗它来使得任何HTTP动词变得更加容易。这里有几件你应该注意的事情。
 
 ==== CheckList
 [pretty-list]
-* AdonisJs will only spoof methods when actual HTTP method is `POST` which means making a `GET` request with *_method* will have no effect.
-* You can turn off the form spoofing by setting `allowMethodSpoofing=false` inside `config/app.js`.
+* AdonisJs只会在实际的HTTP方法为`POST时，欺骗方法，这意味着使用*_method*进行`GET`请求没有任何作用
+* 你可以通过在`config/app.js内设置`allowMethodSpoofing=false`来关闭表单spoofing。
 +
 [source, javascript]
 ----
@@ -85,14 +86,14 @@ http: {
 }
 ----
 
-=== Injecting IoC Container Bindings To Views
-AdonisJs makes it simple for you to `use` IoC container bindings within your views which means you can access *Lucid models* from your views to fetch data from the database. Learn more about link:views#_injecting_providers[injecting providers]
+=== 注入IoC容器绑定到视图
+AdonisJs使您在您的视图中使用IoC容器绑定变得简单，这意味着您可以从视图访问*Lucid models*以从数据库中获取数据。了解更多关于link:views#_injecting_providers[注入 providers]。
 
-This feature can open some serious security holes if your views are editable by the outside world. For example, You are creating a CMS using AdonisJs and want your users to create reusable view partials. The end user can fetch the *User Model* inside their partial and can delete all the users.
+如果您的意见可以由外界编辑，此功能可以打开一些严重的安全漏洞。例如，您正在使用AdonisJ创建CMS，并希望用户创建可重用的视图部分。最终用户可以在其部分内提取*User Model*，并可以删除所有用户。
 
 ==== CheckList
 [pretty-list]
-* Make sure to set `injectServices=false` inside `config/app.js` file.
+* 确保在`config/app.js`文件中设置``injectServices=false`
 +
 [source, javascript]
 ----
@@ -100,18 +101,18 @@ views: {
   injectServices: false
 }
 ----
-* If making use of service injection, make sure your views are not editable by the outside world.
+* 如果使用注入服务，请确保您的视图不能被外部编辑。
 
-== File Uploads
-Attackers often try to upload malicious files to the server and later execute those uploaded files to gain access to the server or perform some destructive actions.
+== 文件上传
+攻击者经常尝试将恶意文件上传到服务器，然后执行上传的文件以访问服务器或执行一些破坏性操作。
 
-Not only files are uploaded to acquire the server access, often you will find people trying to upload huge files so that your server stays busy in uploading files and start throwing *TIMEOUT* errors for other requests.
+不仅上传文件以获取服务器访问，通常你会发现人们试图上传巨大的文件，使您的服务器保持忙碌在上传文件，并开始抛出*TIMEOUT*错误的其他请求。
 
-To handle this bit, AdonisJs let you define the *maximum upload size* to be processed by the server which means any file greater than the specified size will be denied without processing and keeps your server in a healthy state.
+为了处理这一点，AdonisJs允许您定义要由服务器处理的*maximum upload size*，这意味着任何大于指定大小的文件将被拒绝而不进行处理，并保持您的服务器处于安全状态。
 
 ==== CheckList
 [pretty-list]
-* Make sure to set `maxSize` inside `config/bodyParser.js` file.
+* 确保在`config/bodyParser.js`文件中设置`maxSize`。
 +
 [source, javascript]
 ----
@@ -119,12 +120,12 @@ uploads: {
   maxSize: '2mb'
 }
 ----
-* Never store uploaded files inside the `public` directory, since files in `public` directory can be accessed directly.
-* Always rename files before uploading.
-* Never share the actual location of the file with the end users. Instead, try to save the file reference inside the database with a *unique id* and setup a route to server the file using the `id`.
+* 不要将上传的文件存储在`public`目录下，因为`public`目录中的文件可以直接访问。
+* 上传之前，请务必重新命名文件。
+* 不要与用户端共享文件的实际位置。相反，尝试使用*unique id*将文件引用保存在数据库中，并设置使用`id`为文件服务的路由
 +
 
-.Example
+.例
 [source, javascript]
 ----
 const Helpers = use('Helpers')

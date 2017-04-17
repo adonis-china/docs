@@ -8,14 +8,16 @@ categories:
 toc::[]
 
 Cross-Origin Resource Sharing(CORS) is a way to allow incoming HTTP requests from different domains. It is very common in AJAX applications where the browser will block all cross-domain requests if the server does not authorize them. Read more about CORS link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS[here, window="_blank"].
+跨原始资源共享（CORS）是允许来自不同域的传入HTTP请求的一种方式。在AJAX应用程序中，如果服务器未授权它们，浏览器将阻止所有跨域请求是非常常见的。详细了解CORS link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS[here, window="_blank"].
 
-== How It Works?
-AJAX Requests from different domains needs to be authorized before they perform desired actions. Browsers first make a *preflight* request with *OPTIONS* as the HTTP method to the server granting permission. The server can allow the request by returning *200 OK* and specifying the domains to be allowed via *Access-Control-Allow-Origin* header.
+== 工作原理
+在执行所需操作之前，需要授权来自不同域的AJAX请求。浏览器首先使用*OPTIONS*作为HTTP方法进行 *preflight*请求，授予服务器权限。服务器可以通过返回*200 OK*并通过*Access-Control-Allow-Origin*头指定要允许的域来允许该请求。
 
-AdonisJs ships with a *CORS* middleware to handle this flow for you via a configuration file.
 
-== Setup
-For CORS rules to work properly make sure that `Adonis/Middleware/Cors` is registered as a global middleware inside `app/Http/kernel.js` file.
+AdonisJs配有*CORS*中间件，可通过配置文件为您处理此流程。
+
+== 设置
+为了使CORS规则正常工作，请确保在`app/Http/kernel.js`文件中注册为`Adonis/Middleware/Cors`作为全局中间件。
 
 .app/Http/kernel.js
 [source, javascript]
@@ -27,8 +29,8 @@ const globalMiddleware = [
 ]
 ----
 
-== Config
-You can manage the CORS rules by editing the `config/cors.js` configuration file.
+== 配置
+您可以通过编辑`config/cors.js`配置文件来管理CORS规则。
 
 .config/cors.js
 [source, javascript]
@@ -44,13 +46,13 @@ module.exports = {
 ----
 
 ==== origin
-Origin accepts multiple values.
+Origin接受多个值。
 
-1. To disallow all CORS requests, set it `false`
-2. To allow the same origin requests, set it to `true`.
-3. You can define comma(,) separated origins.
-4. Setting the value to a wildcard *, will allow all origins.
-5. Finally, you can attach a callback and return one of the above values
+1. 禁止所有CORS请求，将其设置为`false`。
+2. 要允许相同的原始请求，请将其设置为`true`。
+3. 您可以定义逗号(,)分隔的起点。
+4. 将值设置为通配符*，将允许所有来源。
+5. 最后，您可以附加回调并返回上述值之一
 +
 [source, javascript]
 ----
@@ -60,15 +62,15 @@ origin: function (requestOrigin) {
 ----
 
 ==== methods
-Http methods/verbs to allow. Make sure it is a comma-separated value of one of the multiple methods.
+Http methods/verbs 允许。确保它是多种方法之一的逗号分隔值。
 
 ==== headers
-As origin, *headers* also accept multiple values
+*headers*也接受多个值
 
-1. To disable all headers set to false.
-2. To allow all headers defined inside Access-Control-Request-Headers set it to true.
-3. Allow a string of comma(,) separated custom headers. For example, Content-Type, Accepts.
-4. Finally, a callback function.
+1. 禁用所有标题设置为false。
+2. 允许在Access-Control-Request-Headers中定义的所有头设置为true。
+3. 允许一串逗号(,)分隔的自定义标头。例如，Content-Type，Accepts。
+4. 最后，一个回调函数。
 +
 [source, javascript]
 ----
@@ -78,10 +80,10 @@ headers: function (requestedHeaders) {
 ----
 
 ==== exposeHeaders(optional)
-Comma separated headers to expose via *Access-Control-Expose-Headers* header.
+逗号分隔的标题通过*Access-Control-Expose-Headers*头显示。
 
 ==== credentials(optional)
-Allow or disallow credentials exchanged by setting *Access-Control-Allow-Credentials* header to a boolean value.
+通过将*Access-Control-Allow-Credentials*标头设置为布尔值，允许或禁止凭据交换。
 
 ==== maxAge(optional)
-Sets *Access-Control-Allow-Max-Age* header to defined value.
+将*Access-Control-Allow-Max-Age*标头设置为定义的值。

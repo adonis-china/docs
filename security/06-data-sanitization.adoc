@@ -3,23 +3,23 @@ permalink: data-sanitization
 categories:
 - security
 ---
-= Data Sanitization
+= 数据过滤
 
 toc::[]
 
-AdonisJs automatically attempts to keep your websites safe by preventing SQL injection, escaping HTML inside views and limiting the size of file uploads. Still, there are instances, where you are required to sanitize user inputs before using consuming them manually.
+AdonisJs会自动尝试通过阻止SQL注入来保护您的网站安全，并在视图内转义HTML并限制文件上传的大小。不过，有些情况下，您需要在接收之前对用户输入进行校验。
 
-== Setup
-AdonisJs ships with a handy data sanitizer to filter malicious data from user input. Sanitizer is part of the `adonis-validation-provider` module.
+== 设置
+AdonisJs提供了一个方便的数据校验，用于从用户输入过滤恶意数据。Sanitizer是`adonis-validation-provider`模块的一部分。
 
-==== Install
+==== 安装
 [source, bash]
 ----
 npm i --save adonis-validation-provider
 ----
 
-==== Register Provider
-Providers are registered inside `bootstrap/app.js` file. Once they are registered, you can access them anywhere inside your application.
+==== 注册Provider
+Providers在`bootstrap/app.js`文件中注册。一旦注册，您可以在应用程序的任何位置访问它们。
 
 .bootstrap/app.js
 [source, javascript]
@@ -31,8 +31,8 @@ const providers = [
 ]
 ----
 
-==== Validator Alias
-Let's create an alias for the validator namespace which makes it easier to import Validator with a smaller name.
+==== 验证器别名
+让我们为验证器命名空间创建一个别名，这样可以更轻松地使用较小的名称导入Validator。
 
 .bootstrap/app.js
 [source, javascript]
@@ -44,8 +44,8 @@ const aliases = {
 }
 ----
 
-== Basic Example
-Sanitizing data is so simple you just need to define rules for sanitization and pass the data along with the defined rules.
+== 基本例子
+校验数据是如此简单，您只需要定义校验规则，并将数据与定义的规则一起传递。
 
 [source, javascript]
 ----
@@ -65,7 +65,7 @@ Route.post('/', function * (request, response) {
 })
 ----
 
-It is that simple! You start by setting an object of rules, and it will make sure return the clean data. Also, you can take advantage of the rules directly by calling them as functions.
+这是那么简单！您首先设置一个规则对象，并确保返回干净的数据。此外，您可以直接通过调用它们作为函数来利用规则。
 
 [source, javascript]
 ----
@@ -75,11 +75,11 @@ const escapedEmail = Validator.sanitizor.normalizeEmail('bar.sneaky+foo@googlema
 // returns - barsneaky@gmail.com
 ----
 
-== Available Filters
-Below is the list of all the available filters.
+== 可用过滤器
+以下是所有可用过滤器的列表。
 
 ==== blacklist(input, keywords)
-Removes defined words from the input string.
+从输入字符串中删除定义的单词
 
 [source, javascript]
 ----
@@ -93,7 +93,7 @@ Validator.sanitizor.blacklist('This is the worst show', ['worst'])
 ----
 
 ==== escape(value)
-Escapes html entities.
+转义html实体。
 
 [source, javascript]
 ----
@@ -107,7 +107,7 @@ Validator.sanitizor.escape('<div> Hello World </div>')
 ----
 
 ==== normalizeEmail(value)
-Normalizes email by removing unccessary characters.
+通过删除不必要的字符来规范电子邮件。
 
 [source, javascript]
 ----
@@ -121,7 +121,7 @@ Validator.sanitizor.normalizeEmail('bar.sneaky+foo@gmail.com')
 ----
 
 ==== toBoolean(value)
-Converts value to a boolean. *0* , *false*, *null*, *undefined*, *''* will return false and everything else will return true.
+将值转换为布尔值。*0* , *false*, *null*, *undefined*, *''*将返回false，其他所有内容都将返回true。
 
 [source, javascript]
 ----
@@ -135,7 +135,7 @@ Validator.sanitizor.toBoolean('false')
 ----
 
 ==== toFloat(value)
-Converts value to float and returns `NaN` if unable to convert.
+将值转换为float，如果无法转换返回`NaN`。
 
 [source, javascript]
 ----
@@ -149,7 +149,7 @@ Validator.sanitizor.toFloat('32.55')
 ----
 
 ==== toInt(value)
-Converts value to integer and returns `NaN` if unable to convert.
+将值转换为整数，如果无法转换，则返回`NaN`。
 
 [source, javascript]
 ----
@@ -163,7 +163,7 @@ Validator.sanitizor.toInt('32')
 ----
 
 ==== toDate(value)
-Converts value to date object and returns `null` if unable to convert.
+将值转换为date对象，如果无法转换，则返回`null`。
 
 [source, javascript]
 ----
@@ -177,7 +177,7 @@ Validator.sanitizor.toDate('2010-22-10')
 ----
 
 ==== stripLinks(value)
-Strips `<a></a>` tags from a given string. If input is not a string, actual value will be returned.
+从给定的字符串中删除`<a></a>`标签。如果输入不是字符串，则返回实际值。
 
 [source, javascript]
 ----
@@ -191,7 +191,7 @@ Validator.sanitizor.stripLinks('<a href="http://adonisjs.com"> Adonisjs </a>')
 ----
 
 ==== stripTags(value)
-Strips HTML tags from a given string. If the input is not a string, the actual value will be returned.
+从给定的字符串中剥离HTML标签。如果输入不是字符串，则返回实际值。
 
 [source, javascript]
 ----
@@ -205,7 +205,7 @@ Validator.sanitizor.stripTags('<p> Hello </p>')
 ----
 
 ==== plural(value)
-Converts a given value to plural. Which means *person* will be converted to *people*.
+将给定值转换为复数。这意味着*person*将被转换为*people*。
 
 [source, javascript]
 ----
@@ -219,7 +219,7 @@ Validator.sanitizor.plural('child')
 ----
 
 ==== singular(value)
-Converts a given value to singular. Which means *people* will be converted to *person*.
+将给定值转换为单数。这意味着*people*将被转换为*person*。
 
 [source, javascript]
 ----
@@ -233,7 +233,7 @@ Validator.sanitizor.plural('children')
 ----
 
 ==== camelCase(value)
-Converts a given to camelcase. Which means `users-controller` will become `UsersController`.
+将一个给定的字符串转换成驼峰式。这意味着`users-controller`将成为`UsersController`。
 
 [source, javascript]
 ----
@@ -247,7 +247,7 @@ Validator.sanitizor.camelCase('users-controller')
 ----
 
 ==== capitalize(value)
-Capitalize a given string.
+大写一个给定的字符串。
 
 [source, javascript]
 ----
@@ -261,7 +261,7 @@ Validator.sanitizor.capitalize('doe')
 ----
 
 ==== decapitalize(value)
-Decapitalize a given string.
+减少一个给定的字符串。
 
 [source, javascript]
 ----
@@ -275,7 +275,7 @@ Validator.sanitizor.decapitalize('Bar')
 ----
 
 ==== title(value)
-Converts a value to title case. Which means `hello-world` will become `Hello World`
+将值转换为标题大小写。 这意味着`hello-world`将成为`Hello World`。
 
 [source, javascript]
 ----
@@ -289,7 +289,7 @@ Validator.sanitizor.title('hello-world')
 ----
 
 ==== slug(value)
-Converts a value to url friendly slug.
+将值转换为友好的URL
 
 [source, javascript]
 ----
