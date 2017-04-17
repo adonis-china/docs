@@ -253,7 +253,7 @@ Http.onStart = function () {
 
 `query`和`sql`的唯一区别
 
-SQL event output::
+SQL事件输出::
 +
 
 [source, mysql]
@@ -261,7 +261,7 @@ SQL event output::
 + 1.38 ms : select * from `users` where `username` = 'doe'
 ----
 
-Query event output::
+查询事件输出::
 +
 
 [source, javascript]
@@ -274,8 +274,8 @@ Query event output::
 }
 ----
 
-=== Individual Query
-Also, you can debug a single query by chaining the event listener when running the query.
+=== 个人查询
+此外，您可以通过在运行查询时链接事件侦听器来调试单个查询。
 
 [source, javascript]
 ----
@@ -285,7 +285,7 @@ yield Database
   .where('username', 'doe')
 ----
 
-Or
+要么
 
 [source, javascript]
 ----
