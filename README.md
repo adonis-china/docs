@@ -26,16 +26,16 @@
 1. **@linganmin 配置**
 1. **@linganmin 环境变量**
 1. **@copydog 路由**
-1. @copydog 请求
-1. @copydog 响应
+1. **@copydog 请求**
+1. **@copydog 响应**
 1. @copydog 中间件
 1. @copydog 控制器
 1. @copydog 文件
 
 ### 视图
 1. @copydog 视图
-1. Nunjucks模板
-1. 表单生成器
+1. @river-lee Nunjucks模板
+1. @river-lee 表单生成器
 
 ### 数据库
 1. **@dxc1996 数据库设置**
@@ -50,12 +50,12 @@
 1. @linganmin Getters & Setters
 
 ### WEB开发工具
-1. 交互式Shell Aka Ace
-1. 认证
-1. Cookies
-1. Mail
-1. 错误和异常处理
-1. 事件
+1. @river-lee 交互式Shell Aka Ace
+1. @river-lee 认证
+1. @river-lee Cookies
+1. @river-lee Mail
+1. @river-lee 错误和异常处理
+1. @river-lee 事件
 1. 助手
 1. Sessions
 1. 验证
@@ -73,9 +73,9 @@
 1. **@river-lee 整理**
 
 ### 安全
-1. 介绍
-1. CORS
-1. CSRF保护
-1. 加密和哈希
-1. Shield中间件
-1. 数据过滤
+1. @dxc1996 介绍
+1. @dxc1996 CORS
+1. @dxc1996 CSRF保护
+1. @dxc1996 加密和哈希
+1. @dxc1996 Shield中间件
+1. @dxc1996 数据过滤
