@@ -7,28 +7,29 @@ categories:
 
 toc::[]
 
-All Open Source projects are maintained and backed by a *vibrant community* of users and collaborators. We encourage you to participate actively in the development and the future of AdonisJs either by contributing to the source code, improving documentation or reporting potential bugs.
+所有开放源码项目都由一个充满活力的社区*的用户和协作者进行维护和支持。我们鼓励您通过贡献源代码，改进文档或报告潜在错误，积极参与AdonisJs的开发和未来。
 
-== Channels
+== 渠道
 
-1. link:https://github.com/adonisjs[Github Repositories, window="_blank"] - Share bugs on the dedicated repository of AdonisJs. Try to help us with the exact issue and requirements to reproduce that issue.
-2. link:https://gitter.im/adonisjs/adonis-framework[Gitter, window="_blank"] - Ask questions or discuss common topics with us here. Feel free to jump in and share your views.
-3. link:https://trello.com/b/yzpqCgdl/adonis-for-humans[Trello, window="_blank"] - The Roadmap of AdonisJs. We try to keep it updated with the plans and features that are about to come into AdonisJs.
-4. link:https://twitter.com/adonisframework[Twitter, window="_blank"] - The official Twitter account to stay up-to-date with the progress we make each day.
+1. link:https://github.com/adonisjs[Github 代码库, window="_blank"] - 在AdonisJs的代码库中报告错误。尝试提供确切的问题和要求来帮助我们重现这个问题。
+2. link:https://gitter.im/adonisjs/adonis-framework[Gitter, window="_blank"] - 在这里提出问题或与我们讨论共同的话题。随时加入并分享您的意见。
+3. link:https://trello.com/b/yzpqCgdl/adonis-for-humans[Trello, window="_blank"] - AdonisJs的规划Roadmap。包含我们尝试更新与即将进入AdonisJs的计划和功能。
+4. link:https://twitter.com/adonisframework[Twitter, window="_blank"] - 关注官方Twitter帐户。随时随地了解我们每天的进度。
 
-== Reporting Bugs
+== 报告错误
 
-Always try to be descriptive when submitting issues. You should provide enough context and information to reproduce the issue.
+在提交问题时始终尝试提供详尽的描述。您应该提供足够的上下文和信息来重现问题。
 
-1. Share the version of the framework you are on. AdonisJs is a combination of several sub-modules, and you can find the versions of those sub-modules inside your project `package.json` file.
-2. Share a code snippet instead of saying `X` is not working.
-3. It will be great if you can help us with a sample repository with the code to reproduce the issue.
+1. 分享您所在框架的版本。 AdonisJs是几个子模块的组合，您可以在项目“package.json”文件中找到这些子模块的版本。
+2. 分享一个代码段，而不是说“XXX”不起作用。
+3. 如果您可以使用示例代码库帮助我们重现问题就更好了。
 
-== Coding Style
+== 编码风格
 
-JavaScript has a handful of linters to keep your coding style consistent. We make use of link:http://standardjs.com[JavaScript Standard Style, window="_blank"] which is a non-configurable module making it easier to stick to a consistent code style.
+JavaScript有几个linters来保持编码风格的一致性。我们利用 link:http://standardjs.com[JavaScript Standard Style, window="_blank"]，这是一个不可配置的模块，使其更容易保持一致的代码风格。
 
 Each module of AdonisJs installs the *Standard Style Linter* as a development dependency. So before submitting your PR make sure to lint your code.
+AdonisJs的每个模块安装*Standard Style Linter*作为开发依赖。所以在提交你的PR之前，请确保lint你的代码。
 
 [source, bash]
 ----
@@ -36,8 +37,9 @@ npm run lint
 ----
 
 == Sharing PR's & Git Flow
+== 分享 PR's & Git Flow
 
-We make use of https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow[Git Flow] to work on new features and manage releases.
+我们利用 https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow[Git Flow] 来处理新功能和管理版本。
 
 Below are the rules we follow every day.
 

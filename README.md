@@ -36,11 +36,12 @@
 1. @copydog 视图
 1. Nunjucks模板
 1. 表单生成器
-1. 数据库
+
+### 数据库
 1. **@dxc1996 数据库设置**
 1. @dxc1996 Query Builder
-1. 迁移
-1. 填充和工厂
+1. @dxc1996 迁移
+1. @dxc1996 填充和工厂
 
 ### LUCID
 1. @linganmin Lucid
