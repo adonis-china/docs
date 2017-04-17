@@ -43,10 +43,10 @@
 1. 填充和工厂
 
 ### LUCID
-1. Lucid
-1. 关联
-1. 数据库Hooks
-1. Getters & Setters
+1. @linganmin Lucid
+1. @linganmin 关联
+1. @linganmin 数据库Hooks
+1. @linganmin Getters & Setters
 
 ### WEB开发工具
 1. 交互式Shell Aka Ace
