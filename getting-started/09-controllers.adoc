@@ -3,35 +3,36 @@ permalink: controllers
 categories:
 - getting-started
 ---
-= Controllers
+= 控制器
 
 toc::[]
 
-Controllers are attached to routes and are the common point of interaction between your models and views.
+控制器是路由与数据库模型之间的纽带, 控制着整个路由的逻辑.
 
-In typical web applications, you will begin by binding a controller method to a route, make use of models to fetch data and send that data to the view to render HTML.
+一般来说, 你需要在路由上绑定一个控制器的方法, 这个控制器将操控数据库模型和HTML模板引擎来生成HTML代码或数据.
 
-== How Controllers Work?
+== 控制器如何工作?
 
 [pretty-list]
-* Controllers are defined inside `app/Http/Controllers` directory. To keep your code maintainable, you are free to create nested directories inside the *Controllers* directory.
+* 所有的控制器都在`app/Http/Controllers`目录里面, 你可以在里面创建很多目录来管理你项目的控制器.
 
-* Make use of `make:controller` command to create a new controller.
+* 你可以用`make:controller`命令来生成新的控制器.
+
 +
 [source, bash]
 ----
 ./ace make:controller Home
-# or
+# 或
 ./ace make:controller User --resource
 
-# create: app/Http/Controllers/HomeController.js
+# 创建: app/Http/Controllers/HomeController.js
 ----
 +
-`--resource` flag will create a controller with predefined link:routing#_resourceful_routes[resourceful] methods.
+`--resource` 参数将会为你的路由创建一些预先配置好的方法 link:routing#_resourceful_routes[resourceful].
 
-* Controllers are defined as ES2015 classes, which makes it easier to test them since you can inject runtime dependencies to the constructor and mock them(if required) during tests.
+* 控制器是一个ES2015规范的类, 你可以在构造函数里面注入一些运行依赖.
 
-* Controllers methods are referenced as a *String* to the routes.
+* 控制器方法是用字符串来引用的.
 
 +
 [source, javascript]
@@ -40,18 +41,18 @@ Route.get('users', 'UsersController.index')
 ----
 
 +
-The first part before the *dot(.)* is a reference to the controller file that is *UserController* and the second part is the controller method.
+在*点(.)*之前的是控制器名称, 之后的是控制器方法, 这样你就可以找到一个具体的控制器里面的方法了.
 
-== Basic Example
-Let's take a basic example of rendering all the users using the route, controller, model, and view.
+== 小例子
+我们来看一个关于用户列表的例子, 里面包含了路由, 控制器, 模板.
 
-.Route
+.路由
 [source, javascript]
 ----
 Route.get('users', 'UsersController.index')
 ----
 
-.Controller
+.控制器
 [source, javascript]
 ----
 const User = use('App/Model/User')
@@ -66,7 +67,7 @@ class UsersController {
 }
 ----
 
-.View
+.模板
 
 [source, twig]
 ----
@@ -75,12 +76,12 @@ class UsersController {
 {% endfor %}
 ----
 
-== Dependency Injection
-Since controllers are ES2015 classes, you can easily inject dependencies to the constructor, instead of manually requiring them. The benefit of injecting dependencies is that you can mock them at the time of testing.
+== 依赖注入
+因为控制器是一个ES2015规范的类, 所以你可以很容易的在构造函数里注入依赖, 这样你就不需要手动require他们. 这样做最大的优势是你可以模拟依赖去做测试.
 
-TIP: Mocking dependencies is very subjective and is not always required. Still, AdonisJs does not limit you if you want to mock dependencies.
+TIP: 模拟依赖是非常个人化的, 并不是必须的. 记得, AdonisJs不会限制你去模拟依赖.
 
-=== Defining Controller
+=== 定义控制器
 [source, javascript]
 ----
 class UsersController {
@@ -100,12 +101,13 @@ class UsersController {
 }
 ----
 
-<1> Getter `inject` returns an array of namespaces to be injected to the constructor. They are passed in the order they are defined.
 <2> Class `constructor` will receive the injections as parameters.
+<1> `inject`的Getter返回一个注入在构造函数里面依赖的命名空间. 返回的顺序和你注入时的顺序相同.
+<2> 类的构造函数将以参数的方法把这些注入获得.
 
-=== Writing Test
+=== 写测试
 
-NOTE: Below test example is written to give you an idea on how to mock dependencies and may not be the best way of writing tests.
+NOTE: 下面这个小例子给你展示了如何去模拟依赖, 也许这个方法不是一个最好的方法.
 
 [source, javascript]
 ----
