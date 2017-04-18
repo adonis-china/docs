@@ -3,147 +3,147 @@ permalink: error-and-exceptions
 categories:
 - web-development-tools
 ---
-= Error & Exceptions Handling
+= 错误 & 异常处理
 
 toc::[]
 
-AdonisJs takes an additional step towards handling and throwing exceptions by making sure exceptions thrown by the core of the framework are more descriptive and helpful for debugging. Also, it offers additional tools & practices to structure well-designed exception messages.
+AdonisJs需要额外的一步来处理抛出的异常，确保框架核心抛出的异常更具描述性，有助于调试。 此外，它还精心提供了额外的工具和实现来处理的异常消息。
 
-== Why Are Exceptions Important?
-Exceptions do not get the care they deserve. The majority of programmers thinks of exceptions a way of terminating the process as something bad happened. Even worse exception messages do not share much context on how to fix the problem and leaves it to the end-user to figure out the cause.
+== 处理异常有什么重要性？
+大多数程序员认为异常是一种终止进程的方式，因为发生了error。 异常没有得到他们应得的处理。 在如何解决问题方面，甚至更糟糕的异常消息并不共享上下文，并将其留给最终用户以找出原因。
 
-With AdonisJs we tag all exceptions with a unique *Error code* and you can refer the documentation of the given error code to understand the cause of the exception.
+使用AdonisJs，我们使用唯一的 *错误代码* 标记所有异常，您可以参考给定错误代码的文档来了解异常的原因。
 
-Not only that, but we also offer you a nice npm package called link:https://npmjs.org/package/node-exceptions[node-exceptions, window="_blank"] to setup application specific exception classes to throw personal and meaningful exceptions.
+不仅如此，我们也为您提供了一个不错的npm包 link:https://npmjs.org/package/node-exceptions[node-exceptions, window="_blank"] 设置应用程序特定的异常类来抛出个人和有意义的异常。
 
-== Error Codes
-Below is the list of error codes thrown by the core of AdonisJs. You can reference them to understand the context of the exception.
+== 错误代码
+以下是AdonisJs核心抛出的错误代码列表。 您可以引用它们来了解异常的上下文。
 
-All exceptions are divided into multiple categories like *General*, *Database*, *Redis*, etc.
+所有异常分为 *General* ，*Database* ，*Redis* 等多个类别。
 
 === General
-General exceptions are raised from any part of the framework.
+一般异常可以从框架的任何部分抛出
 
 [options="header"]
 |====
 | Error Code | Description
-| E_MISSING_APPKEY | App key is used to encrypted cookies or any other sensitive value. This exception is raised when `appKey` is not defined inside `config/app.js` file which refers to a value inside `.env` file.
+| E_MISSING_APPKEY | APP KEY 用于加密Cookie或任何其他敏感值。 当 `appKey` 没有在 `config/ app.js` 文件中定义时，但在`.env` 文件中引用了这个值，引发了这个异常。
 
-You can make use of an ace command to generate the app key for you. `./ace key:generate`.
+您可以使用ace命令为您生成应用程序键。 `./ace key:generate` 。
 
-| E_MALFORMED_JSON | This exception is raised when a function is expecting the parameter to be a valid `JSON` string but unable to call `JSON.parse` method on it.
+| E_MALFORMED_JSON | 当一个函数期望参数是一个有效的 `JSON` 字符串,但不能调用 `JSON.parse` 方法时，会引发异常。
 
-| E_MISSING_PARAMETER | The most often raised exception when a parameter expected by a method is not being passed or is `undefined`.
+| E_MISSING_PARAMETER | 当一个方法预期的参数没有被传递或者是 `undefined` 时，最常出现的异常。
 
-| E_INVALID_PARAMETER | This exception is raised when the parameter value is not of correct type. For example, A method expects `age` to be *Number* but instead a *String* with passed.
+| E_INVALID_PARAMETER | 当参数值不正确时，引发异常。 例如，A方法期望 `age` 为 *Number*，而是 传入的是 *String* 则会抛出这个异常。
 
-| E_MISSING_CONFIG | When configuration for a given key is missing. The exception is raised by *Service providers* when they are trying to access configuration and unable to find it inside the `config` directory.
+| E_MISSING_CONFIG | 当给定键的配置丢失时。 *服务提供商* 当他们尝试访问配置并且无法在 `config` 目录中找到它时引发异常。
 
-| E_UNDEFINED_METHOD | This exception is raised when a client is trying to access a non-existing method.
+| E_UNDEFINED_METHOD | 当客户端尝试访问不存在的方法时，会引发异常。
 |====
 
-=== Encryption Provider
-Below is the list of exceptions only raised by the link:encryption-and-hashing[Encryption provider].
+=== 加密提供程序
+以下是由 link:encryption-and-hashing[Encryption provider] 引起的异常列表
 
 [options="header"]
 |====
 | Error Code | Description
-| E_INVALID_ENCRPYTION_CIPHER | This exception is raised when a unsupported cipher is used to encrypt/decrypt a value.
-| E_INVALID_ENCRYPTION_PAYLOAD | This exception is raised when the payload passed to the `encrypt` method is not readable.
-| E_INVALID_ENCRYPTION_MAC | This exception is raised when an unsupported encryption mac is defined to encrypt/decrypt a value.
+| E_INVALID_ENCRPYTION_CIPHER | 当不支持的密码用于加密/解密值时，会引发此异常。
+| E_INVALID_ENCRYPTION_PAYLOAD | 当传递给 `encrypt` 方法的有效数据不可读时，会引发异常。
+| E_INVALID_ENCRYPTION_MAC | 当不支持的加密MAC被定义为加密/解密值时，会引发此异常。
 |====
 
-=== Form Builder & Route Provider
-Below is the list of all the exceptions only raised by the link:form-builder[Form builder] or the link:routing[Route provider].
-
-[options="header"]
-|====
-| Error Code | Description
-| E_MISSING_ROUTE | This exception is raised when you are trying to reference a non-existing *Route* inside your views. The most common place is inside the builder.
-| E_MISSING_ROUTE_ACTION | Exception is raised by the link:form-builder[Form builder] when an unregistered controller/route action is passed to the `open` method.
-|====
-
-=== Event Provider
+=== 表单生成器 & 路由服务
+以下列出了由 link:form-builder[表单生成器] 或者 link:routing[Route provider] 引起的异常
 
 [options="header"]
 |====
 | Error Code | Description
-| E_MISSING_NAMED_EVENT | The link:events[Event] provider will raise this exception when you are trying to remove an unregistered named listener.
+| E_MISSING_ROUTE | 当你试图在你的视图中引用一个不存在的 *路由* 时，会引发这个异常。最常见的地方是构建时。
+| E_MISSING_ROUTE_ACTION | ] 这个异常常见于 link:form-builder[表单生成器] 当未注册的控制器/路由操作传递给 `打开` 方法时。
 |====
 
-=== Session Provider
-
-[options="header"]
-|====
-| Error Code | Description
-| E_INVALID_SESSION_DRIVER | Exception is raised when the session driver defined inside the `config/session.js` file does not exists.
-|====
-
-=== Middleware Provider
+=== 事件服务
 
 [options="header"]
 |====
 | Error Code | Description
-| E_MISSING_NAMED_MIDDLEWARE | This exception is raised when an unregistered named middleware is referenced on the routes.
+| E_MISSING_NAMED_EVENT | 这个异常常见于  link:events[事件]试图移除未注册的命名侦听器时引发此异常。
 |====
 
-=== Database Provider
-
-[options="header"]
-|====
-| Error Code | Description
-| E_MISSING_MODEL_FACTORY | This exception is raised when you try to access an unregistered model factory. Make sure to define model factories/blueprints inside `database/factory.js` file.
-| E_MISSING_DATABASE_FACTORY | This exception is raised when you try to access an unregistered database factory. Make sure to define model factories/blueprints inside `database/factory.js` file.
-| E_MISSING_DATABASE_ROW | This exception is raised by Lucid model methods like *findOrFail* and *findByOrFail* when unable to find a record with the given value.
-| E_INVALID_MODEL_STATE | This exception is raised when you are trying to save an empty model or trying to update a delete model instance.
-| E_UNSAVED_MODEL_INSTANCE | This exception is raised when you are trying to save a relationship on a model which itself is unsaved.
-| E_INVALID_RELATION_INSTANCE | This exception is raised when you pass an invalid model instance to the relationship `save` method.
-| E_INVALID_RELATION_METHOD | This exception is raised when you call an *undefined* method on a relationship instance. For example *HasOne* relationship does not have a `paginate` method.
-| E_MISSING_DATABASE_RELATION | This exception is raised when you are trying to access a relationship which was never defined.
-| E_LOCK_ON_MIGRATIONS | This exception is raised when you are parallelly trying to execute migrations more than once.
-| E_INVALID_SCHEMA_FILE | This exception is raised when the *schema* files inside `database/migrations` folder are not exporting an *ES2015* class.
-| E_UNSAFE_ENVIRONMENT | This exception is raised when you are trying to execute unsafe operations in the production environment. For example: Running migrations in production.
-| E_INVALID_MODEL_TRAIT | This exception is raised when a model trait does not have a `register` method on it.
-|====
-
-=== Mail Provider
+=== 会话服务
 
 [options="header"]
 |====
 | Error Code | Description
-| E_INVALID_MAIL_DRIVER | This exception is raised when you are trying to access an unregistered mail driver.
-| E_INVALID_MAIL_VIEW | This exception is raised when you are trying to call the `Mail.send` method without a valid view.
+| E_INVALID_SESSION_DRIVER | 当配置文件中定义的会话驱动程序不存在时，会引发异常。
 |====
 
-=== IoC Container
+=== 中间件
+
 [options="header"]
 |====
 | Error Code | Description
-| E_INVALID_IOC_MANAGER | This exception is raised when you are trying to register a manager to the IoC container without the `extend` method.
-| E_INVALID_MAKE_STRING | This exception is raised when a string passed to `Ioc.makeFunc` is incorrect. Strings needs to have *dot(.)* seperated class and function name. For example: `Ioc.makeFunc('UserController.store')`
+| E_MISSING_NAMED_MIDDLEWARE | 当在路由上引用未注册的命名中间件时引发此异常。
 |====
 
-=== Antl Provider
+=== 数据库服务
+
 [options="header"]
 |====
 | Error Code | Description
-| E_INVALID_ANTL_DRIVER | Exception is raised when the antl driver defined inside the `config/antl.js` file does not exists.
+| E_MISSING_MODEL_FACTORY | 当您尝试访问未注册的模型工厂时，会引发此异常。确保在 `database/factory.js` 文件中定义模型工厂/图纸。
+| E_MISSING_DATABASE_FACTORY | 当您尝试访问未注册的数据库工厂时，会引发此异常。确保在 `database/factory.js` 文件中定义模型工厂/图纸。
+| E_MISSING_DATABASE_ROW | 这种异常是由使用的模型方法 *findOrFail* 和 *findByOrFail* 时无法找到与给定值的记录了。
+| E_INVALID_MODEL_STATE | 当试图保存空模型或试图更新删除模型实例时，会引发此异常。
+| E_UNSAVED_MODEL_INSTANCE | 这个例外是当您试图保存一个关系模型本身的保存。
+| E_INVALID_RELATION_INSTANCE | 当将无效的模型实例传递给关系 `保存` 方法时，会引发此异常。
+| E_INVALID_RELATION_METHOD | 当您在关系实例上调用 *未定义* 方法时，会引发此异常。例如 *HasOne*  是没有 `paginate` 方法。
+| E_MISSING_DATABASE_RELATION | 当试图访问从未定义的关系时，会引发此异常。
+| E_LOCK_ON_MIGRATIONS | 当您并行尝试执行迁移不止一次时，会引发此异常。
+| E_INVALID_SCHEMA_FILE | 这将引发异常时 *schema* 文件里面  `database/migrations` 文件夹导出 不是 *ES2015 Class*
+| E_UNSAFE_ENVIRONMENT | 当您试图在生产环境中执行不安全操作时，会引发此异常。例如：在生产中运行迁移。
+| E_INVALID_MODEL_TRAIT | 当模型特性没有 `register` 方法时，会引发此异常。
 |====
 
-=== Ally (Social Authentication) Provider
+=== 邮件服务
+
 [options="header"]
 |====
 | Error Code | Description
-| E_OAUTH_TOKEN_EXCHANGE | This exception is raised when unable to exchange access token using oauth code. This generally happens within the callback when using link:social-auth#_getuser[getUser] method.
-| E_INVALID_ALLY_DRIVER | This exception is raised when ally driver defined inside `config/services.js` file does not exists.
-| E_MISSING_OAUTH_CONFIG | This exception is raised when ally configuration does not exists for a given driver.
+| E_INVALID_MAIL_DRIVER | 当您试图访问未注册的邮件驱动程序时，会引发此异常。
+| E_INVALID_MAIL_VIEW | 当您试图调用 `Mail.send` 方法时，没有有效视图，则引发此异常。
 |====
 
-== Throwing Exceptions
-It is recommended to throw a contextual exception since it makes it easier for the end user to act upon them. AdonisJs makes use of link:https://npmjs.org/package/node-exceptions[node-exception, window="_blank"] an npm module to structure exceptions. You can learn more about it via its documentation.
+=== IoC 容器
+[options="header"]
+|====
+| Error Code | Description
+| E_INVALID_IOC_MANAGER | 当您试图将管理器注册到IOC容器而不使用 `extend` 方法时，会引发此异常。
+| E_INVALID_MAKE_STRING | 当异常传递给 `Ioc.makeFunc` 的字符串不正确时，引发异常。 字符串需要有 *dot(.)* 分隔的类和函数名。 例如：`Ioc.makeFunc（'UserController.store'）`
+|====
 
-== Catching Exception
-Exceptions can be caught by wrapping your code inside a `try/catch` block, or you can handle them globally by listening to the `error` event.
+=== Antl 服务器
+[options="header"]
+|====
+| Error Code | Description
+| E_INVALID_ANTL_DRIVER | 当 `config/antl.js` 文件中定义的antl驱动程序不存在时，引发异常。
+|====
+
+=== Ally (第三方认证/社交认证) 服务
+[options="header"]
+|====
+| Error Code | Description
+| E_OAUTH_TOKEN_EXCHANGE | 当无法使用oauth代码交换访问令牌时，引发此异常。 这通常在使用 link:social-auth#_getuser[getUser] 方法时在回调中发生。
+| E_INVALID_ALLY_DRIVER | 当 `config/services.js` 文件中定义的ally驱动程序不存在时，会引发异常。
+| E_MISSING_OAUTH_CONFIG | 对于给定的驱动程序，当ally配置不存在时，会引发此异常。
+|====
+
+== 抛出异常
+建议您抛出一个上下文异常，因为它使最终用户更容易对它们采取行动。 AdonisJs利用链接：link:https://npmjs.org/package/node-exceptions[node-exception, window="_blank"] 一个npm模块来构建异常。 您可以通过其文档了解更多信息。
+
+== 捕捉异常
+可以通过将代码封装在 `try/catch` 块中来捕获异常，或者您可以通过侦听 `error` 事件来全局处理它们。
 
 .app/Listeners/Http.js
 [source, javascript]
@@ -163,8 +163,8 @@ Http.handleError = function * (error, request, response) {
 }
 ----
 
-With the help of custom exceptions, it is so easy to catch them with their *name* and return a personalized response for each exception type.
+在自定义异常的帮助下，使用 *name* 轻松捕获它们，并为每个异常类型返回个性化响应。
 
-<1> Handling *ModelNotFoundException* exception thrown by Lucid model `findOrFail` method and returning a *404* view.
-<2> Handling *PasswordMisMatch* exception thrown by link:authentication#_attempt_uid_password[authentication provider] and return a *400* status.
-<3> Generic exception handling for all other exceptions.
+<1> 处理 *ModelNotFoundException* 由Lucid模型 `findOrFail` 方法抛出的异常并返回 *404* 视图。
+<2> 处理 *PasswordMisMatch* link:authentication#_attempt_uid_password[认证服务] 并返回 *400* 状态。
+<3> 所有其他异常的一般异常处理。
