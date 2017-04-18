@@ -31,7 +31,7 @@ AdonisJs需要额外的一步来处理抛出的异常，确保框架核心抛出
 
 您可以使用ace命令为您生成应用程序键。 `./ace key:generate` 。
 
-| E_MALFORMED_JSON | 当一个函数期望参数是一个有效的 `JSON ` 字符串,但不能调用 `JSON.parse` 方法时，会引发异常。
+| E_MALFORMED_JSON | 当一个函数期望参数是一个有效的 `JSON` 字符串,但不能调用 `JSON.parse` 方法时，会引发异常。
 
 | E_MISSING_PARAMETER | 当一个方法预期的参数没有被传递或者是 `undefined` 时，最常出现的异常。
 
@@ -166,5 +166,5 @@ Http.handleError = function * (error, request, response) {
 在自定义异常的帮助下，使用 *name* 轻松捕获它们，并为每个异常类型返回个性化响应。
 
 <1> 处理 *ModelNotFoundException* 由Lucid模型 `findOrFail` 方法抛出的异常并返回 *404* 视图。
-<2> 处理 *PasswordMisMatch* link:authentication#_attempt_uid_password[认证服务] 并返回 * 400* 状态。
+<2> 处理 *PasswordMisMatch* link:authentication#_attempt_uid_password[认证服务] 并返回 *400* 状态。
 <3> 所有其他异常的一般异常处理。

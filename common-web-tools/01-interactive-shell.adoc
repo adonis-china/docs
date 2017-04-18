@@ -61,10 +61,10 @@ class Quote extends Command { <1>
 }
 ----
 
-<1> 每个命令都应该从继承自`Command`基类。
+<1> 每个命令都应该从继承自 `Command` 基类。
 <2> 该签名用于定义命令名称及其期望值。点击xref:_command_signature[这里]了解更多关于签名。
 <3> 描述显示在帮助屏幕上。这是一个向用户介绍命令的好地方。
-<4> `handle`是你的命令的主体，当命令被执行时，它会被Ace自动调用。
+<4> `handle` 是你的命令的主体，当命令被执行时，它会被Ace自动调用。
 
 
 接下来，我们需要将此命令注册到命令列表中。
@@ -92,7 +92,7 @@ quote               Display a random quote from Paul Graham
 ....
 ----
 
-我们来执行这个命令来获取一条格言(inspirational quote)并将其显示在终端上。
+我们来执行这个命令来获取一条格言并将其显示在终端上。
 
 [source, bash]
 ----
@@ -102,10 +102,9 @@ quote               Display a random quote from Paul Graham
 image:http://res.cloudinary.com/adonisjs/image/upload/v1473771404/Screen_Shot_2016-09-13_at_6.25.37_PM_hvd2hv.png[]
 
 == 命令签名
-Command Signature defines the command name with required/optional arguments or options.
 命令签名使用required/optional参数或options定义命令名称。
 
-==== Command With Only The Name
+==== 命令只有名称
 [source, javascript]
 ----
 get signature () {
@@ -116,7 +115,7 @@ get signature () {
 === 参数
 命令可以接收命名参数。
 
-==== Command With Required Argument(s)
+==== 命令带有必需的参数
 将参数放到大括号汇总，单个命令可以拥有任意数量的参数。
 
 [source, javascript]
@@ -321,7 +320,7 @@ this.warn('Wait! something seems fishy')
 ----
 
 ==== completed(action, message)
-Will output a structured message for a completed action. Where action name will be in green color.
+将输出一个结构化的消息，以完成一个动作。 行动名称将以绿色表示。
 
 [source, javascript]
 ----

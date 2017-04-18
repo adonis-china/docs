@@ -69,13 +69,13 @@ Route.get('/', function * (request, response) {
 [options="header"]
 |====
 | Property | type | description
-| path | String | Cookie path.
-| expires | Date | Absolute expiration date for the cookie. Must be a valid *Date object*.
-| maxAge | String | Relative max age of the cookie from when the client receives it *(in seconds)*.
-| domain | String | Domain for the cookie.
-| secure | Boolean | Marks the cookie to be used with HTTPS only.
-| httpOnly | Boolean | Flags the cookie to be accessible only by the web server. Cannot be accessed using `document.cookie`.
-| firstPartyOnly | Boolean | Defines cookie to be used by the same domain only.
+| path | String | cookie 路径
+| expires | Date |cookie的绝对到期日期。 必须是有效的 *Date对象* 。
+| maxAge | String | 从客户端接收到的cookie的相对最大时间 *（以秒为单位）* 。
+| domain | String | cookie的生效域名。
+| secure | Boolean | 将cookie标记为仅与HTTPS一起使用。
+| httpOnly | Boolean | 将Cookie标记为仅由Web服务器访问。 无法使用`document.cookie`访问。
+| firstPartyOnly | Boolean | 定义仅由同一个域使用的Cookie。
 |====
 
 ==== clearCookie(key)

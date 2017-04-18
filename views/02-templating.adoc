@@ -59,7 +59,7 @@ toc::[]
 ----
 
 ==== for/asyncEach
-The `for` loop iterates over both arrays and objects.
+`for`循环遍历数组和对象。
 
 .Array
 [source, twig]
@@ -199,7 +199,7 @@ May The Force Be With You
 {# This is a comment #}
 ----
 
-== Whitespace Control 空白控制
+== 标签留白控制
 模板引擎将保留渲染标签之间的所有空白。如果要删除标签的开始和结束之间的所有空白，请使用以下方法。
 
 [source, twig]
@@ -331,7 +331,6 @@ true, false
 ----
 
 == 全局
-Here we talk about predefined globals registered by the framework. Check out link:views#_working_with_globals[Working with globals] to know more about defining custom views globals.
 我们在这里谈论预定义一些全局变量到框架中。查看 link:views#_working_with_globals[使用全局变量]了解全局定义的自定义视图的全局变量。
 
 ==== linkTo(route, text, data, target)

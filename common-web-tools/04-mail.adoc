@@ -112,9 +112,7 @@ class UsersController {
 == 邮件方法
 以下是用于发送电子邮件的方法列表。
 ==== send(view, data, callback, [configKey])
-The `send` method will compile a view with given data and send it as HTML. Attached callback gives you the access to the xref:_message_builder[message builder] to define email properties.
-
-send 方法是将给定数据和视图编译为html再将其发送。回调给你 xref:_message_builder[消息生成器]定义电子邮件属性生成器。
+send 方法将编译具有给定数据的视图，并将其作为HTML发送。回调给你 xref:_message_builder[消息生成器]来定义电子邮件属性。
 
 [source, javascript]
 ----
