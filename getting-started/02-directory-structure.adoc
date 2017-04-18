@@ -102,7 +102,7 @@ console.log(Config.get('app.appKey'))
 | factory.js | 工厂用于生成Lucid模型或数据库表的假数据。你在写测试时会发现自己在工厂里使用很多。`factory.js`是您为虚拟数据定义蓝图的地方。
 |====
 
-== providers（提供者）目录
+== providers（providers）目录
 如果您觉得需要编写您的providers，这是保留他们的地方，建议在*npm*上发布可重复使用的providers。
 
 理想情况下，没有创建提供商的严格规则，只需确保阅读服务提供商文档，了解如何构建提供程序。内部服务供应商`providers`目录中通过定义内的绝对路径注册`app.js`文件。
