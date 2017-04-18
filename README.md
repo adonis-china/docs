@@ -46,8 +46,8 @@
 ### LUCID
 1. **@linganmin Lucid**
 1. **@linganmin 关联**
-1. @linganmin 数据库Hooks
-1. @linganmin Getters & Setters
+1. **@linganmin 数据库Hooks**
+1. **@linganmin Getters & Setters**
 
 ### WEB开发工具
 1. @river-lee 交互式Shell Aka Ace

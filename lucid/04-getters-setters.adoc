@@ -7,22 +7,23 @@ categories:
 
 toc::[]
 
-One of the important steps towards building data driven applications is to control the flow of data. Lucid offers getter and setters to make it easier for you to control the data flow.
+构建数据驱动应用程序的重要步骤之一是控制数据流，Lucid提供了getter和setter，使您更轻松地控制数据流。
 
-Let's take an example of *Post Model* on which you will always have a *post title* which should be capitalized when displaying it to the end-user. For example, A title called *getting started with adonis* should be displayed as *Getting Started With Adonis*.
+我们举一个Post模型的例子，你有一个post的*title* ，当将其显示给最终用户时该标题首字母应该被大写，例如：*getting started with adonis* 应该显示为*Getting Started With Adonis*
 
-There are a couple of ways to achieve the end results. First talk about the *naive* way of doing it.
+有几种方法来实现最终的结果，先来说说`幼稚/天真`的做法
 
 [support-list]
-1. Use CSS property `text-transform` to capitalise it. What if you also have a JSON API?
-2. Whenever you find an article, manually capitalize it, by modifying the property.
-  * Will you do it for 20 posts inside a loop?
-  * What if you are fetching posts as a relation for a given user? It means loop through all the users, and then their posts and manually mutate the article title.
+1. 使用css的`text-transform`属性来实现首字母大写，如果你有JSON API如何实现?
+2. 每当你找到一篇文章，通过修改属性手动大写
+  * 您会在循环中处理20篇帖子？
+  * 如果您将帖子作为给定用户的关系，该怎么办？这意味着循环遍历所有的用户，然后是他们的帖子，并手动变换文章标题。
 
-All tricks as mentioned earlier are not maintainable. The best way is, to modify the title from its origin to make sure it returns the same value no matter what.
+前面提到的所有处理方法都是不可维护的，最好的方法是，从原点修改标题，以确保无论什么它返回相同的值。
 
 == Getters
-In Lucid we define *getters* for such situations. Getters mutate a given attribute on the fly without changing the original value in the database.
+在Lucid中我们针对这种情况定义`getter`，
+In Lucid we define *getters* for such situations. Getters 是在一个特定的属性上进行修饰/改变，而不改变数据库的原始值
 
 [source, javascript]
 ----
@@ -41,16 +42,16 @@ class Post extends Lucid {
 }
 ----
 
-=== About Getters
+=== 关于Getters
 
 [pretty-list]
-1. Getters are always defined with the keyword `get` followed by the attribute name. For example, a getter for the `title` attribute will be defined as `getTitle`.
-2. Getters are synchronous, which means you cannot run asynchronous code inside them. You must use link:database-hooks[hooks] for that.
-3. Getters will receive the current value of a given field.
-4. Getters are evaluated when you call the `toJSON` method on a model instance or a collection.
+1. 在`get`关键字后面跟上属性名称来定义Getter，例如，`title`属性的getter将被定义为`getTitle`
+2. Getters 是同步执行的，这就意味着你不嗯呢该在他们之间运行异步代码。你必须使用link:database-hooks[钩子] 
+3. Getters将收到给定字段的当前值。
+4. 当你在模型实例或集合上调用`toJSON`方法时，会对`Getter`进行评估/调用
 
 == Setters
-Setters are opposite of getters, and they mutate the value when you set them on your model instance. For example
+Setter与getter相反，当您将它们设置在模型实例上时，它们会将值更改。例如
 
 [source, javascript]
 ----
@@ -76,15 +77,15 @@ yield user.save()
 === About Setters
 
 [pretty-list]
-1. Setters are always defined with the keyword `set` followed by the attribute name. For example, a setter for the `access` attribute will be defined as `setAccess`.
-2. Setters are synchronous, which means you cannot run asynchronous code inside them. You must use link:database-hooks[hooks] for that.
-3. Setters will receive the current value of a given field.
-4. They are executed only when you *set/update* value of a given field on the model instance.
+1. 在`set`关键字后面跟上属性名称来定义Setter，例如，`access`属性的setter将被定义为`setAccess`
+2. Setter是同步执行的，这就意味着你不嗯呢该在他们之间运行异步代码。你必须使用link:database-hooks[钩子] 
+3. Setters将收到给定字段的当前值。
+4. 只有在模型实例上设置/更新给定字段的值时，才执行它们。
 
-== Computed Properties
-Computed properties are like getters, but they are virtual values that do not exist in your database tables.
+== Computed Properties // 计算属性
+计算的属性就像getter，但它们是数据库表中不存在的虚拟值
 
-You may want computed properties in many cases. For example calculating the full name of a given user using their first and last name.
+在许多情况下，您可能需要计算属性。例如，使用姓名来计算给定用户的全名
 
 [source, javascript]
 ----
@@ -108,7 +109,7 @@ class User extends Lucid {
 === About Computed Properties
 
 [pretty-list]
-1. Computed properties must be returned as an array from the `computed` getter.
-2. Computed methods are defined same as the `getters`.
-3. They do not receive any value and hence access the values from the model instance using `this` keyword.
+1. 计算属性必须作为数组从computed的getter 返回。
+2. 计算方法与getters的定义方法一样
+3. 他们接收不对到任何值，因此使用this关键字访问模型实例中的值
 
