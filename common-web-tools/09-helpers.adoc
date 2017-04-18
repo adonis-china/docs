@@ -3,14 +3,14 @@ permalink: helpers
 categories:
 - web-development-tools
 ---
-= Helpers
+= 助手
 
 toc::[]
 
-The Helpers Provider gives a handful of convenient methods to get *absolute paths* to certain directories of your application. It is helpful for the 3rd party *Service providers* since relying on relative paths is not very useful.
+助手Provider提供了一些方便的方法来获取*absolute paths*到您的应用程序的某些目录。对于第三方Service providers*来说，这是有帮助的，因为依靠相对路径不是很有用。
 
-== Basic Example
-Anywhere inside your application, you can make use of Helper's provider to get paths to different directories.
+== 基本例子
+在应用程序的任何地方，您可以使用Helper的Provider来获取到不同目录的路径。
 
 [source, javascript]
 ----
@@ -18,11 +18,11 @@ const Helpers = use('Helpers')
 const storagePath = Helpers.storagePath()
 ----
 
-== Helper Methods
-Below is the list of available methods on the Helpers provider.
+== 帮助方法
+以下是Helpers提供程序中可用方法的列表
 
 ==== basePath
-Returns path to the application root.
+返回到应用程序根目录的路径。
 
 [source, javasript]
 ----
@@ -30,7 +30,7 @@ Helpers.basePath()
 ----
 
 ==== appPath
-Returns path to the app directory.
+返回到应用程序目录的路径。
 
 [source, javascript]
 ----
@@ -38,7 +38,7 @@ Helpers.appPath()
 ----
 
 ==== publicPath([toFile])
-Returns path to the public directory or path to a file inside the directory.
+返回路径到目录中的文件的公用目录或路径。
 
 [source, javascript]
 ----
@@ -48,9 +48,9 @@ const cssFile = Helpers.publicPath('style.css')
 ----
 
 ==== configPath([toFile])
-Returns path to the config directory or path to a file inside the directory.
+返回路径到config目录或目录中文件的路径。
 
-NOTE: It is recommended to make use of the link:config[Config Provider] to read the values from the config files.
+NOTE: 建议使用link:config[Config Provider]从配置文件中读取值。
 
 [source, javascript]
 ----
@@ -60,7 +60,7 @@ const appConfig = Helpers.configPath('app.js')
 ----
 
 ==== storagePath([toFile])
-Returns path to the storage directory or path to a file inside the directory.
+返回目录中存储目录或文件路径的路径。
 
 [source, javascript]
 ----
@@ -70,7 +70,7 @@ const logs = Helpers.storagePath('logs.json')
 ----
 
 ==== resourcesPath([toFile])
-Returns path to the resources directory or path to a file inside the directory.
+返回目录中资源目录或文件路径。
 
 [source, javascript]
 ----
@@ -80,7 +80,7 @@ const appSass = Helpers.resourcesPath('assets/sass/app.scss')
 ----
 
 ==== migrationsPath([toFile])
-Returns path to the migrations directory or path to a file inside the directory.
+返回迁移目录的路径或目录中文件的路径。
 
 [source, javascript]
 ----
@@ -90,7 +90,8 @@ const UserSchema = Helpers.migrationsPath('UserSchema.js')
 ----
 
 ==== seedsPath([toFile])
-Returns path to the seeds directory or path to a file inside the directory.
+返回一个文件目录内的填充文件目录或路径
+
 
 [source, javascript]
 ----
@@ -100,7 +101,7 @@ const DatabaseSeed = Helpers.seedsPath('Database.js')
 ----
 
 ==== databasePath([toFile])
-Returns path to the database directory or path to a file inside the directory.
+返回数据库目录的路径或目录中文件的路径。
 
 [source, javascript]
 ----
@@ -111,6 +112,7 @@ const factoryFile = Helpers.databasePath('factory.js')
 
 ==== viewsPath([toFile])
 Returns path to the views directory or path to a file inside the directory.
+返回一个文件目录内的视图目录或路径。
 
 [source, javascript]
 ----
@@ -120,7 +122,7 @@ const welcomeView = Helpers.viewsPath('welcome.njk')
 ----
 
 ==== appNameSpace
-Returns the namespace mapped to the `app` directory inside `package.json` file.
+返回映射到`package.json`文件内的`app`目录的命名空间。
 
 [source, javascript]
 ----
@@ -129,7 +131,7 @@ const UsersController = use(`${namespace}/Http/Controllers/UsersController`)
 ----
 
 ==== makeNameSpace(directory, toFile)
-Returns complete namespace for a file inside a given directory.
+返回给定目录中文件的完整命名空间。
 
 [source, javascript]
 ----
@@ -139,7 +141,7 @@ const httpListener = Helpers.makeNameSpace('Listeners', 'Http')
 ----
 
 ==== isAceCommand
-Returns whether the process was started as the ace command or not.
+返回进程是否作为ace命令启动。
 
 [source, javascript]
 ----

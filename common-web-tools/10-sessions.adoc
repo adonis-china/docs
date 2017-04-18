@@ -7,23 +7,23 @@ categories:
 
 toc::[]
 
-AdonisJs has out of the box support for saving long-lived sessions to a single request only sessions called *Flash Messages*. Also, you can choose between one of the available drivers to save the session data.
+AdonisJs具有开箱即用的支持，可将长期存储的Sessions保存到单个请求，仅限Sessions为*Flash Messages*。此外，您可以选择其中一个可用的驱动程序来保存Sessions数据。
 
-NOTE: To keep your session cookie encrypted, make sure to define `APP_KEY` inside the *.env* file. Alternatively, you can make use of `./ace key:generate` command to generate the key for you.
+NOTE: 为了保持会话cookie加密，请确保在*.env*文件中定义`APP_KEY`。或者，您可以使用`./ace key:generate`命令为您生成密钥。
 
-== Drivers
-Below is the list of available drivers.
+== 驱动
+以下是可用驱动程序的列表。
 
 [support-list]
 1. Cookie (cookie).
 2. File (file).
 3. Redis (redis).
 
-NOTE: Make sure to setup link:redis[Redis provider] before making use of the redis driver.
+NOTE: 在使用redis驱动程序之前，请确保设置link:redis[Redis provider]。
 
-== Configuration
+== 配置
 
-Take a look at the example config file link:https://github.com/adonisjs/adonis-app/blob/develop/config/session.js[example config file].
+看一下示例配置文件link:https://github.com/adonisjs/adonis-app/blob/develop/config/session.js[示例配置文件]。
 
 [source, javascript]
 ----
@@ -50,8 +50,8 @@ module.exports = {
 }
 ----
 
-== Basic Example
-Let's walk through a basic example of saving/reading cart items for a given user from the session.
+== 基本例子
+让我们来看一个从session中为给定用户saving/reading购物车项目的基本示例。
 
 [source, javascript]
 ----
@@ -62,11 +62,11 @@ Route.get('carts', function * (request, response) {
 })
 ----
 
-== Methods
-Below is the list of available session methods.
+== 方法
+以下是可用session方法的列表。
 
 ==== put(key, value)
-Add a value to the session store.
+向session存储添加一个值。
 
 [source, javascript]
 ----
@@ -78,7 +78,7 @@ Route.post('users', function * (request, response) {
 ----
 
 ==== get(key, [defaultValue])
-Returns the value for a given key. It will return the *defaultValue* when actual value is `null` or `undefined`.
+返回给定键的值。当实际值为`null`或`undefined`时，它将返回*defaultValue*。
 
 [source, javascript]
 ----
@@ -90,7 +90,7 @@ Route.get('users/current', function * (request, response) {
 ----
 
 ==== all
-Returns all session values as an object
+将所有会话值作为对象返回
 
 [source, javascript]
 ----
@@ -98,7 +98,7 @@ const sessionValues = yield request.session.all()
 ----
 
 ==== forget(key)
-Remove value for a given key
+删除给定键的值
 
 [source, javascript]
 ----
@@ -106,17 +106,17 @@ yield request.session.forget('name')
 ----
 
 ==== pull(key, [defaultValue])
-Get and remove the value for a given key. Think of it as calling xref:_get_key_defaultvalue[get] and xref:_forget_key[forget] together.
+获取并删除给定键的值。将它视为调用外部参照xref:_get_key_defaultvalue[get]和xref:_forget_key[forget]在一起。
 
 [source, javascript]
 ----
 const username = yield request.session.pull('username')
 ----
 
-== Flash Messages
-Flash messages are used to set a short-lived session for a single request. It is helpful when you want to redirect the user back with the form errors and existing form values so that they won't have to re-type everything and only correct the errors.
+== Flash消息
+Flash消息用于为单个请求设置短暂的会话。当您希望使用表单错误和现有表单值重定向用户时，这将非常有用，因此无需重新键入所有内容，只能更正错误。
 
-Just make sure that `Flash` middleware is added to the list of global middleware.
+只需确保将`Flash`中间件添加到全局中间件列表中。
 
 .app/Http/kernel.js
 [source, javascript]
@@ -128,8 +128,8 @@ const globalMiddleware = [
 ]
 ----
 
-=== Basic Usage Of Flash Messages
-Let's work on the flow of flashing validation errors with the form input and see how we can catch them inside our view.
+=== Flash消息的基本用法
+让我们闪存表单提交验证错处理误的工作流，并查看我们如何在我们的视图中捕获它们。
 
 .app/Http/routes.js
 [source, javascript]
@@ -159,8 +159,9 @@ class UsersController {
 }
 ----
 
-<1> The `withAll` method will add all the request values to the flash session store.
-<2> The `andWith` method is a helper to flash custom data objects. Here we use it for flashing the validation errors.
+<1> `withAll`方法将所有请求值添加到闪存会话存储。
+<2> `andWith`方法是一个帮助程序来闪存自定义数据对象。这里我们用它来闪存验证错误。
+
 
 .resources/views/users/create.njk
 [source, twig]
@@ -179,13 +180,14 @@ class UsersController {
 {{ form.close() }}
 ----
 
-<1> `old` method inside the views is used to fetch values for a given key from the flash messages.
+<1> `old`方法用于从Flash消息中获取给定键的值。
 
-=== Flash Methods
-Below is the list of methods to set flash messages.
+=== Flash方法
+以下是设置Flash消息的方法列表。
 
 ==== withAll
 Will flash everything from `request.all()`.
+会获取`request.all()`中闪存的一切
 
 [source, javascript]
 ----
@@ -193,7 +195,7 @@ yield request.withAll().flash()
 ----
 
 ==== withOnly(keys...)
-Flash values only for defined keys.
+Flash值仅限于定义的键。
 
 [source, javascript]
 ----
@@ -201,7 +203,7 @@ yield request.withOnly('email').flash()
 ----
 
 ==== withOut(keys...)
-Flash all except defined keys.
+除了定义的键之外的所有Flash
 
 [source, javascript]
 ----
@@ -209,7 +211,7 @@ yield request.withOut('password').flash()
 ----
 
 ==== with(values)
-Flash a custom object.
+Flash自定义对象。
 
 [source, javascript]
 ----
@@ -217,7 +219,8 @@ yield request.with({ error: 'Please fill in all details' }).flash()
 ----
 
 ==== andWith(values)
-Chainable method to send custom object with request data.
+可自定义对象的方法发送请求数据。
+
 
 [source, javascript]
 ----
@@ -227,8 +230,9 @@ yield request
   .flash()
 ----
 
-=== Accessing Flash Values
-You can access the values of flash messages inside your views using the defined helpers. If there's nothing in the flash message at the requested key it will display the defaultValue.
+=== 访问Flash值
+您可以使用定义的助手访问视图内的Flash消息的值。 如果在所请求的密钥闪存中没有任何内容，它将显示defaultValue。
+
 
 ==== old(key, defaultValue)
 [source, twig]
