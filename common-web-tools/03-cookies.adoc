@@ -7,13 +7,12 @@ categories:
 
 toc::[]
 
-Reading/Writing cookies in AdonisJs is a breeze. You make use of link:request[request] and link:response[response] instances passed to all the controller methods and route closures to work with cookies.
+读/写cookies在AdonisJs是一件轻而易举的事。您使用 link:request[request] 和链接：link:response[response] 实例传递给所有的控制器方法和路由闭包与cookie一起工作。
 
-NOTE: To keep your cookies encrypted make sure to define `APP_KEY` inside the *.env* file. Alternatively, you can make use of `./ace generate:key` command to generate the key for you.
+注意：保持你的Cookie加密确保定义  `app_key` 在 *.env* 文件中。或者，您可以使用 `./ace generate:key` 命令为您生成密钥。
 
-
-== Basic Example
-Let's take a basic example of tracking page views for a given user by storing the count inside cookies.
+== 基本的例子
+让我们以一个基本的例子来跟踪指定用户的访问的视图。
 
 [source, javascript]
 ----
@@ -24,11 +23,11 @@ Route.get('/', function * (request, response) {
 })
 ----
 
-== Reading Cookies
-Cookies are read using the *request instance*.
+== 读 Cookies
+读取 cookies 是通过 *request 实例*
 
 ==== cookie(key, [defaultValue])
-Returns the cookie value for a given key. The default value is returned when the existing value is `null` or `undefined`.
+返回给定键的cookie值。默认值返回时，现有的值是 'null' 或 'undefined' 。
 
 [source, javascript]
 ----
@@ -40,7 +39,7 @@ Route.get('/', function * (request, response) {
 ----
 
 ==== cookies
-Get all cookies back as an object.
+返回一个包含cookie的对象。
 
 [source, javascript]
 ----
@@ -49,8 +48,8 @@ Route.get('/', function * (request, response) {
 })
 ----
 
-== Writing/Deleting Cookies
-To create/delete cookies you have to make use of the *response instance*.
+== 写入/删除 Cookies
+通过 *response 实例* 对cookie进行创建和删除
 
 ==== cookie(key, value, [options])
 
@@ -70,17 +69,17 @@ Route.get('/', function * (request, response) {
 [options="header"]
 |====
 | Property | type | description
-| path | String | Cookie path.
-| expires | Date | Absolute expiration date for the cookie. Must be a valid *Date object*.
-| maxAge | String | Relative max age of the cookie from when the client receives it *(in seconds)*.
-| domain | String | Domain for the cookie.
-| secure | Boolean | Marks the cookie to be used with HTTPS only.
-| httpOnly | Boolean | Flags the cookie to be accessible only by the web server. Cannot be accessed using `document.cookie`.
-| firstPartyOnly | Boolean | Defines cookie to be used by the same domain only.
+| path | String | cookie 路径
+| expires | Date |cookie的绝对到期日期。 必须是有效的 *Date对象* 。
+| maxAge | String | 从客户端接收到的cookie的相对最大时间 *（以秒为单位）* 。
+| domain | String | cookie的生效域名。
+| secure | Boolean | 将cookie标记为仅与HTTPS一起使用。
+| httpOnly | Boolean | 将Cookie标记为仅由Web服务器访问。 无法使用`document.cookie`访问。
+| firstPartyOnly | Boolean | 定义仅由同一个域使用的Cookie。
 |====
 
 ==== clearCookie(key)
-Removes the existing cookie.
+移除所有存在的cookie
 
 [source, javascript]
 ----

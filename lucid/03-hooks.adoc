@@ -7,15 +7,15 @@ categories:
 
 toc::[]
 
-Hooks are the actions you perform *before* or *after* a specified database operation. Hooks plays a major role in keeping your codebase DRY and easy to reason about For example: *Hashing* the user password before saving it to the database.
+钩子是您在指定数据库操作之前或之后执行的操作。钩子为保证你的代码的DRY原则（代码复用）和易于理解起到关键作用。例如：在将用户密码保存带数据库之前将其进行*Hashing*加密
 
-== About Hooks
+== 关于狗子
 
 [pretty-list]
-1. Model hooks are defined inside `app/Model/Hooks` directory.
-2. Each model hook is a *ES2015* generator method, making it simpler to run the asynchronous code.
-3. You have to define hooks on your models explicitly.
-4. Like other generator commands, you can use ace to make a hook for you.
+1. 钩子模型定义在 `app/Model/Hooks` 目录
+2. 每个模型的钩子是一个ES2015（ES6）生成器方法，使得运行异步代码更简单
+3. 你必须明确地在你的模型上定义钩子
+4. 你可以像使用其他生成器命令一样使用`ace`命令来生成钩子
 +
 [source, bash]
 ----
@@ -24,7 +24,7 @@ Hooks are the actions you perform *before* or *after* a specified database opera
 # or with predefined method
 ./ace make:hook User --method=encryptPassword
 ----
-5. Hooks are only executed for commands run via the model instance. For example: Calling the static `update` method will not execute the hooks.
+5. 钩子只能通过模型​​实例运行的命令执行，例如：调用静态`update`方法将不会执行钩子。
 +
 [source, javascript]
 ----
@@ -37,8 +37,8 @@ yield user.save()
 yield User.query().where('id', 1).update('status', 'active')
 ----
 
-== Basic Example
-Let's take the most basic example of encrypting the user password using a model hook.
+== 基础例子
+我们来看一下使用模型钩子加密用户密码的最基本的例子
 
 .app/Model/Hooks/User.js
 [source, javascript]
@@ -52,7 +52,7 @@ User.encryptPassword = function * (next) {
 }
 ----
 
-Next, we need to register this hook on the *User model* manually.
+接下来，我们需要手动在User模型上注册这个钩子
 
 .app/Model/User.js
 [source, javascript]
@@ -67,14 +67,14 @@ class User extends Lucid {
 }
 ----
 
-<1> All hooks should only be registered once and the `boot` method is perfect place since Lucid makes sure it is only executed once.
-<2> The `addHook` method will before the hook for a given event which is `beforeCreate` in this case.
+<1> 所有钩子只能注册一次，`boot`方法是最佳的地方，因为Lucid可以保钩子只执行一次。
+<2> 这种情况下，`addHook`方法将给定事件的钩子绑定到 `beforeCreate`(创建之前)执行
 
-== Defining Hooks
-Hooks are executed in the sequence they are registered. To execute the next hook, you must `yield next` from the existing hook. The process is quite similar to HTTP middleware layer.
+== 定义钩子
+钩子是按照注册顺序执行的，要执行下一个钩子，你必须从现有的钩子中执行`yield next`，这个过程与HTTP中间件层非常相似。
 
 ==== addHook(event, [name], action)
-The `addHook` method will define a hook for a given event. Optionally you can give it a unique name, which can be used later to remove the hook.
+该`addHook`方法将为指定事件定义一个钩子，或者，您可以给他一个唯一的名称，以后可以用于删除钩子。
 
 [source, javascript]
 ----
@@ -84,7 +84,7 @@ static boot () {
 }
 ----
 
-And for named hooks
+为钩子命名
 
 [source, javascript]
 ----
@@ -98,12 +98,13 @@ static boot () {
 }
 ----
 
-<1> Hook event
-<2> Unique name
-<3> Action to be executed. The action can be a reference to a plain javascript method, or a namespace to be resolved by the IoC container.
+<1> Hook event（钩子事件）
+<2> Unique name（唯一的名字）
+<3> 将执行的动作/操作。该操作可以是对简单的JavaScript方法的引用，也可以是由IOC容器解析的命名空间
 
 ==== defineHooks(event, arrayOfActions)
-The `defineHooks` method is quite similar to the `addHook` method, instead you can define multiple hooks in one go.
+该`defineHooks`方法与`addHook`方法非常相似，使用`defineHooks`您可以一次定义多个钩子
+ method is quite similar to the `addHook` method, instead you can define multiple hooks in one go.
 
 [source, javascript]
 ----
@@ -118,15 +119,15 @@ class User extends Lucid {
 ----
 
 ==== removeHook(name)
-As stated earlier, you can also remove *named hooks* anytime during in your application.
+像前面说的，您还可以在应用程序中随时删除命名的钩子。
 
 [source, javascript]
 ----
 User.removeHook('encryptingPassword')
 ----
 
-== Aborting Database Operations
-Hooks have the ability to abort the database operations by throwing exceptions.
+== 终止数据库操作
+钩子有能力通过抛出异常终止数据库操作
 
 .app/Model/Hooks/User.js
 [source, javascript]
@@ -139,18 +140,18 @@ UserHook.validate = function * (next) {
 }
 ----
 
-== Hooks Events
-Below is the list of hooks events.
+== 钩子事件执行时间
+以下是钩子事件的列表
 
 [options="header"]
 |====
-| Event | Description
-| beforeCreate | Before a new record gets created.
-| beforeUpdate | Before an existing record gets updated.
-| beforeDelete | Before you are about to a delete a given record.
-| beforeRestore | This event is only triggered when you have enabled link:lucid#_deletetimestamp[soft deletes] and restoring a previously deleted record.
-| afterCreate | After a new record has been successfully created.
-| afterUpdate | After an existing record has been updated.
-| afterDelete | After a record has been deleted successfully.
-| afterRestore | After a soft deleted record has been restored.
+| 事件 | 描述
+| beforeCreate | 创建新纪录之前触发
+| beforeUpdate | 更新已有记录之前触发
+| beforeDelete | 删除指定记录之前触发
+| beforeRestore | 该事件只有在启用link:lucid#_deletetimestamp[软删除]和恢复删除之前才会触发
+| afterCreate | 创建新纪录之后触发
+| afterUpdate | 更新已有记录记录后执行
+| afterDelete | 删除成功已有记录后执行
+| afterRestore | 软删除记录恢复后执行
 |====

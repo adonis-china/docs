@@ -7,16 +7,16 @@ categories:
 
 toc::[]
 
-Ace是为AdonisJs制作的强大的命令行工具。到目前为止，您一直在使用大量的ace命令来生成*控制器*，*模型*，运行*迁移*等。在本指南中，我们将了解Ace的内部结构以及如何创建命令。
+Ace是为AdonisJs制作的强大的命令行工具。到目前为止，您一直在使用大量的ace命令来生成 *控制器* ，*模型* ，运行 *迁移* 等。在本指南中，我们将了解Ace的内部结构以及如何创建命令。
 
 == 关于Ace
 
 [pretty-list]
-1. `ace`是应用程序根目录下的一个可执行文件。
+1. `ace` 是应用程序根目录下的一个可执行文件。
 2. 每个命令都是专用于一个项目，对于可重复使用的命令，您必须将它们打包为一个npm包。
-3. 命令可以访问所有应用程序组件，如*Models*，*Routes*等。这样可以轻松创建有用的命令。
-4. 项目特定的命令存储在`app/Commands`目录下。
-5. 在使用它们之前，必须在`bootstrap/app.js`文件中注册你的命令。
+3. 命令可以访问所有应用程序组件，如 *Models* ，*Routes* 等。这样可以轻松创建有用的命令。
+4. 项目特定的命令存储在 `app/Commands` 目录下。
+5. 在使用它们之前，必须在 `bootstrap/app.js` 文件中注册你的命令。
 
 == 创建你的第一个命令
 我们将创建一个命令来从 link:http://gophergala.github.io/wisdom[Wisdom API, window="_blank"] *Paul Graham* 随机获取一句格言(quotes)，并将其显示在终端上。
@@ -61,10 +61,10 @@ class Quote extends Command { <1>
 }
 ----
 
-<1> 每个命令都应该从继承自`Command`基类。
+<1> 每个命令都应该从继承自 `Command` 基类。
 <2> 该签名用于定义命令名称及其期望值。点击xref:_command_signature[这里]了解更多关于签名。
 <3> 描述显示在帮助屏幕上。这是一个向用户介绍命令的好地方。
-<4> `handle`是你的命令的主体，当命令被执行时，它会被Ace自动调用。
+<4> `handle` 是你的命令的主体，当命令被执行时，它会被Ace自动调用。
 
 
 接下来，我们需要将此命令注册到命令列表中。
@@ -92,7 +92,7 @@ quote               Display a random quote from Paul Graham
 ....
 ----
 
-我们来执行这个命令来获取一条格言(inspirational quote)并将其显示在终端上。
+我们来执行这个命令来获取一条格言并将其显示在终端上。
 
 [source, bash]
 ----
@@ -102,10 +102,9 @@ quote               Display a random quote from Paul Graham
 image:http://res.cloudinary.com/adonisjs/image/upload/v1473771404/Screen_Shot_2016-09-13_at_6.25.37_PM_hvd2hv.png[]
 
 == 命令签名
-Command Signature defines the command name with required/optional arguments or options.
 命令签名使用required/optional参数或options定义命令名称。
 
-==== Command With Only The Name
+==== 命令只有名称
 [source, javascript]
 ----
 get signature () {
@@ -113,11 +112,11 @@ get signature () {
 }
 ----
 
-=== Arguments
-Commands can recieve named arguments.
+=== 参数
+命令可以接收命名参数。
 
-==== Command With Required Argument(s)
-Curly braces surround arguments. A single command can have as many arguments as it wants.
+==== 命令带有必需的参数
+将参数放到大括号汇总，单个命令可以拥有任意数量的参数。
 
 [source, javascript]
 ----
@@ -126,8 +125,8 @@ get signature () {
 }
 ----
 
-==== Optional Argument(s)
-Append `?` to the argument, name to make it optional. Just like your route parameters.
+==== 可选参数
+在参数中附加  `?` ，将其设为可选项。 就像你的路由参数一样。
 
 [source, javascript]
 ----
@@ -136,8 +135,8 @@ get signature () {
 }
 ----
 
-==== Argument Description
-Also, you set a description for an argument separating it with a colon `(:)`.
+==== 参数说明
+另外，你设置一个用冒号 `(:)` 分隔它的参数的描述。
 
 [source, javascript]
 ----
@@ -146,10 +145,10 @@ get signature () {
 }
 ----
 
-=== Options
-Options are defined by appending `--` to the start of the option name.
+=== 选项
+选项通过在选项名称的开头附加 `--` 来定义。 
 
-==== Command With Required Option(s)
+==== 带有必需选项的命令
 [source, javascript]
 ----
 get signature () {
@@ -157,8 +156,8 @@ get signature () {
 }
 ----
 
-==== Optional Option(s)
-Just like arguments, you can also make options optional by appending a `?`.
+==== 可选选项
+就像参数一样，你也可以通过附加一个 `?` 来使选项可选。
 
 [source, javascript]
 ----
@@ -167,8 +166,8 @@ get signature () {
 }
 ----
 
-==== Options With Aliases
-Often options need aliases like*-h*for `--help`. You can define multiple aliases for a given option separated by a comma.
+==== 选项别名
+通常，选项需要像 *-h* 这样的别名。 您可以为给定选项定义多个别名，以逗号分隔。
 
 [source, javascript]
 ----
@@ -177,8 +176,8 @@ get signature () {
 }
 ----
 
-==== Options That Accepts Values
-At times options want values to perform certain operations, and same can get achieved by making use of `@value` identifier.
+==== 选项接受值
+有时选项需要执行某些操作的值，同样可以通过使用 `@value` 标识符来实现。
 
 [source, javascript]
 ----
@@ -187,11 +186,11 @@ get signature () {
 }
 ----
 
-== Interactive Inputs
-AdonisJs makes it so simple to create interactive commands by prompting the user to give information as they go.
+== 交互性命令
+AdonisJs通过提示用户在发送信息时创建交互式命令非常简单。
 
 ==== ask(question, [defaultValue])
-The `ask` method will accept textual input. Optionally you can define `defaultValue` which will be returned when no input has been passed.
+`ask` 方法将接受文本输入。 可选地，您可以定义 `defaultValue` ，当没有输入内容时将返回。
 
 [source, javascript]
 ----
@@ -203,7 +202,7 @@ const projectName = yield this
 image:http://res.cloudinary.com/adonisjs/image/upload/v1473783322/ask_blwh1x.gif[]
 
 ==== choice(question, choices, [defaultChoice])
-Display a list of choices to be used for selection. Only one of the listed options can be selected.
+要用于显示选择的选项列表。 只能列出一个列出的选项
 
 [source, javascript]
 ----
@@ -215,7 +214,7 @@ const dailyMeal = yield this
 image:http://res.cloudinary.com/adonisjs/image/upload/v1473783461/choice_ijyxqz.gif[]
 
 ==== multiple(question, choices, [defaultChoices])
-Display a list of multiple choices with an optional array of pre-selected values. Unlike `choice` you can select multiple values.
+显示具有预先选定值的可选数组的多个选项列表。 与 `choice` 不同，您可以选择多个值。
 
 [source, javascript]
 ----
@@ -234,7 +233,7 @@ const langs = yield this
 image:http://res.cloudinary.com/adonisjs/image/upload/v1473783814/multiple_arn7og.gif[]
 
 ==== anticipate(question, choices, [defaultChoice])
-Shows a list of actions with the keyboard shortcuts. It is helpful when you want the user to anticipate on something.
+显示使用键盘快捷键的操作列表。 当您希望用户预料某件事情时，这很有用。
 
 [source, javascript]
 ----
@@ -250,7 +249,7 @@ const action = yield this
 image:http://res.cloudinary.com/adonisjs/image/upload/v1473783820/anticipate_xmstmk.gif[]
 
 ==== secure(question, [defaultValue])
-Ask for a secure input like a*password*or some*secret token*. The input value will be show as `\*\*****`.
+要求安全输入，如 *密码* 或某些 *秘密令牌* 。 输入值将显示为 `\ * \ *****` 。
 
 [source, javascript]
 ----
@@ -262,7 +261,7 @@ const password = yield this
 image:http://res.cloudinary.com/adonisjs/image/upload/v1473783809/secure_ddk3w3.gif[]
 
 ==== confirm(question, [defaultValue])
-Ask for a yes/no question.
+询问是否确认
 
 [source, javascript]
 ----
@@ -274,7 +273,7 @@ const deleteFiles = yield this
 image:http://res.cloudinary.com/adonisjs/image/upload/v1473783814/confirm_dsoxix.gif[]
 
 == Validating Inputs
-It is extremely useful to validate input when accepting the values from interactive questions. All prompt questions can be validated by chaining the `validate` method and returning `true` from the callback will be considered as successful validation.
+在接受交互式问题的值时验证输入是非常有用的。 所有提示的问题都可以通过链接 `validate` 方法来验证，并从回调中返回 `true` 将被认为是成功的验证。
 
 [source, javascript]
 ----
@@ -287,14 +286,14 @@ yield this
 ----
 
 == ANSI Output
-link:https://en.wikipedia.org/wiki/ANSI_escape_code[Ansi Escape Codes] are used to output colored text to the terminal using a sequence of multiple characters. For example: To output a green color `Hello World` to the terminal you need to log following.
+link:https://en.wikipedia.org/wiki/ANSI_escape_code[Ansi Escape Codes] 用于使用多个字符的序列将彩色文本输出到终端。 例如：要将绿色“Hello World”输出到终端，您需要登录以下。
 
 [source, javascript]
 ----
 console.log('\033[32m Hello World')
 ----
 
-It is so hard to remember these codes and unpleasant to write them. Also, you will have to deal with different*shell types*to get the right output. AdonisJs commands can make this easy with the help of the following methods.
+记住这些代码很比较难。 此外，您将必须处理不同的 * shell类型 * 以获得正确的输出。 AdonisJs命令可以通过以下方法帮助您轻松实现。
 
 ==== error(message)
 [source, javascript]
@@ -321,7 +320,7 @@ this.warn('Wait! something seems fishy')
 ----
 
 ==== completed(action, message)
-Will output a structured message for a completed action. Where action name will be in green color.
+将输出一个结构化的消息，以完成一个动作。 行动名称将以绿色表示。
 
 [source, javascript]
 ----
@@ -359,7 +358,7 @@ this.table(
 ----
 
 == Icons & Colors
-Additionally, you can output icons and add color to your console messages inside your command `handle` method.
+另外，您可以在命令 `handle` 方法中输出图标并将颜色添加到控制台消息中。
 
 [source, javascript]
 ----
@@ -375,7 +374,7 @@ class Greet extends Command {
 }
 ----
 
-.Output
+.输出
 [source, bash]
 ----
 ✔ That went great
@@ -392,7 +391,7 @@ class Greet extends Command {
 |====
 
 === Colors
-Under the hood, Ace makes use of link:https://www.npmjs.com/package/colors[colors, window="_blank"] an npm module. You can access all the available methods on*colors*using the property colors.
+在引擎底层下，Ace利用 link:https://www.npmjs.com/package/colors[colors, window="_blank"]一个npm模块。 您可以使用颜色属性访问 *colors* 上的所有可用方法。
 
 [source, javascript]
 ----

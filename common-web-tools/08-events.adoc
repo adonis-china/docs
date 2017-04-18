@@ -3,17 +3,17 @@ permalink: events
 categories:
 - web-development-tools
 ---
-= Events
+= 事件
 
 toc::[]
 
-AdonisJs got a beautiful link:https://nodejs.org/docs/latest-v6.x/api/events.html[Event Emitter, window="_blank"] to emit and listen to events with support for *ES2015 generators*, *wildcards* and a *dedicated directory* to store/manage listeners.
+AdonisJs有一个美丽的link:https://nodejs.org/docs/latest-v6.x/api/events.html[Event Emitter, window="_blank"] 发出和收听并支持 *ES2015 generators* ， *wildcards* 和 a *dedicated directory* 来存储/管理侦听器。
 
-== About Events
+== 关于事件
 
 [pretty-list]
-1. Events are defined inside `bootstrap/events.js` file.
-2. Events listeners can be defined as *Closures* or you can bind an IoC container namespace.
+1. 事件在 `bootstrap/events.js` 文件中定义。
+2. 事件监听器可以被定义为 *闭包* ，或者可以绑定IoC容器命名空间。
 +
 [source, javascript]
 ----
@@ -24,9 +24,9 @@ Event.on('user.registered', function * (user) {
 Event.on('user.registered', 'User.registered')
 ----
 
-3. The `app/Listeners` directory is dedicated for storing Event listeners.
-4. When binding listeners to the events, you are not required to enter the entire namespace. For example A listener stored as `app/Listeners/User.js` will be referenced as `User.<method>`.
-5. Make use of `make:listener` command to create a new event listener.
+3. `app/Listeners` 目录专门用于存储事件侦听器。
+4. 将侦听器绑定到事件时，不需要输入整个命名空间。 例如，存储为 `app/Listeners/User.js` 的监听器将被引用为 `User.<method>` 。
+5. 使用 `make:listener` 命令创建一个新的事件侦听器。
 +
 [source, bash]
 ----
@@ -35,11 +35,11 @@ Event.on('user.registered', 'User.registered')
 # create: app/Listeners/User.js
 ----
 
-== Configuration
-The configuration for Events provider is stored inside `config/events.js` file. Under the hood AdonisJs makes use of link:https://github.com/asyncly/EventEmitter2[EventEmitter 2, window="_blank"] and implements all the available configuration options.
+== 配置
+事件服务的配置存储在 `config/events.js` 文件中。 在AdonisJs底层使用 link:https://github.com/asyncly/EventEmitter2[EventEmitter 2, window="_blank"] 并实现所有可用的配置选项。
 
-== Basic Example
-Let's walk through a basic example of sending a welcome email to a newly registered user using the *Events provider*. We will start by setting up a route and will use the *UsersController* to fire the event after creating a new user.
+== 基本例子
+让我们来看一个基本的例子，使用 *Events provider* 向新注册的用户发送欢迎电子邮件。 我们将开始设置路由，并在创建新用户后使用 *UsersController* 触发事件。
 
 .app/Http/routes.js
 [source, javascript]
@@ -92,14 +92,14 @@ User.sendWelcomeEmail = function * (user) {
 }
 ----
 
-<1> First we need to register a listener for the event.
-<2> The `UsersController.store` method will fire the *user.registered* event and pass the newly created user.
+<1> 首先我们需要为事件注册一个监听器。
+<2> `UsersController.store` 方法将触发 *user.registered* 事件并传递新创建的用户。
 
-== Event Methods
-Below is the list of available methods exposed by the Event Provider.
+== 事件方法
+以下是事件服务公开的可用方法的列表。
 
 ==== when(event, [name], listener)
-Register a listener for a given event. You can also define an optional name for a listener, which can be used to remove it later.
+注册给定事件的监听器。 您还可以为侦听器定义可选名称，以便稍后将其删除。
 
 [source, javascript]
 ----
@@ -127,7 +127,7 @@ Event.when('user.registered', 'registration', 'User.sendWelcomeEmail')
 |====
 
 ==== once(event, handler)
-Works same as `when` but is executed only for one time.
+与 `when` 相同，但只能执行一次。
 
 [source, javascript]
 ----
@@ -137,7 +137,7 @@ Event.once('app.boot', function * () {
 ----
 
 ==== any(handler)
-Attach a global event listener to listen for all the events.
+附加全局事件监听器以监听所有事件。
 
 [source, javascript]
 ----
@@ -147,7 +147,7 @@ Event.any(function (event) {
 ----
 
 ==== times(number)
-Set a limit for times an event listener will be executed and get removed after that.
+为事件监听器的执行次数设置一个限制，并在此之后被删除。
 
 [source, javascript]
 ----
@@ -157,14 +157,14 @@ Event.times(4).when('user.registered', function () {
 ----
 
 ==== fire(event, data)
-Fires an event.
+触发事件
 
 [source, javascript]
 ----
 Event.fire('user.registered', user)
 ----
 
-.Aliases
+.别名
 [options="header"]
 |====
 | Alias | Example
@@ -172,7 +172,7 @@ Event.fire('user.registered', user)
 |====
 
 ==== removeListeners([event])
-Remove all listeners from a given event or for all events.
+从给定事件或所有事件中删除所有监听器。
 
 [source, javascript]
 ----
@@ -181,7 +181,7 @@ Event.removeListeners('user.registered') // will remove listeners for user.regis
 ----
 
 ==== removeListener(event, name)
-Remove a named listener for a given event.
+删除给定事件的命名监听器。
 
 [source, javascript]
 ----
@@ -194,7 +194,7 @@ Event.removeListener('user.registered', 'registration')
 ----
 
 ==== hasListeners(event)
-Returns a boolean whether an event has listeners or not.
+返回一个布尔值，判断是否有监听这个事件
 
 [source, javascript]
 ----
@@ -202,7 +202,7 @@ Event.hasListeners('user.registered')
 ----
 
 ==== getListeners(event)
-Returns an array of listeners for a specific event.
+返回指定事件的监听器数组。
 
 [source, javascript]
 ----
@@ -210,7 +210,7 @@ Event.getListeners('user.registered')
 ----
 
 == Emitter Instance
-All of the event listeners has access to the emitter instance.
+所有事件侦听器都可以访问发射器实例。
 
 [source, javascript]
 ----

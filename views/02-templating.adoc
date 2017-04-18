@@ -3,14 +3,16 @@ permalink: templating
 categories:
 - views
 ---
-= Nunjucks Templates
+= Nunjucks 模板
 
 toc::[]
 
-This is a reference guide for AdonisJs template engine, covering topics on available *tags*, *filters*, and *methods* to be used inside your views. Read the link:views[views guide] to understanding how views work in AdonisJs.
+在AdonisJs中使用 link:http://mozilla.github.io/nunjucks/[Nunjucks] 是非常简单的一件事。
+涵盖了您在视图中所需的 *tags*, *filters* 和 *methods* 等几个方面。阅读 link:views[视图教程] 
+了解AdonisJs的工作原理。 
 
-== Tags
-Tags are blocks which define logic operations inside your views. Below is the list of available tags and their usages.
+== 标签
+标签是在视图中定义逻辑操作的块。 以下是一些可用标签及其用法的列表。
 
 === if
 [source, twig]
@@ -27,7 +29,7 @@ Tags are blocks which define logic operations inside your views. Below is the li
 {% endif %}
 ----
 
-You can also perform comparison via `==`.
+您还可以通过 `==` 进行比较。
 
 [source, twig]
 ----
@@ -49,7 +51,7 @@ You can also perform comparison via `==`.
 {% endif %}
 ----
 
-==== If As An Expression
+==== If
 
 [source, twig]
 ----
@@ -57,7 +59,7 @@ You can also perform comparison via `==`.
 ----
 
 ==== for/asyncEach
-The `for` loop iterates over both arrays and objects.
+`for`循环遍历数组和对象。
 
 .Array
 [source, twig]
@@ -67,7 +69,7 @@ The `for` loop iterates over both arrays and objects.
 {% endfor %}
 ----
 
-.Object
+.对象
 [source, twig]
 ----
 {#
@@ -84,9 +86,9 @@ The `for` loop iterates over both arrays and objects.
 ----
 
 === asyncAll
-The `asyncAll` tag will run an asynchronous loop in parallel. It is helpful when you perform an async operation within a loop.
+`asyncAll` 标签将并行运行一个异步循环。 当您在循环中执行异步操作时，这是非常有用的。
 
-NOTE: Below is an example of fetching user profile inside a loop, which will cause multiple database queries. It is recommended to *eagerLoad* relationships using Lucid.
+注意：以下是在循环中获取用户配置文件的示例，这将导致多个数据库查询。 建议使用 Lucid 中 *eagerLoad* 关系。
 
 [source, twig]
 ----
@@ -98,7 +100,7 @@ NOTE: Below is an example of fetching user profile inside a loop, which will cau
 ----
 
 ==== set
-`set` creates a temporary variable inside your views. Think of it as `var` inside Javascript.
+`set` 在您的视图中创建一个临时变量。 将其视为JavaScript中的 `var` 。
 
 [source, twig]
 ----
@@ -106,7 +108,7 @@ NOTE: Below is an example of fetching user profile inside a loop, which will cau
 {{ username }}
 ----
 
-Also, you can define multiple keys and their value at once.
+此外，您可以一次定义多个键及其值。
 
 [source, twig]
 ----
@@ -114,7 +116,7 @@ Also, you can define multiple keys and their value at once.
 ----
 
 ==== yield
-Execute an *ES2015 Generator* or a *Promise* inside your views.
+在你的页面中执行 *ES2015 Generator* 或者 一个 *Promise*
 
 [source, twig]
 ----
@@ -123,7 +125,7 @@ Execute an *ES2015 Generator* or a *Promise* inside your views.
 ----
 
 ==== raw
-When building Front-End agnostic web apps, you are likely going to make use of *VueJs*, *AngularJs* or any similar framework. To stop your views from parsing your front-end templates, you should make use of `raw` tag.
+当构建一些前端网页时，您可能会使用  *VueJs* ，*AngularJs* 或任何类似的框架。 要阻止您的视图解析您的前端模板，您应该使用 `raw` 标签。
 
 [source, twig]
 ----
@@ -134,7 +136,7 @@ When building Front-End agnostic web apps, you are likely going to make use of *
 ----
 
 ==== filter
-Instead of using filters with a *pipe (|)* symbol, you can also make use of filters as a tag.
+您可以使用过滤器作为标签，代替使用 *pipe (|)。
 
 [source, twig]
 ----
@@ -143,7 +145,7 @@ Instead of using filters with a *pipe (|)* symbol, you can also make use of filt
 {% endfilter %}
 ----
 
-.Output
+.输出
 
 [source, html]
 ----
@@ -151,7 +153,7 @@ May The Force Be With You
 ----
 
 ==== call/caller
-A `call` makes it easier to pass a lot of markup to your macros. A macro can access the passed content as `caller`.
+一个 `call` 使它更容易传递大量的标记到你的宏。宏可以将传入的内容作为 `caller` 访问。
 
 .resources/views/macros/modal.nunjucks
 [source, twig]
@@ -165,7 +167,7 @@ A `call` makes it easier to pass a lot of markup to your macros. A macro can acc
 {% endmacro %}
 ----
 
-Now let's use the *modal* macro.
+现在让我们使用 *modal* 宏。
 
 .resources/views/home.nunjucks
 [source, twig]
@@ -179,7 +181,7 @@ Now let's use the *modal* macro.
 {% endcall %}
 ----
 
-.Output
+.输出
 [source, html]
 ----
 <div class="modal fade">
@@ -191,14 +193,14 @@ Now let's use the *modal* macro.
 </div>
 ----
 
-== Comments
+== Comments 注释
 [source, twig]
 ----
 {# This is a comment #}
 ----
 
-== Whitespace Control
-Template engine will render all the white spaces between your tags. Use the following way if you want to remove all the white between the start and end of the tag.
+== 标签留白控制
+模板引擎将保留渲染标签之间的所有空白。如果要删除标签的开始和结束之间的所有空白，请使用以下方法。
 
 [source, twig]
 ----
@@ -207,10 +209,10 @@ Template engine will render all the white spaces between your tags. Use the foll
 {%- endfor %}
 ----
 
-`-` symbol defines the whitespace control direction. Placing it on *left* will trim the whitespace from the left and setting it to the *right* will have the desired effect.
+`-` 符号定义空白控制方向。 将其放在 *左边* 将从左边修剪空格，将其设置为 *右边* 将从右边修剪空格。
 
-== Expressions
-All given expressions are supported.
+== Expressions 表达式
+支持所有给定的表达式。
 
 Strings::
 [source]
@@ -242,18 +244,18 @@ Boolean::
 true, false
 ----
 
-== Mathematical Operators
-Below is the list of supported mathematical operators.
+== 数字运算符
+以下是支持的数学运算符的列表。
 
-* Addition: `+`
-* Subtraction: `-`
-* Division: `/`
-* Division and integer truncation: `//`
-* Division remainder: `%`
-* Multiplication: `*`
-* Power: `**`
+* 加法: `+`
+* 减法: `-`
+* 除法: `/`
+* 除法并取整: `//`
+* 取余: `%`
+* 乘法: `*`
+* 幂: `**`
 
-.Usage
+.使用
 [source, twig]
 ----
 {{ 10 + 2 }} {# 12 #}
@@ -261,25 +263,25 @@ Below is the list of supported mathematical operators.
 {{ 10 % 2 }} {# 0 #}
 ----
 
-== Comparison Operators
-Below is the list of supported comparison operators.
+== 比较运算符
+以下是支持的比较运算符的列表。
 
-- Equals to `==`
-- Not equals to `!=`
-- Greater than `>`
-- Greater than equals to `>=`
-- Less than `<`
-- Less than equals to `<=`
+- 相等 `==`
+- 不等 `!=`
+- 大于 `>`
+- 大于等于 `>=`
+- 小于 `<`
+- 小于等于 `<=`
 
-.Usage
+.使用
 [source, twig]
 ----
 {% if numUsers < 5 %}...{% endif %}
 {% if i == 0 %}...{% endif %}
 ----
 
-== Logical Operators Shorthand
-Below is the list of supported shorthand logical operators.
+== 逻辑运算符
+以下是支持的逻辑运算符的列表。
 
 ==== and
 [source, twig]
@@ -305,12 +307,12 @@ Below is the list of supported shorthand logical operators.
 {% endif %}
 ----
 
-TIP: Make use of *parentheses* in order to group expressions. `if (x < 5 or y < 5) and foo`
+提示：使用 *括号* 以组合表达式。 `if（x <5或y <5）和foo`
 
-== Auto Escaping
-All values are auto escaped inside your views to keep them safe from HTML injection and XSS attacks. However, your application may have requirements of injecting HTML snippets inside your views and in that case you should make use of `safe` filter.
+== 自动转义
+所有值都会在视图内自动转义，以防止HTML注入和XSS攻击。 但是，您的应用程序可能需要在视图中注入HTML片段，在这种情况下，您应该使用 `安全` 过滤器。
 
-.Without Filter
+.没有使用过滤器
 [source, twig]
 ----
 {% set title = '<h1> Title </h1>' %}
@@ -319,7 +321,7 @@ All values are auto escaped inside your views to keep them safe from HTML inject
 {# output &lt;h1&gt; Title &lt;/h1&gt; #}
 ----
 
-.With Filter
+.使用过滤器
 [source, twig]
 ----
 {% set title = '<h1> Title </h1>' %}
@@ -328,13 +330,13 @@ All values are auto escaped inside your views to keep them safe from HTML inject
 {# output <h1> Title </h1> #}
 ----
 
-== Globals
-Here we talk about predefined globals registered by the framework. Check out link:views#_working_with_globals[Working with globals] to know more about defining custom views globals.
+== 全局
+我们在这里谈论预定义一些全局变量到框架中。查看 link:views#_working_with_globals[使用全局变量]了解全局定义的自定义视图的全局变量。
 
 ==== linkTo(route, text, data, target)
-Returns link to a given registered route
+返回到给定注册路由的链接
 
-.Route
+.路由
 [source, javascript]
 ----
 Route
@@ -342,14 +344,14 @@ Route
     .as('listUsers')
 ----
 
-.View
+.视图
 [source, twig]
 ----
 {{ linkTo('listUsers', 'View All Users') }}
 {{ linkTo('listUsers', 'View All Users', {}, '_blank') }}
 ----
 
-.Output
+.输出
 [source, html]
 ----
 <a href="/users"> View Profile </a>
@@ -357,7 +359,7 @@ Route
 ----
 
 ==== linkToAction(controllerAction, text, data, target)
-Returns link to registered route controller action.
+返回到已注册控制器相应的路由地址。
 
 [source, twig]
 ----
@@ -365,7 +367,7 @@ Returns link to registered route controller action.
 {{ linkToAction('UserController.index', 'View All Users', {}, '_blank') }}
 ----
 
-.Output
+.输出
 [source, html]
 ----
 <a href="/users"> View Profile </a>
@@ -373,7 +375,7 @@ Returns link to registered route controller action.
 ----
 
 ==== range(start, stop, [step=1])
-Loop over a range of values. Think of it as calling a `for` loop.
+循环值范围。把它当作 `for`。
 
 [source, twig]
 ----
@@ -382,14 +384,15 @@ Loop over a range of values. Think of it as calling a `for` loop.
 {%- endfor %}
 ----
 
-.Output
+.输出
 [source]
 ----
 0,1,2,3,4
 ----
 
-== Filters
-Below is the list of all the available filters. Check out link:views#_working_with_filters[Working with filters] to learn more about defining filters.
+== filters 过滤器
+下面是所有可用过滤器的列表。查看 link:views#_working_with_filters[过滤器]
+了解过滤器。
 
 ==== age
 [source, twig]
@@ -397,30 +400,30 @@ Below is the list of all the available filters. Check out link:views#_working_wi
 {{ age | abs }}
 ----
 
-==== action
-Returns URL for registered controller action.
+==== action 
+返回已注册控制器路由地址。
 
-.Route
+.路由
 [source, javascript]
 ----
 Route.put('/user/:id', 'UserController.update')
 ----
 
-.View
+.视图
 [source, twig]
 ----
 <form method="POST" action="{{ 'UserController.update' | action({id: 1}) }}">
 </form>
 ----
 
-.Output
+.输出
 [source, html]
 ----
 <form method="POST" action="/user/1"></form>
 ----
 
-==== batch
-Creates multiple chunks of an array. It is helpful when printing HTML grid.
+==== batch 批处理
+创建数组的多个块。在打印html网格时很有帮助。
 
 [source, twig]
 ----
@@ -433,35 +436,35 @@ Creates multiple chunks of an array. It is helpful when printing HTML grid.
 {% endfor %}
 ----
 
-==== capitalize
+==== capitalize 大写
 [source, twig]
 ----
 {{ name | capitalize }}
 ----
 
-==== default
+==== default 默认值
 [source, twig]
 ----
 {{ title | default('Adonis') }}
 ----
 
 ==== first
-Returns first item from an array.
+从数组返回第一项。
 
 [source, twig]
 ----
 {{ ['foo','bar'] | first }}
 ----
 
-==== groupby
+==== groupby 分组
 [source, twig]
 ----
 {% set users = [{username:'doe', age:22}, {username:'dim', age:22}, {username:'dock', age:21}] %}
 {{ users | groupby('age') | json }}
 ----
 
-==== indent(width=2, firstLine=false)
-Indent each line of string with given spaces.
+==== indent(width=2, firstLine=false) 缩进
+用给定空格缩进字符串的每一行。
 
 [source, twig]
 ----
@@ -482,7 +485,7 @@ Indent each line of string with given spaces.
 ----
 
 ==== last
-Returns last item from an array.
+从数组返回最后一个项。
 
 [source, twig]
 ----
@@ -498,15 +501,15 @@ Returns length of the array.
 ----
 
 ==== list
-Converts an array into a list, think of it as a replacement to `join`, but it also works with strings inside the array.
+将数组转换为列表，将其视为 `join` 的替换，但它也与数组中的字符串一起工作。
 
 [source, twig]
 ----
 {{ ['foo','bar'] | list }}
 ----
 
-==== lower
-Converts value to lowercase
+==== lower 小写
+将值转换为小写
 
 [source, twig]
 ----
@@ -515,15 +518,15 @@ Converts value to lowercase
 ----
 
 ==== random
-Returns random item from an array
+从数组中返回随机项
 
 [source, twig]
 ----
 {{ ['foo', 'bar', 'baz'] | random }}
 ----
 
-==== rejectattr
-Filters an array and remove objects containing defined attributes
+==== rejectattr 刷选属性
+筛选数组移除包含指定属性的对象
 
 [source, twig]
 ----
@@ -531,8 +534,8 @@ Filters an array and remove objects containing defined attributes
 {{ users | rejectattr('admin') | json }}
 ----
 
-==== replace
-Implementation of javascript native `replace` method, the first argument can be a regex.
+==== replace 替换
+JavaScript原生 `replace` 方法实现中，第一个参数是一个正则表达式。
 
 [source, twig]
 ----
@@ -540,14 +543,14 @@ Implementation of javascript native `replace` method, the first argument can be 
 {# Hello Everyone #}
 ----
 
-==== reverse
+==== reverse 反转
 [source, twig]
 ----
 {{ 'Hello World' | reverse }}
 ----
 
-==== round
-Round the number to a given precision using defined method
+==== round 
+将小数转化成指定的精度
 
 [source, twig]
 ----
@@ -558,10 +561,10 @@ Round the number to a given precision using defined method
 {# 42.5 #}
 ----
 
-==== route
-Resolves a registered route.
+==== route 
+绑定路由
 
-.Route
+.路由
 [source, javascript]
 ----
 Route
@@ -576,7 +579,7 @@ Route
 ----
 
 ==== striptags
-Strip *Html*, *XML* tags from a string
+从一个字符串剔除带有 *Html* , *XML* 标签
 
 [source, twig]
 ----
@@ -592,7 +595,7 @@ Strip *Html*, *XML* tags from a string
 ----
 
 ==== trim
-Trims white space.
+去首尾空格
 
 [source, twig]
 ----
@@ -601,7 +604,7 @@ Trims white space.
 ----
 
 ==== truncate
-Returns a truncated copy of the string.
+截取指定长度的字符
 
 [source, twig]
 ----
@@ -610,7 +613,7 @@ Returns a truncated copy of the string.
 ----
 
 ==== upper
-Makes string uppercase.
+转化大写
 
 [source, twig]
 ----
@@ -618,7 +621,8 @@ Makes string uppercase.
 ----
 
 ==== urlencode
-Makes value URL friendly (uses UTF-8 encoding).
+让url更加友好（使用UTF-8编码）
+
 
 [source, twig]
 ----
@@ -626,7 +630,7 @@ Makes value URL friendly (uses UTF-8 encoding).
 ----
 
 ==== wordcount
-Count words in a string.
+字数统计
 
 [source, twig]
 ----
@@ -634,7 +638,7 @@ Count words in a string.
 ----
 
 ==== float
-Converts value to a float value.
+将值转成浮点型
 
 [source, twig]
 ----
@@ -642,7 +646,7 @@ Converts value to a float value.
 ----
 
 ==== int
-Converts value to an integer value.
+将值转成整型
 
 [source, twig]
 ----
