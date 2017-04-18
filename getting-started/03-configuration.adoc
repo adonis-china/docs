@@ -12,7 +12,7 @@ toc::[]
 == 配置程序Providers
 为了保持直观和DRY原则（Don't repeat yourself ），AdonisJs有一个内置的配置提供程序，它在启动服务器时自动加载以`.js`结尾的所有配置文件，这意味着您可以访问目录中所有文件的config值。
 
-确保不要在应用程序内手动引入配置文件，而是使用配置Providers。
+确保不要在应用程序内手动引入配置文件，而是使用Config Providers。
 
 .Wrong
 [source, javascript]
