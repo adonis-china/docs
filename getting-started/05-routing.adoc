@@ -308,7 +308,7 @@ Route.resource('users', 'UserController')
 .Output
 [options="header"]
 |====
-| 链接 | 动作 | 控制器里面对应方法 | 目的
+| 链接 | 动词 | 控制器里面对应方法 | 目的
 | /users | GET | UserController.index | Show list of all users
 | /users/create | GET | UserController.create | Display a form to create a new user.
 | /users | POST | UserController.store | Save user submitted via form to the database.
@@ -400,7 +400,7 @@ Route
 .输出
 [options="header"]
 |====
-| 路由 | 动作 | 控制器方法 | 目的
+| 路由 | 动词 | 控制器方法 | 目的
 | /posts/:id/comments | GET | PostsController.comments | List comments for a given post
 |====
 
