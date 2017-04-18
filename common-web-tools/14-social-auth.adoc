@@ -6,13 +6,12 @@ categories:
 = Social Auth Via Ally
 
 toc::[]
-
-Ally is a social authentication provider for AdonisJs. It makes it super easy to authenticate users via 3rd party websites like *Facebook*, *Twitter*, *Google*, etc. with minimum efforts.
+Ally是adonisJs社会化认证提供商，它使得通过第三方网站（如Facebook，Twitter，Google等）对用户进行身份验证变得非常简单。
 
 video::SDKz5qLMeBI[youtube, width=100%, height=480]
 
-== Drivers
-Below is the list of officially supported drivers whereas you are free to contribute and add more.
+== Drivers（驱动）
+以下是正式支持的驱动程序的列表，而您可以自由地贡献和添加更多适合您的驱动
 
 [support-list]
 * Facebook (facebook)
@@ -23,14 +22,14 @@ Below is the list of officially supported drivers whereas you are free to contri
 * Instagram (instagram)
 * Four Square (foursquare)
 
-== About Ally
+== 关于 Ally
 [pretty-list]
-1. Ally is 1st party provider installed and configured to add support for social authentication.
-2. You are required to define the configuration inside `config/services.js` file. The configuration includes a *Client Id*, *Secret* and the *Redirect URI*.
-3. Ally will attach an object called `ally` to the link:request[request] instance so that you can access the methods inside your controllers.
+1. Ally 是安装和支持社会化登录的第一步
+2. 您需要在config/services.js文件中定义配置。配置包括 *Client Id*, *Secret* 和 *Redirect URI*.
+3. Ally link:request[request]实例的对象ally，以便您可以访问控制器内的方法
 
-== Setup
-Let's begin with the setup process which is incredibly simple as always.
+== 创建
+我们从设置过程开始，一如既往地非常简单。
 
 .Installing From Npm
 [source, bash]
@@ -57,10 +56,10 @@ const globalMiddleware = [
   // ...
 ]
 ----
-Once the setup process has been done successfully, you are good to authenticate your users using their social profiles.
+一旦设置过程成功完成，您就可以使用社交配置文件对用户进行身份验证。
 
-== Config
-The configuration for ally is defined inside `config/services.js` file. You can copy the sample configuration from link:https://raw.githubusercontent.com/adonisjs/adonis-ally/develop/examples/config.js[github].
+== 配置
+`config/services.js` 文件定义了ally的配置，您可以从link:https://raw.githubusercontent.com/adonisjs/adonis-ally/develop/examples/config.js[github]复制示例配置
 
 .config/services.js
 [source, javascript]
@@ -86,10 +85,10 @@ module.exports = {
 }
 ----
 
-== Basic Example
-Let's start with the basic example of *Login with Facebook* where we will authenticate the users using Facebook and will create their user account without a password.
+== 基础例子
+我们先从Facebook的登录基础开始，我们将使用Facebook对用户进行身份验证，并创建他们的用户帐户而不用密码。
 
-NOTE: Make sure you have defined the required configuration for facebook inside `config/services.js` file.
+NOTE: 确保您已经定义了`config/services.js`文件中的facebook所需的配置
 
 .Registering Routes
 [source, javascript]
@@ -100,8 +99,8 @@ Route.get('facebook/login', 'LoginController.redirect')
 Route.get('facebook/authenticated', 'LoginController.handleCallback')
 ----
 
-.Redirecting User To The Provider
-First, we need to redirect the user to the facebook to allow our application to access their profile.
+.将用户重定向到提供者
+首先，我们需要将用户重定向到Facebook，以允许我们的应用访问他们的个人资料。
 [source, javascript]
 ----
 class LoginController {
@@ -141,39 +140,39 @@ class LoginController {
 }
 ----
 
-<1> The `getUser` method will fetch the user profile for the given provider. This method only works when the user has been redirected back to the `redirectUri`.
-<2> The `findOrCreate` is a lucid method to find a user with user details or create a new user if unable to find.
-<3> Finally we log in the user using their `id`.
+<1> 该`getUser`方法将获取给定提供者的用户配置文件。此方法仅在用户已重定向回时才有效`redirectUri`。
+<2> `findOrCreate`是一种清晰的方法来查找具有用户详细信息的用户，或者如果找不到则创建新用户。
+<3> 最后我们使用他们登录用户id。
 
-== Ally Methods
-Below is the list of available methods exposed by Ally provider.
+== Ally 方法
+以下是Ally提供商公开的可用方法的列表。
 
-==== driver
-Select the driver
+==== driver()
+选择驱动
 
 [source, javascript]
 ----
 request.ally.driver('facebook')
 ----
 
-==== redirect
-Redirect the user to the provider website
+==== redirect()
+将用户重定向到提供商网站
 
 [source, javascript]
 ----
 yield request.ally.driver('facebook').redirect()
 ----
 
-==== getRedirectUrl
-Returns redirect url for a given provider
+==== getRedirectUrl()
+返回给定提供者的重定向网址
 
 [source, javascript]
 ----
 yield request.ally.driver('facebook').getRedirectUrl()
 ----
 
-==== scope
-Update the scopes to be used for asking permission.
+==== scope()
+更新要用于请求许可的范围。
 
 [source, javascript]
 ----
@@ -182,16 +181,16 @@ yield request.ally.driver('facebook')
   .redirect()
 ----
 
-==== getUser
-Returns user profile for a given provider
+==== getUser()
+返回给定提供者的用户配置文件
 
 [source, javascript]
 ----
 yield request.ally.driver('facebook').getUser()
 ----
 
-==== fields
-Define custom fields when trying to access the user profile.
+==== fields()
+在尝试访问用户配置文件时定义自定义字段
 
 [source, javascript]
 ----
@@ -200,48 +199,48 @@ yield request.ally.driver('facebook')
   .getUser()
 ----
 
-NOTE: Make sure to access additional fields using the xref:_getoriginal[getOriginal] method on user instance.
+NOTE: 确保使用用户实例上的xref:_getoriginal[getOriginal] 法访问其他字段
 
-== User Methods
-Below is the list of methods to be used for fetching user profile details. All these methods are called on *User Instance* returned by xref:_getuser[getUser].
+== 用户方法
+以下是用于获取用户配置文件详细信息的方法列表。所有这些方法都在xref:_getuser[getUser]返回的用户实例上调用。
 
-==== getName
+==== getName()
 [source, javascript]
 ----
 const user = yield request.ally.driver('facebook').getUser()
 user.getName()
 ----
 
-==== getEmail
+==== getEmail()
 [source, javascript]
 ----
 const user = yield request.ally.driver('facebook').getUser()
 user.getEmail()
 ----
 
-==== getNickname
+==== getNickname()
 [source, javascript]
 ----
 const user = yield request.ally.driver('facebook').getUser()
 user.getNickname()
 ----
 
-==== getAvatar
+==== getAvatar()
 [source, javascript]
 ----
 const user = yield request.ally.driver('facebook').getUser()
 user.getAvatar()
 ----
 
-==== getAccessToken
+==== getAccessToken()
 [source, javascript]
 ----
 const user = yield request.ally.driver('facebook').getUser()
 user.getAccessToken()
 ----
 
-==== getRefreshToken
-Returns the refresh token to be used when access token has been expired. It is only returned when using *OAuth2*, and the provider supports access token expiry.
+==== getRefreshToken()
+返回在访问令牌过期时要使用的刷新令牌。仅在使用OAuth2时才返回，并且提供商支持访问令牌到期。
 
 [source, javascript]
 ----
@@ -249,8 +248,8 @@ const user = yield request.ally.driver('facebook').getUser()
 user.getRefreshToken()
 ----
 
-==== getExpires
-Access token expiry time in milliseconds. It is only returned when using *OAuth2*, and the provider supports access token expiry.
+==== getExpires()
+访问令牌到期时间（以毫秒为单位）。仅在使用OAuth2时才返回，并且提供商支持访问令牌到期。
 
 [source, javascript]
 ----
@@ -258,10 +257,10 @@ const user = yield request.ally.driver('facebook').getUser()
 user.getExpires()
 ----
 
-==== getTokenSecret
-Returns access token secret. It is only returned when using *OAuth1*.
+==== getTokenSecret()
+返回访问令牌秘密。仅在使用OAuth1时才返回。
 
-TIP: Twitter is the only driver which makes use of OAuth1.
+TIP: Twitter是唯一使用OAuth1的驱动程序。
 
 [source, javascript]
 ----
@@ -269,8 +268,8 @@ const user = request.ally.driver('twitter').getUser()
 user.getTokenSecret()
 ----
 
-==== getOriginal
-Returns the original response from the provider.
+==== getOriginal()
+返回提供者的原始响应。
 
 [source, javascript]
 ----

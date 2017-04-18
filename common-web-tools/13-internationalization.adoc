@@ -7,25 +7,25 @@ categories:
 
 toc::[]
 
-Internationalization is a process of translating your web apps into multiple different languages. Since web apps reach all parts of the world, internationalization makes it easier for you to detect the user language and translate your web apps for localized experience.
+国际化是将您的网络应用程序翻译成多种不同语言的过程。由于网络应用程序遍及世界各地，国际化使您更容易检测用户语言，并翻译您的网络应用程序以进行本地化体验
 
-== Drivers
+== 驱动（Drivers）
 
 [support-list]
 * File (file)
 * Database (database)
 
-== About Internationalization
+== 关于国际化
 
 [pretty-list]
-* It follows the conventions and libraries provided by link:http://formatjs.io/[Format.js, window="_blank"].
-* All locale strings are defined using link:http://userguide.icu-project.org/formatparse/messages[ICU Message Syntax, window="_blank"].
-* All locale strings are stored within *.json* files inside `resources/locales` directory or database table `locales` based upon the driver you are using.
-* A middleware can be used to detect the user language in runtime.
-* Generic messages (same for all languages) are saved inside `resources/locales/fallback` directory and `fallback` group when using database driver.
+* 他遵循link:http://formatjs.io/[Format.js, window="_blank"]库的约定
+* 所有本地化语言使用link:http://userguide.icu-project.org/formatparse/messages[ICU语法, window="_blank"]定义
+* 根据您使用的不同驱动，所有本地化设置的字符串都存储在目录`resources/localeslocales`的`.json`文件或数据库中。
+* 中间件可用于在运行时检测用户语言
+* 使用数据库驱动时，通用的`信息`(对多有语言用法相同)保存在`resources/locales/fallback` 目录和 `fallback` 组内。
 
-== Setup
-The `adonis-antl` package is not installed/setup by default, and you are required to install it when needed.
+== 建立
+`adonis-antl` 扩展包默认是没有安装的，你可以根据自己需要安装使用
 
 .Installing Via Npm
 [source, bash]
@@ -54,7 +54,7 @@ const aliases = {
 }
 ----
 
-Based upon the default driver you will have to store your locales inside the `resources/locales` directory or the `locales` database table. To make the setup process simple, you can run the following command.
+基于自带的驱动，你必须在将你的本地化语言保存在`resources/locales` 目录或`locales`数据表中。如果你想简单的实现这个过程，可以运行下面的命令
 
 .Registering Command (bootstrap/app.js)
 [source, javascript]
@@ -73,11 +73,11 @@ const commands = [
 # for database driver
 ./ace antl:setup --driver=database
 ----
+上面的命令将创建`resources/locales/*`目录或创建迁移数据表
 
-Above command will create the `resources/locales/*` directory or the migrations to create the database table.
-
-== Config
-The configuration for *Antl Provider* is saved inside `config/app.js` file. Release version _3.1_ includes the config by default but always make sure to keep it updated.
+== 配置（Config）
+配置*Antl Provider*是保存在`config/app.js`文件里的，3.1包含默认配置，后续版本将保持更新
+The configuration for *Antl Provider* is saved inside  file. Release version _3.1_ includes the config by default but always make sure to keep it updated.
 
 .config/app.js
 [source, javascript]
@@ -93,14 +93,14 @@ The configuration for *Antl Provider* is saved inside `config/app.js` file. Rele
 
 [options="header"]
 |====
-| Key | Possible Values | Description
-| driver | file, database | The driver to use for reading/writing and removing locale strings.
-| locale | Any valid locale | The default locale to be used when unable to detect user locale.
-| fallbackLocale | Any valid locale | The fallback locale when detected user locale is not supported.
+| 键 | 可选值| 描述
+| driver | file, database | 用于阅读/写入和删除语言环境字符串的驱动程序。
+| locale | Any valid locale | 在无法检测用户区域设置时要使用的默认区域设置。
+| fallbackLocale | Any valid locale | 检测到的用户区域设置不支持后备区域设置。
 |====
 
-== Basic Example
-Let's start with a basic example of formatting raw values and messages written using xref:_icu_messages[ICU Syntax]. This time, we will play with the *Ace REPL* within the command line.
+== 基础实例
+我们先从使用xref:_icu_messages[ICU 语法]编写的格式化原始值和消息的基本示例开始。这时，我们将在命令行中使用*Ace REPL*
 
 [source, bash]
 ----
@@ -113,7 +113,7 @@ Let's start with a basic example of formatting raw values and messages written u
 repl+>
 ----
 
-=== Formatting Values
+=== 格式化值
 [source, javascript]
 ----
 const Antl = use('Antl')
@@ -126,12 +126,12 @@ Antl
   .formatAmount(1000, 'usd')
 ----
 
-<1> The method `for` will let you switch the language for a single operation.
+<1> `for`方法将允许您切换单个操作语言
 
 image:http://res.cloudinary.com/adonisjs/image/upload/v1475061511/Adonis-Antl_hlpwxd.gif[]!
 
-=== Formatting Messages
-Using the default `file` driver, we can define locales inside the `resources/locales` directory. Each language gets its own sub-directory.
+=== 格式化信息
+使用默认`file`驱动程序，我们可以在`resources/locales`目录中定义语言环境,每种语言都有自己的子目录。
 
 .resources/locales/en/messages.json
 [source, json]
@@ -154,11 +154,11 @@ Antl.formatMessage('messages.product.cost', { product: 'Chair', price: 29 })
 Chair will cost $29.00
 ----
 
-== ICU Messages
-Before you can start using the *Antl* provider, it is crucial to understand the link:http://userguide.icu-project.org/formatparse/messages[ICU message syntax] since it is a standard adopted by the web globally.
+== ICU 消息
+在开始使用*Antl* provider之前，了解link:http://userguide.icu-project.org/formatparse/messages[ICU message syntax]至关重要，因为它采用的是全球标准
 
-=== String Literals
-A message can be just a string literal in multiple different languages.
+=== 字符串文字
+`message`可以是多种不同语言的字符串文字。
 
 .resources/locales/en/messages.json
 [source, json]
@@ -176,8 +176,8 @@ A message can be just a string literal in multiple different languages.
 }
 ----
 
-=== Simple Arguments
-You can also define placeholders for simple arguments and pass dynamic data at runtime to replace them with their actual values.
+=== 简单参数
+您还可以为简单参数定义占位符，并在运行时传递动态数据，以将其替换为实际值。
 
 .resources/locales/en/messages.json
 [source, json]
@@ -203,15 +203,16 @@ use('Antl').formatMessage('messages.greeting', { name: 'Virk' })
 // Returns - Hello Virk or Bonjour Virk
 ----
 
-=== Formatted Arguments
-Formatted arguments give you the functionality to define the argument key, type and format as `{ key, type, format }`.
+=== 格式化参数
+格式化参数为您提供可定义的参数，实现指定类型和格式功能 `{ key, type, format }`。
 
 [options="header"]
 |====
-| Name | Description
-| key | Key is used to define the placeholder name which is used in the data object.
-| type | Defines the format type for the value. Internationalization has a set of defined types.
-| format | Format is an object of values defining how to format the type. For example: `number` type can be formatted as *percentage*, *decimal* or *currency*.
+| 名称 | 描述
+| key |   
+键用于定义在数据对象中使用的占位符名称。
+| type | type是定义值的格式类型。国际化有一套定义类型。
+| format | 格式是定义如何格式化类型的值的对象。例如：`number`的type可以格式化为*百分比*，*十进制*或*货币*。
 |====
 
 .resource/locales/en/messages.json
@@ -222,8 +223,7 @@ Formatted arguments give you the functionality to define the argument key, type 
 }
 ----
 
-Now when formatting the above message we need to pass `curr` format to the *number type*, so that the inbuilt formatter can format the total as a currency.
-
+现在格式化上述消息时，我们需要将`curr`格式传递给数字类型，以便内置的格式化程序可以将总数格式化为货币。
 [source, javascript]
 ----
 const Antl = use('Antl')
@@ -236,7 +236,7 @@ Antl.formatMessage('messages.cart.total', { price: 59 }, (message) => {
 })
 ----
 
-Also, you can pass the format as an expression instead of attaching the callback.
+此外，您可以将格式作为表达式传递，而不是附加回调。
 
 [source, javascript]
 ----
@@ -245,18 +245,18 @@ const Antl = use('Antl')
 Antl.formatMessage('messages.cart.total', { price: 59 }, 'curr:number[currency=usd]')
 ----
 
-You can also access antl directly in your views using the `antl` global.
+您还可以使用`antl`在全局视图中直接访问 
 
 [source, twig]
 ----
 {{ antl.formatMessage('messages.cart.total', { price: 59 }, 'curr:number[currency=usd]') }}
 ----
 
-== Antl Methods
+== Antl 方法
 Below is the list of antl methods.
 
 ==== for(locale)
-Temporarily switch locale for a single method call.
+临时切换单个方法调用的语言环境。
 
 [source, javascript]
 ----
@@ -264,7 +264,7 @@ Antl.for('fr').formatNumber(1000)
 ----
 
 ==== getLocale
-Returns the currently active locale
+返回当前活动的语言环境
 
 [source, javascript]
 ----
@@ -272,7 +272,7 @@ Antl.getLocale()
 ----
 
 ==== setLocale(locale)
-Permanently switch locale for all future translations.
+切换当前语言环境。
 
 [source, javascript]
 ----
@@ -281,15 +281,15 @@ Antl.formatNumber(1000)
 ----
 
 ==== isLocale(locale)
-Detect if a given locale is the active locale.
+检测给定的区域设置是否为活动区域设置
 
 [source, javascript]
 ----
 Antl.isLocale('en')
 ----
 
-==== locales
-Return a list of registered locales as an array. It is based upon the messages saved inside a file/database.
+==== 地区
+将一个注册的语言环境列表作为数组返回。它基于保存在文件/数据库中的消息。
 
 [source, javascript]
 ----
@@ -297,9 +297,9 @@ Antl.locales()
 ----
 
 ==== strings([group])
-Return a list of registered strings for a given/default locale. An optional group can be passed to fetch strings for a given group only.
+返回给定/默认语言环境的注册字符串列表。可以将可选组传递给仅为给定组提取字符串。
 
-TIP: This method can be helpful in populating a dropdown.
+TIP: 此方法可以帮助填充下拉列表。
 
 [source, javascript]
 ----
@@ -311,7 +311,7 @@ Antl.for('fr').strings()
 ----
 
 ==== pair([group])
-This method is similar to xref:_strings_group[strings] but instead returns a flat object by joining nested objects with a (dot).
+此方法类似于xref:_strings_group[字符串]，而是通过使用（点）连接嵌套对象来返回平面对象。
 
 [source, javascript]
 ----
@@ -323,7 +323,7 @@ Antl.for('fr').pair()
 ----
 
 ==== get(key)
-Get raw string for a given key
+获取给定键的原始字符串
 
 [source, javascript]
 ----
@@ -333,9 +333,9 @@ Antl.for('fr').get('messages.cart.total')
 ----
 
 ==== set(group, key, value)
-Update/Create value for a given key inside a group
+更新/创建组内给定键的值
 
-NOTE: This method will update the underlying store for the currently active driver which means it will update the database row or update the file system.
+NOTE: 此方法将更新当前激活的驱动程序的底层存储，这意味着它将更新数据库行或更新文件系统。
 
 [source, javascript]
 ----
@@ -343,7 +343,7 @@ yield Antl.set('messages', 'cart.total', 'You will be paying {total, number, cur
 ----
 
 ==== remove(group, key)
-Remove a given key for the currently active locale.
+删除当前活动的语言环境的给定键。
 
 [source, javascript]
 ----
@@ -351,9 +351,9 @@ yield Antl.remove('messages', 'cart.total')
 ----
 
 ==== load()
-This method is used to `load` the locales for the currently active driver. First time *Antl Provider* will load all the strings for the default driver defined inside `config/app.js` file whereas you are required to call this method manually whenever you switch the driver in runtime.
+此方法被用来`加载`当前使用中的语言设置，首先，*Antl Provider*将加载`config/app.js`文件中定义的默认驱动程序的所有字符串，而您需要在运行时切换驱动程序时手动调用此方法。
 
-TIP: The `load` method smartly caches the values returned by a driver. Which means calling the method multiple time will have no side effects.
+TIP: 该`load`方法巧妙地缓存了驱动程序返回的值,这意味着多次调用该方法将没有副作用。
 
 [source, javascript]
 ----
@@ -363,8 +363,8 @@ yield db.load()
 db.formatMessage('messages.cart.total', {total: 1000})
 ----
 
-==== reload
-Since the `load` method caches the values, you can make use of `reload` to forcefully reloads all the strings for a given driver.
+==== reload()
+由于`load`方法缓存值，您可以使用`reload`强制重新加载给定驱动程序的所有字符串
 
 [source, javascript]
 ----
@@ -374,8 +374,8 @@ yield db.reload()
 db.formatMessage('messages.cart.total', {total: 1000})
 ----
 
-== Formatter Methods
-Below is the list of formatter methods and available options you can pass to get desired output.
+== 格式化方法
+以下是可以传递以获取所需输出的格式化程序列表和可用选项
 
 ==== formatNumber(value, options)
 [source, javascript]
@@ -397,16 +397,16 @@ Antl.formatNumber(1000, { style: 'percent' })
 .Options
 [options="header"]
 |====
-| Key | Default Value | Possible Values | Description
-| style | decimal | decimal, currency, percentage | The formatting style to be used for formatting the value.
-| currency | null | A valid ISO 4217 currency code | If *style* is currency, this option must pass a valid currency code to be used for formatting the value. link:https://en.wikipedia.org/wiki/ISO_4217#Active_codes[Reference list of country code, window="_blank"]
-| currencyDisplay | symbol | symbol, code | How to display the currency. For example &dollar; is the *symbol* and USD is the *code*
-| useGrouping | true | true, false | Whether to use grouping separators like thousand/lakh/crore separators.
-| minimumIntegerDigits | 1 | 1-21 | The minimum number of integer digits to use.
-| minimumFractionDigits | floating | 0-20 | The minimum number of fraction digits to use. The default value is *0* for plain numbers and minor unit digits provided by the ISO 4217 for currency values.
-| maximumFractionDigits | floating | 0-20 | The maximum number of fraction digits to use. The default value is greater than the *minimumFractionDigits* value.
-| minimumSignificantDigits | 1 | 1-21 | The minimum number of significant digits to use.
-| maximumSignificantDigits | minimumSignificantDigits | 1-21 | The maximum number of significant digits to use.
+| 键 | 默认值 | 可选值 | 描述
+| style | decimal | decimal, currency, percentage | 要用于格式化值的格式化样式
+| currency | null | A valid ISO 4217 currency code | 如果样式是货币，则此选项必须通过用于格式化值的有效货币代码。link:https://en.wikipedia.org/wiki/ISO_4217#Active_codes[国家代码参考清单, window="_blank"]
+| currencyDisplay | symbol | symbol, code | 如何显示货币。例如$是符号，USD是代码
+| useGrouping | true | true, false | 是否使用分组分隔符，如thousand/lakh/crore分隔符。
+| minimumIntegerDigits | 1 | 1-21 | 要使用的最小数字的整数数字
+| minimumFractionDigits | floating | 0-20 | 要使用的最小数字数字。对于货币值，ISO 4217提供的普通数字和次要单位数字的默认值为0。
+| maximumFractionDigits | floating | 0-20 | 要使用的最小数字数字。默认值大于*minimumFractionDigits*值。
+| minimumSignificantDigits | 1 | 1-21 | 要使用的有效数字的最小数量
+| maximumSignificantDigits | minimumSignificantDigits | 1-21 | 要使用的有效数字的最大数量
 |====
 
 ==== formatAmount(value, currency, options)
@@ -426,7 +426,7 @@ Antl.formatNumber(1000, { currencyDisplay: 'code' })
 {{ antl.formatAmount(1000, 'usd', { currencyDisplay: 'code' }) }}
 ----
 
-The formatting options are similar to xref:_formatnumber_value_options[formatNumber]
+格式化选项与xref:_formatnumber_value_options[formatNumber]类似
 
 ==== formatDate(value, options)
 [source, javascript]
@@ -448,17 +448,17 @@ Antl.formatDate(new Date(), { hour12: false })
 .Options
 [options="header"]
 |====
-| Key | Default Value | Possible Values | Description
-| hour12 | locale dependent | true, false | Whether to show time in *12 hours* format or not.
-| weekday | none | narrow, short, long | The representation of the weekday.
-| era | none | narrow, short, long | The representation of the era.
-| year | none | numeric, 2-digit | The representation of the year.
-| month | none | numeric, 2-digit, narrow, short, long | The representation of the month.
-| day | none | numeric, 2-digit | The representation of the day.
-| hour | none | numeric, 2-digit | The representation of the hour.
-| minute | none | numeric, 2-digit | The representation of the minute.
-| second | none | numeric, 2-digit | The representation of the second.
-| timeZoneName | none | short, long | The representation of the time zone name.
+| 键 | 默认值 | 允许值 | 描述
+| hour12 | locale dependent | true, false | 是否以12小时格式显示时间
+| weekday | none | narrow, short, long | 工作日
+| era | none | narrow, short, long | 时代
+| year | none | numeric, 2-digit | 年份
+| month | none | numeric, 2-digit, narrow, short, long | 月份
+| day | none | numeric, 2-digit | 天
+| hour | none | numeric, 2-digit | 小时
+| minute | none | numeric, 2-digit | 分钟
+| second | none | numeric, 2-digit | 秒
+| timeZoneName | none | short, long | 时区
 |====
 
 ==== formatRelative(key, value, options)
@@ -479,13 +479,13 @@ Antl.formatRelative(threeHoursPrior)
 .Options
 [options="header"]
 |====
-| Key | Default Value | Possible Values | Description
-| units | best fit | second, minute, hour, day, month, year | The particular rendering unit. For example *30 days ago* instead of *1 month ago*
-| style | best fit | numeric | The rendering style for the value. For example: *numeric* will force the output to *1 day ago* instead of *yesterday*.
+| 键 | 默认值 | 可选值 | Description
+| units | best fit | second, minute, hour, day, month, year | T特定的渲染单元，例如30天前，而不是1个月前
+| style | best fit | numeric | 价值的渲染风格。例如：numeric将迫使输出1天前而不是昨天
 |====
 
 ==== formatMessage(key, values, [callback|options])
-Formatting a message requires you first to save your strings inside the locales files or the database table called `locales` and it must follow the xref:_icu_messages[ICU Message Syntax].
+格式化信息首先需要您在本地文件或数据库保存叫`locales`的文件，且必须遵循[ICU 规则].
 
 [source, javascript]
 ----
@@ -498,7 +498,7 @@ Antl.formatMessage('messages.total', { total: 1000 }, (message) => {
 })
 ----
 
-Since views do not allow adding callbacks to a function, you are supposed to pass a string expression to the `formatMessage` method.
+由于视图不允许向函数添加回调，因此您应该将一个字符串表达式传递给 `formatMessage` 方法
 
 [source, twig]
 ----
@@ -508,7 +508,7 @@ Since views do not allow adding callbacks to a function, you are supposed to pas
 ----
 
 == Locale & Groups
-When working with *Antl provider* your messages are divided into segments of `locale` and `groups`. Locale refers to the language for which you have defined the message, and a group defines the category of the message. Take the following example:
+当*Antl provider*工作时，你的`message`被细分为`locale`和`groups`，本地化设置指定了您的信息语言并定义不同的类别组，看个例子：
 
 [source]
 ----
@@ -517,10 +517,10 @@ When working with *Antl provider* your messages are divided into segments of `lo
 │   │   ├── messages.json <2>
 ----
 
-<1> The `en` is the language for the message.
-<2> The file `messages.json` is the group called *messages* for all the strings defined inside this file.
+<1>  `en` 是语言分类
+<2> `messages.json` 该语言分类下面的`messages`组的分类，本文件里定义了所有字符串的翻译内容
 
-When translating/formatting a message, you can are required to pass a string starting with the group. `messages.cart.total`. Also for generic messages which are same for all the languages can be defined next to the `fallback` folder/group.
+当翻译或格式化一条消息时，您可以通过该组传递字符串`messages.cart.total`，对于所有语言相同的通用消息也可以在`fallback`文件夹/组旁边定义。
 
 .resources/locales/fallback/messages.json
 [source, json]
@@ -530,7 +530,7 @@ When translating/formatting a message, you can are required to pass a string sta
 }
 ----
 
-In the same way, you can define a group when using the `database` driver.
+以同样的方式，您可以在使用`database`驱动时定义组
 
 .Database locales table
 [options="header"]
@@ -540,9 +540,8 @@ In the same way, you can define a group when using the `database` driver.
 | 2 | fallback | messages | greeting | I am available to all the languages
 |====
 
-== Detecting User Locale
-So far we have seen the ways of formatting messages and values using Antl provider. All values will be formatted for the *default locale* defined in `config/app.js` file.
-
+== 检测用户区域设置
+到目前为止，我们已经看到使用Antl提供程序格式化消息和值的方法。所有值将被格式化为文件中定义的默认语言环境`config/app.js`。
 .config/locale.js
 [source, javascript]
 ----
@@ -555,7 +554,7 @@ So far we have seen the ways of formatting messages and values using Antl provid
 }
 ----
 
-You can change the default locale value, and all values will be formatted accordingly. To make this process dynamic based upon the user language, you are required to make use of `Antl` middleware which will detect the user language and set it as the default language for all translations.
+您可以更改默认语言环境值，并且所有值将被相应地格式化。为了使此过程基于用户语言动态，您需要使用`Antl`将检测用户语言并将其设置为所有翻译的默认语言的中间件。
 
 .app/Http/kernel.js
 [source, javascript]
@@ -567,10 +566,10 @@ const globalMiddleware = [
 ]
 ----
 
-Now all HTTP requests header *Accept-Language* or query string param *lang* will be used to detect the user language.
+现在所有HTTP请求头的*Accept-Language*或者查询字符串*param lang*将被用来检测用户语言。
 
-== Switching Drivers
-Antl Provider makes use of the default driver defined inside `config/app.js` file. Whereas you can switch the drivers in runtime to make use of a different driver.
+== 开关驱动器
+Antl Provider使用`config/app.js`文件中定义的默认驱动程序,而您可以在运行时切换驱动程序以使用不同的驱动程序。
 
 [source, javascript]
 ----
@@ -580,10 +579,11 @@ yield db.load() <1>
 db.formatNumber(1000, { format: 'curr' })
 ----
 
-<1> The xref:_load[load] method should be called after switching the driver since it will load and cache all the strings for a given driver.
+<1> xref:_load[load] 方法应该切换驱动程序之后被调用，因为它会加载和缓存对于给定的驱动程序中的所有字符串。
 
-== Adding Drivers
-You can extend *Antl Provider* by adding your own custom drivers and register them inside `bootstrap/extend.js` file.
+
+== 添加驱动程序
+您可以通过添加自己的自定义驱动程序并在文件中注册来扩展*Antl Provider* `bootstrap/extend.js`。
 
 .bootstrap/extend.js
 [source, javascript]
@@ -613,7 +613,7 @@ class Mongo {
 }
 ----
 
-1. It should return all locale strings as a nested object of `language` and `group`. For example
+1. 它应该返回所有语言环境的字符串作为一个嵌套的对象`language`和`group`。例如
 +
 [source, json]
 ----
@@ -626,5 +626,5 @@ class Mongo {
 }
 ----
 
-2. The `set` method should save the value for a given key, group and locale. It the value already exists, it should update it.
-3. The `remove` method should delete the value.
+2. 该`set`方法应保存给定键，组和区域设置的值。它的值已经存在，它应该更新它
+3. 该`remove`方法应该删除该值

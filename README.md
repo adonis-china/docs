@@ -60,9 +60,9 @@
 1. **@dxc1996 Sessions**
 1. **@dxc1996 验证**
 1. **@dxc1996 Redis**
-1. @linganmin 国际化
-1. @linganmin 基于Ally的社交登陆
-1. @linganmin WebSocket
+1. **@linganmin 国际化**
+1. **@linganmin 基于Ally的社交登陆**
+1. **@linganmin WebSocket**
 
 ### 教程
 1. **@river-lee 起步**

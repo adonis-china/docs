@@ -7,14 +7,14 @@ categories:
 
 toc::[]
 
-WebSocket Provider makes it super easy to build real-time applications in AdonisJs. It comes with out of the box support for *authentication*, *channels* and *rooms* management.
+WebSocket Provider使其在AdonisJs中构建实时应用程序变得非常简单。它配有开箱即用的认证，*渠道*和*房间*管理支持。
 
-## About Ws Provider
+## 关于Ws Provider
 
 [pretty-list]
-1. You are supposed to define channels to receive incoming WebSocket connections and same is done inside `app/Ws/socket.js` file.
-2. All incoming connections can be authenticated using the `auth` middleware.
-3. All web sockets actions supports *ES2015* generators. For example:
+1. 你应该定义接收传入的WebSocket连接的通道，同样在`app/Ws/socket.js`文件内部完成。
+2. 所有传入的连接都可以使用中间件进行`auth`身份验证
+3. 所有Web套接字操作都支持`ES2015`(ES6)生成器。例如：
 +
 [source, javascript]
 ----
@@ -23,15 +23,15 @@ Ws.channel('/chat', function (socket) {
   })
 })
 ----
-4. You can attach controllers to your channels, the same as with routes.
+4. 您可以将控制器连接到您的频道，与路由相同。
 +
 [source, javascript]
 ----
 Ws.channel('/chat', 'ChatController')
 ----
 
-## Setup
-NOTE: Feel free to skip the setup process if you are using AdonisJs *3.2 or later*. Since Web Sockets are pre-configured.
+## 创建
+NOTE: 如果您使用的是*3.2或更高版本*的adonisJs，你可以跳过这一步，因为此时Web Sockets已经预置
 
 .Install via npm
 [source, bash]
@@ -39,7 +39,7 @@ NOTE: Feel free to skip the setup process if you are using AdonisJs *3.2 or late
 npm i --save adonis-websocket
 ----
 
-Next, we need to register the provider and setup alias inside `bootstrap/app.js` file.
+接下来，我们需要在`bootstrap/app.js`文件中注册提供者和设置别名
 
 .bootstrap/app.js
 [source, javascript]
@@ -53,7 +53,7 @@ const aliases = {
 }
 ----
 
-Next, we need to create required directories and files to organize our code.
+接下来，我们需要创建所需的目录和文件来组织我们的代码。
 [source, bash]
 ----
 mkdir -p app/Ws/Controllers
@@ -61,7 +61,7 @@ touch app/Ws/socket.js
 touch app/Ws/kernel.js
 ----
 
-1. The `socket.js` file is used to define websocket channels, you can think of it as the Http routes file.
+1. 该`socket.js`文件用于定义websocket通道，您可以将其视为Http路由文件。
 +
 .app/Ws/socket.js
 [source, javascript]
@@ -72,7 +72,7 @@ Ws.channel('/chat', function (socket) {
   // here you go
 })
 ----
-2. The `kernel.js` file is used to define global and named middleware just like your Http middleware but for Websocket connections.
+2. 该`kernel.js`文件用于定义全局和命名的中间件，就像您的Http中间件，但是用于Websocket连接
 +
 .app/Ws/kernel.js
 [source, javascript]
@@ -91,7 +91,7 @@ Ws.global(globalMiddleware)
 Ws.named(namedMiddleware)
 ----
 
-Finally, we need to load `socket.js` and `kernel.js` file when booting the Http server and same can be done inside `bootstrap/http.js` file.
+最后，我们需要在引导Http服务器时加载`socket.js`和`kernel.js`文件，同样可以在`bootstrap/http.js`文件内部完成。
 
 .bootstrap/http.js
 [source, javascript]
@@ -100,15 +100,16 @@ use(Helpers.makeNameSpace('Ws', 'kernel'))
 use(Helpers.makeNameSpace('Ws', 'socket'))
 ----
 
-## Basic Example
-Check out the following video showing how to exchange messages between client and the server.
+## 基本例子
+请查看以下视频，显示如何在客户端和服务器之间交换消息。
 
 video::rQTIwBV_ZgY[youtube, width=100%, height=480]
 
-## Channels
-Channels make it easier to distribute logic around exposing web socket endpoints. For each channel, you can follow different authentication process or bind different middleware to it.
+## Channels(频道)
+通道可以更容易地在暴露Web套接字端点的情况下分发逻辑。对于每个通道，您可以遵循不同的身份验证过程或绑定不同的中间件。
 
-TIP: Adonisjs makes use of *multiplexing* instead of creating a different connection for each channel.
+TIP: Adonisjs利用*多路复用*而不是为每个通道创建不同的连接。
+
 
 .app/Ws/socket.js
 [source, javascript]
@@ -124,21 +125,21 @@ Ws.channel('chat', function (socket, request, presence) {
 })
 ----
 
-The above closure will be executed every time a new socket will join the *chat* channel and receives following.
+每次新插座加入聊天频道并接收以下内容时，上述关闭将被执行。
 
-socket:: User socket instance to emit and listen for events.
-request:: Instance of link:request[request] instantiated at the time of handshake.
-presence:: A special presence instance to track the socket. Read more on xref:_presence[presence].
+socket:: 用户套接字实例发出和收听事件
+request:: 握手时实例link:request[request]
+presence::一个特殊的`presence`来跟踪套接字。阅读更多关于xref:_presence[presence].
 
 ## Controllers
-Apart from closures, you can also bind controllers to channels. All controllers are stored inside `app/Ws/Controllers` directory and can be referenced the same way as *Route controllers*.
+除了关闭之外，您还可以将控制器绑定到通道。所有控制器都存储在`app/Ws/Controllers`目录中，可以与Route控制器相同。
 
 [source, javascript]
 ----
 Ws.channel('chat', 'ChatController')
 ----
 
-Now controllers can listen for new events just by creating appropriate methods on it.
+现在控制器可以通过创建适当的方法来侦听新的事件
 
 .app/Ws/Controllers/ChatController.js
 [source, javascript]
@@ -158,7 +159,7 @@ class ChatController {
 }
 ----
 
-The `onMessage` method will be invoked every time message event will be fired from the client. Also, you can make your listeners a generator method for doing async operations.
+`onMessage`每次从客户端触发消息事件时，将调用该方法。此外，您可以使侦听器成为执行异步操作的生成器方法。
 
 [source, javascript]
 ----
@@ -173,7 +174,7 @@ onMessage (message) {
 }
 ----
 
-All events listeners must start with `on` and the *camel case* representation of the event name. For example `new:user` will invoke `onNewUser` method on the controller.
+所有事件的听众必须从事件名称开始，`on`并*camel case*。例如，new:user将onNewUser在控制器上调用方法。
 
 [options="header"]
 |====
@@ -183,13 +184,13 @@ All events listeners must start with `on` and the *camel case* representation of
 | user:left| onUserLeft
 |====
 
-## Rooms
-Rooms make it easier to build multi-room chat systems. For example, Slack has public rooms that anyone can join and leave, whereas private rooms need further authorization.
+## Rooms(房间)
+`Rooms`使建立多房间聊天系统变得更加容易。例如，Slack有公共房间，任何人都可以加入和离开，而私人房间需要进一步的授权。
 
-In the same manner, AdonisJs gives you hooks to authorize a socket before it can listen for events inside a room.
+以同样的方式，AdonisJs可以让您勾选一个套接字，然后才能收听房间内的事件。
 
 ### Joining A Room
-The `joinRoom` method on the channel controller has invoked automatically every time a socket tries to join a room. You can make use of this method to authorize the join action or deny it by throwing an exception.
+该`joinRoom`信道控制器上方法每一个插座试图加入室温时将自动调用。您可以使用此方法来授权联合操作或通过抛出异常来拒绝它。
 
 #### Server
 .app/Ws/socket.js
@@ -230,8 +231,8 @@ client.joinRoom('lobby', {}, function (error, joined) {
 })
 ----
 
-### Emitting Messages To A Room
-Once a socket has joined a room, it can listen for messages.
+### 发送消息到一个房间
+一旦套接字加入了一个房间，它就可以收听消息。
 
 #### Server
 [source, javascript]
@@ -246,8 +247,8 @@ client.on('message', function (room, message) {
 })
 ----
 
-### Leaving A Room
-In order to leave a room, the client can call `leaveRoom` method.
+### 离开一个房间
+为了离开房间，客户可以调用`leaveRoom`方法。
 
 #### Server
 
@@ -282,18 +283,18 @@ client.leaveRoom('lobby', {}, function (error, left) {
 })
 ----
 
-## Presence
-The presence feature allows you to track sockets for a given user. It is helpful in showing the list of online users and number of devices they are online from. Also when a user logouts, you can *disconnect* all of their related sockets to make sure they do not receive any realtime messages.
+## 存在
+存在功能允许您跟踪给定用户的套接字。显示在线用户列表和他们在线的设备数量是有帮助的。此外，当用户注销时，您可以断开所有相关的套接字，以确保他们没有收到任何实时消息。
 
-Checkout this video to understand the presence in-depth.
+查看此视频以了解深度的存在。
 
 video::p_QNEZdQt6Y[youtube, width=100%, height=480]
 
-## Presence Methods
-Below is the list of presence methods.
+## 存在方法
+以下是存在方法的列表
 
 ### track(socket, userId, [meta])
-The `track` method allows you to track a socket for a given user using their *userId*. Optionally you can pass meta data too.
+该track方法允许您使用其userId跟踪给定用户的套接字。或者，您也可以传递元数据。
 
 [source, javascript]
 ----
@@ -309,7 +310,7 @@ class ChatController {
 ----
 
 ### pull(userId, callback)
-Pull a list of sockets from the presence list for a given user. Pulled sockets will not be tracked anymore.
+从给定用户的在线列表中提取套接字列表。拉动的插座将不再被跟踪。
 
 [source, javascript]
 ----
@@ -325,11 +326,11 @@ chromeOnlySockets.forEach((payload) => {
 })
 ----
 
-## Socket Methods
-Below is the list of methods you can call from the socket instance.
+## 套接字方法
+以下是可以从套接字实例调用的方法列表。
 
 #### on(event, callback)
-Listen for an event.
+监听一个事件
 
 [source, javascript]
 ----
@@ -339,7 +340,7 @@ socket.on('greet', function (greeting) {
 ----
 
 #### once(event, callback)
-Listen for an event only once.
+只听一次事件
 
 [source, javascript]
 ----
@@ -349,14 +350,14 @@ socket.once('greet', function (greeting) {
 ----
 
 #### emit(event, ...properties)
-Emit an event.
+发出一个事件
 [source, javascript]
 ----
 socket.emit('greet', 'Hello world')
 ----
 
 #### toEveryone()
-Emit a message to everyone including the originating socket itself.
+向每个人发出消息，包括始发套接字本身。
 
 [source, javascript]
 ----
@@ -364,14 +365,14 @@ socket.toEveryone().emit('greet', 'Hello world')
 ----
 
 #### toMe()
-Emit a message to the originating socket only.
+仅向原始`socket`发出消息。
 [source, javascript]
 ----
 socket.toMe().emit('greet', 'Hello world')
 ----
 
 #### exceptMe()
-Emit a message to everyone except the originating socket.
+向除了发出该消息以外的所有人发出消息。
 
 [source, javascript]
 ----
@@ -379,38 +380,38 @@ socket.exceptMe().emit('user:join', 'User joined!')
 ----
 
 #### to(ids)
-Emit a message to specific socket ids only.
+仅向特定的套接字ID发出消息
 [source, javascript]
 ----
 socket.to([]).emit('greet', 'Hello world')
 ----
 
 #### inRoom(room)
-Emit a message a given room.
+在给定的房间发出消息。
 [source, javascript]
 ----
 socket.inRoom('lobby').emit('greet', 'Hello world')
 ----
 
 #### inRooms(rooms)
-Emit a message to multiple rooms.
+向多个房间发出消息。
 [source, javascript]
 ----
 socket.inRoom(['lobby', 'watercooler']).emit('greet', 'Hello world')
 ----
 
 #### disconnect
-Disconnect a socket from receiving/sending messages.
+断开套接字接收/发送消息。
 [source, javascript]
 ----
 socket.disconnect()
 ----
 
-## Channel Methods
-Below is the list of methods can be used on the channel instance.
+## 渠道方法
+下面是可以在通道实例上使用的方法列表
 
 #### middleware(...middleware)
-Apply an array of middleware on a given channel. Make sure to define middleware inside `app/Ws/kernel.js` file.
+在给定的频道上应用一组中间件。确保在`app/Ws/kernel.js`文件中定义中间件。
 
 [source, javascript]
 ----
@@ -426,7 +427,7 @@ Ws
 ----
 
 #### emit(event, ...properties)
-Emit a message to all the sockets connected to a given channel.
+向所有已连接上的`sockets`发送消息
 
 [source, javascript]
 ----
@@ -435,7 +436,7 @@ chatChannel.emit('message', 'Hello world')
 ----
 
 #### inRoom(room)
-Emit a message a given room.
+在给定的房间发出消息
 [source, javascript]
 ----
 const chatChannel = Ws.channel('chat')
@@ -443,7 +444,7 @@ chatChannel.inRoom('lobby').emit('message', 'Hello world')
 ----
 
 #### inRooms(rooms)
-Emit a message to all given rooms.
+向所有给定的房间发出消息
 [source, javascript]
 ----
 const chatChannel = Ws.channel('chat')
@@ -451,7 +452,7 @@ chatChannel.inRooms(['lobby', 'watercooler']).emit('message', 'Hello world')
 ----
 
 #### to(ids)
-Emit a message to specific socket ids only.
+仅向特定的套接字ID发出消息
 [source, javascript]
 ----
 const chatChannel = Ws.channel('chat')
@@ -459,7 +460,7 @@ chatChannel.to([]).emit('greet', 'Hello world')
 ----
 
 #### get(socketId)
-Get socket instance using the socket id.
+使用套接字标识获取套接字实例
 
 [source, javascript]
 ----
@@ -467,11 +468,13 @@ const chatChannel = Ws.channel('chat')
 const socket = chatChannel.get(socketId)
 ----
 
-## WebSocket Client
+## WebSocket客户端
+可以使用npm安装基于浏览器的web*Common js*客户端模块，或者使用bower安装*ADM*模块
+，也可以从cnd上引用它。
 The client library to be used with browser-based web apps can be installed as *Common Js* module from link:https://npmjs.org/package/adonis-websocket-client[npm, window="_blank"], *AMD* module from bower or you can reference it from a link:https://unpkg.com/adonis-websocket-client/dist/ws.min.js[CDN, window="_blank"].
 
-### CommonJs Usage
-After installation, you can require the module just like any other npm module.
+### CommonJs用法
+安装后，您可以像任何其他npm模块一样要求模块。
 
 [source, bash]
 ----
@@ -484,8 +487,8 @@ const ws = require('adonis-websocket-client')
 const io = ws('http://localhost:3333', {})
 ----
 
-### AMD Usage
-First, install the package from bower.
+### AMD 用法
+首先，从bower安装包
 
 [source, bash]
 ----
@@ -500,8 +503,8 @@ requirejs(['adonis-websocket-client'], function (ws) {
 ----
 
 
-### CDN Usage
-The CDN script file will create a `ws` global.
+### CDN用法
+CDN脚本文件将创建一个全局`ws`。
 
 [source, html]
 ----
@@ -511,11 +514,11 @@ The CDN script file will create a `ws` global.
 </script>
 ----
 
-## Client Channel Methods
-Below is the list of methods you can call using the client SDK.
+## 客户渠道方式
+以下是使用客户端SDK调用的方法列表
 
 #### connect(callback)
-Connect to a given channel.
+连接到给定的频道
 
 [source, javascript]
 ----
@@ -530,7 +533,7 @@ client.connect(function (error, connected) {
 ----
 
 #### emit(event, ...properties)
-Emit an event.
+发出一个事件
 
 [source, javascript]
 ----
@@ -538,7 +541,7 @@ client.emit('message', 'Hello world')
 ----
 
 #### on(event, callback)
-Listen for an event.
+监听一个事件
 
 [source, javascript]
 ----
@@ -547,7 +550,7 @@ client.on('message', function (message) {
 ----
 
 #### once(event, callback)
-Listen for an event only once.
+只监听事件一次
 
 [source, javascript]
 ----
@@ -556,7 +559,7 @@ client.once('message', function (message) {
 ----
 
 #### joinRoom(room, payload, callback)
-Notify server to join a room and send optional data object as *payload*.
+通知服务器加入房间并发送可选数据对象作为*payload*.
 
 [source, javascript]
 ----
@@ -565,7 +568,7 @@ client.joinRoom('lobby', {}, function (error, joined) {
 ----
 
 #### leaveRoom(room, payload, callback)
-Leave a room.
+离开房间
 
 [source, javascript]
 ----
@@ -574,7 +577,7 @@ client.leaveRoom('lobby', {}, function (error, left) {
 ----
 
 #### withBasicAuth(username, password)
-Connect to the channel by passing the username and password to be used for basic auth.
+通过传递用于基本认证的用户名和密码来连接到频道
 
 [source, javascript]
 ----
@@ -585,7 +588,7 @@ client
 ----
 
 #### withJwt(token)
-Connect to the channel by passing JWT token to be used for authentication.
+通过传递JWT令牌进行认证，以连接到该通道
 
 [source, javascript]
 ----
@@ -596,7 +599,7 @@ client
 ----
 
 #### withApiKey(token)
-Connect to the channel by passing personal API token to be used for authentication.
+通过传递个人API令牌进行身份验证，以连接到频道
 
 [source, javascript]
 ----
