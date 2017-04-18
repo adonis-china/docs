@@ -3,15 +3,15 @@ permalink: files
 categories:
 - getting-started
 ---
-= Files
+= 文件
 
 toc::[]
 
-AdonisJs has out of the box support for handling file uploads. You can easily manage *bulk uploads*, *file size/extension validation* and add global checks to deny requests containing more than expected payload.
+AdonisJs有内置直接处理文件上传的功能, 你可以很轻松的管理批量上传, *文件大小和文件类型插件(file size/extension validation)* 可以限制用户上传文件大小.
 
-== Basic Example
+== 小例子
 
-Let's take an example of uploading user avatar. We will consider this as a **PUT** request to upload the user profile avatar and run necessary validations to make sure the user is uploading the right file.
+以上传用户头像为例, 我们用**PUT**方法来上传文件, 并且做一个文件有效检测.
 
 .app/Http/routes.js
 [source, javascript]
@@ -19,7 +19,7 @@ Let's take an example of uploading user avatar. We will consider this as a **PUT
 Route.put('/users/:id/avatar', 'UsersController.updateAvatar')
 ----
 
-Next, you need to create the `updateAvatar` method in `UsersController`.
+接下来, 你需要在`UsersController`里面创建`updateAvatar`方法.
 
 .app/Http/Controllers/UsersController.js
 [source, javascript]
@@ -57,14 +57,14 @@ class UserController {
 module.exports = UsersController
 ----
 
-<1> First we get a file object from the `request` object. Additionally we can define `maxSize` and `allowedExtensions` to validate the file.
-<2> It is important to rename the file, same is done by grabbing the current date time and appending the file extension to it.
-<3> Next, we call the move operation on the file instance. Any validation errors will be returned using `errors()` method.
-<4> If all went fine, we set the path of avatar next to the user model object and persist it to the database.
+<1> 首先我们从`request`对象上获得文件. 同时我们可以定义`maxSize`和`allowedExtensions`去验证文件是否符合标准.
+<2> 重命名很重要, 比如获得当前时间加上后缀名作为新的文件名.
+<3> 接下来, 我们调用move函数来移动文件, 任何的文件验证错误, 都可以从`error()`函数获得.
+<4> 如果代码都执行成功, 我们可以直接把文件路径放到数据库模型里面, 这样就可以存到数据库里面了.
 
-== Config
+== 配置
 
-The configuration for the file uploads is stored inside `config/bodyParser.js` file.
+上传文件配置在`config/bodyParser.js`里面.
 
 .config/bodyParser.js
 [source, javascript]
@@ -76,14 +76,14 @@ uploads: {
 }
 ----
 
-1. The `maxSize` is calculated on all the uploaded files, which means uploading two files of `1.5mb` each will exceed this limit.
-2. The `maxSize` check is performed right at the beginning. This makes sure that attackers are not choking your servers by sending **Gigabytes** of data.
+1. `最大文件大小(maxSize)`是计算的所有的上传文件, 两个1.5MB的文件就会不满足2MB上传大小.
+2. `最大文件大小(maxSize)`将会上传前验证, 这样就防止恶意攻击上传非常大的垃圾文件.
 
-== File Instance
+== 文件实例
 
-The `request.file` method returns an instance of the `File` class, which has a handful of methods to retrieve uploaded file information and move it to a given path.
+`request.file`方法返回一个`File`类, 有很多的方法来获取文件的信息以及移动文件.
 
-Uploading multiple files return an array of `File` class instances. For example:
+上传多个文件之后, 你会获得一个包含多个`File`的数组. 小例子:
 
 [source, javascript]
 ----
@@ -91,9 +91,9 @@ const profilePics = request.file('profile[]')
 // profilePics will be an array
 ----
 
-== Validation
+== 验证
 
-**File instance** can manage validation on file size and extensions for you. You just need to pass the options when accessing the instance.
+**文件实例**可以验证你的文件大小和后缀名, 传入两个可选项即可.
 
 [source, javascript]
 ----
@@ -103,10 +103,11 @@ const avatar = request.file('avatar', {
 })
 ----
 
-Now when you will call the `move` method, the validations will fire based on the defined configuration. In case, if above validations are not enough for you, you can implement your own `validate` method.
+当你调用`move`方法时, 就会开始验证, 如果这两个验证不满足你的需求, 你可以自定义你自己的验证.
 
-=== Manual Validation
+=== 手动验证
 Returning *true* or *false* from the `validate` method will define whether the validation has been passed or not. Also, you will be responsible for setting the error message on the file instance manually.
+返回*true*就会通过验证. 返回*false*就不能通过, 记得你需要自己设置错误信息.
 
 [source, javascript]
 ----
@@ -121,11 +122,11 @@ avatar.validate = function () {
 }
 ----
 
-== File Instance Methods
-Below is the list of available methods on File instance.
+== 文件实例方法
+下面就是一些内置的文件实例方法.
 
 ==== clientName
-Returns the name of the uploaded file.
+返回上传文件名.
 
 [source, javascript]
 ----
@@ -133,7 +134,7 @@ avatar.clientName()
 ----
 
 ==== clientSize
-Returns the size of the file (in bytes).
+返回文件大小(bytes).
 
 [source, javascript]
 ----
@@ -141,7 +142,7 @@ avatar.clientSize()
 ----
 
 ==== mimeType
-Returns file mime-type.
+返回mine-type.
 
 [source, javascript]
 ----
@@ -149,7 +150,7 @@ avatar.mimeType()
 ----
 
 ==== extension
-Returns file extension.
+返回文件后缀名.
 
 [source, javascript]
 ----
@@ -157,7 +158,7 @@ avatar.extension()
 ----
 
 ==== tmpPath
-The path to the temporary folder, where the file was uploaded.
+返回上传文件所在的临时路径.
 
 [source, javascript]
 ----
@@ -165,7 +166,7 @@ avatar.tmpPath()
 ----
 
 ==== exists
-Tells whether the file exists inside the temporary folder or not.
+判断文件是否存在于临时路径.
 
 [source, javascript]
 ----
@@ -173,7 +174,7 @@ avatar.exists()
 ----
 
 ==== move(toPath, [newName])
-Move the file to a given location with an optional name. If `newName` is not defined, it will make use of `clientName()`
+移动文件到目标路径, 如果`新名字(newName)`没有设置, 将会采用原始的文件名.
 
 [source, javascript]
 ----
@@ -181,7 +182,7 @@ yield avatar.move(Helpers.storagePath())
 ----
 
 ==== delete()
-Delete file from the `tmp` directory after the file has been moved.
+在移动文件之后, 从临时目录里面删除这个文件.
 
 [source, javascript]
 ----
@@ -189,7 +190,7 @@ yield avatar.delete()
 ----
 
 ==== moved
-Tells whether the move operation was successful or not.
+判断文件是否移动成功.
 
 [source, javascript]
 ----
@@ -201,7 +202,7 @@ if (avatar.moved()) {
 ----
 
 ==== errors
-Returns errors occurred during the `move` process.
+返回移动文件时出现的错误.
 
 [source, javascript]
 ----
@@ -214,7 +215,7 @@ if (!avatar.moved()) {
 
 ==== uploadPath
 
-Full path to the upload directory with the file name.
+返回上传文件当前路径.
 
 [source, javascript]
 ----
@@ -224,7 +225,8 @@ avatar.uploadPath()
 ----
 
 ==== uploadName
-Name of the uploaded file.
+
+上传文件的当前名称.
 
 [source, javascript]
 ----
@@ -232,10 +234,12 @@ yield avatar.move(Helpers.storagePath(), 'selfie.jpg')
 avatar.uploadName()
 ----
 
-NOTE:: `uploadPath` and `uploadName` will only be available after the move operation.
+NOTE:: `uploadPath` 和 `uploadName` 在移动文件后才能调用.
 
 ==== toJSON
-Returns **JSON** representation of the file properties.
+
+以**JSON**形式返回文件属性.
+
 [source, javascript]
 ----
 avatar.toJSON()
