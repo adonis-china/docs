@@ -101,7 +101,6 @@ class UsersController {
 }
 ----
 
-<2> Class `constructor` will receive the injections as parameters.
 <1> `inject`的Getter返回一个注入在构造函数里面依赖的命名空间. 返回的顺序和你注入时的顺序相同.
 <2> 类的构造函数将以参数的方法把这些注入获得.
 
