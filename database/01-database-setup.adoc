@@ -43,7 +43,7 @@ module.exports = {
 <2>连接名称旁边设置个人连接配置。您可以自由创建多个配置块
 
 == 基本例子
-让我们从“users”表中选择所有用户，开始播放数据库提供者。
+让我们从`users`表中选择所有用户，开始播放数据库提供者。
 
 .路由
 [source, javascript]
@@ -240,7 +240,7 @@ mysql: {
 }
 ----
 
-此外，您可以通过监听数据库提供程序上的“query”或“sql”事件来在代码中调试开关。注册一个监听器的最佳位置是`app / Listeners / Http.js`文件。
+此外，您可以通过监听数据库提供程序上的`query`或`sql`事件来在代码中调试开关。注册一个监听器的最佳位置是`app / Listeners / Http.js`文件。
 
 .app/Listeners/Http.js
 [source, javascript]

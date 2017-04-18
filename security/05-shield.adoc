@@ -115,7 +115,7 @@ xss: {
 ----
 
 === No Sniff
-大多数现代浏览器将尝试通过检索其内容来检测请求的* Content-Type *。这意味着以* .txt *结尾的文件可以作为javascript文件执行，如果它包含JavaScript代码。要禁用此行为设置`nosniff = false`。
+大多数现代浏览器将尝试通过检索其内容来检测请求的*Content-Type*。这意味着以*.txt*结尾的文件可以作为javascript文件执行，如果它包含JavaScript代码。要禁用此行为设置`nosniff = false`。
 
 以下设置将`X-Content-Type-Options`标头的值设置为*nosniff*。
 

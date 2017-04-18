@@ -3,21 +3,22 @@ permalink: ioc-container
 categories:
 - core-concepts
 ---
-= IoC Container & Service Providers
+= IoC容器和服务提供者
 
 toc::[]
 
-This document covers the concept and usage of Inversion of Control(IoC) container within AdonisJs. It is a concept of storing/binding dependencies inside a *container* and then fetching them back from the container instead of requiring them manually. The benefit of this approach is:
+本文档介绍了AdonisJs中控制反转（Inversion of Control（IoC））容器的概念和用法。这个概念是：在*容器*中存储、绑定依赖关系，然后从容器中取回它们，而不是手动请求它们。这种方法的好处是：
 
 [pretty-list]
-1. The configuration of an object is hidden from the end-user providing simple & clear API.
-2. Solid support for *Dependency Injection(DI)*, since all objects are fetched from a single source of truth.
-3. Easy to write 3rd party modules/addons, since you can fetch dependencies from the *IoC container*, instead of holding the end-user to pass them manually.
+1. 一个对象的配置是对于最终用户（end-user）来说是不可见的，这样可以提供简单明了的API。
+2. 直接支持*依赖注入（DI）*，因为所有对象都是从同一个真实的来源获取的。
+3. 易于编写第三方模块和插件，因为您可以从*IoC容器*获取依赖项，而不是让最终用户手动传递它们。
+（译者注：“最终用户”在此是指代码的调用方，而非访问网站的真实用户。）
 
-== Basic Example
-Let's take a simple example of binding dependencies to the IoC container and then consuming them later. Throughout this process, you will be introduced to a lot of new terms and methods.
+== 基本例子
+我们来看一下简单的绑定依赖关系到IoC容器的例子，然后再使用它们。在整个过程中，您将会了解到很多新的术语和方法。
 
-.Binding Dependencies
+.绑定依赖关系
 [source, javascript]
 ----
 const Ioc = require('adonis-fold').Ioc
@@ -34,35 +35,35 @@ Ioc.bind('Adonis/Src/Bugsnag', function (app) { <1>
 })
 ----
 
-<1> We start by binding an object to the IoC container. Each binding needs to a have a unique namespace which is `Adonis/Src/Bugsnag` in this case.
-<2> Since we have access to the `Ioc` container within the closure we fetch the *Config* binding.
-<3> Next we grab the configuration of the `bugsnag` which is supposed to be saved inside `config/services.js` file.
-<4> Using the configuration options, we register the `apiKey` with bugsnag.
-<5> Finally we return the `bugsnag` object, which can be used to report the errors.
+<1> 我们首先将对象绑定到IoC容器。在这种情况下，每个绑定都需要一个唯一的命名空间，即 `Adonis/Src/Bugsnag`
+<2> 由于我们可以访问闭包中的`Ioc`容器，所以我们可以获取*Config*绑定。
+<3> 接下来我们取出保存在`config/services.js`文件中的`bugsnag`配置数据。
+<4> 使用配置选项，我们使用bugsnag注册`apiKey` 。
+<5> 最后我们返回`bugsnag`对象，可以用来报告错误。
 
-To make use of the *Bugsnag* binding, we can take advantage of the global `use` method.
 
+为了使用*Bugsnag*绑定，我们可以利用全局`use`方法。
 [source, javascript]
 ----
 const Bugsnag = use('Adonis/Src/Bugsnag')
 Bugsnag.notify(new Error('Something went wrong'))
 ----
 
-With the help of the IoC container, we can abstract the setup process of Bugsnag and offer an excellent API to the end-user.
+在IoC容器的帮助下，我们可以抽象出Bugsnag的设置过程，并为最终用户提供了极好的API。
 
-== Available Methods
-Below is the list of available methods exposed by the IoC container.
+== 可用的方法
+以下是IoC容器暴露的可用方法的列表。
 
-==== use(namespace/alias)
-Fetch a binding using it's *namespace* or *alias*.
+==== use(完整类名/别名)
+使用*命名空间*或*别名*获取绑定。
 
 [source, javascript]
 ----
 const Redis = use('Redis')
 ----
 
-==== make(namespace/alias/class)
-Returns an instance of class by auto injecting constructor dependencies.
+==== make(完整类名/别名/类)
+通过自动注入构造函数依赖关系返回类的实例。
 
 [source, javascript]
 ----
@@ -82,11 +83,13 @@ class Book {
 const bookInstance = make(Book) <3>
 ----
 
-<1> The static `inject` getter returns an array of dependencies to be injected in sequence.
-<2> All specified dependencies are injected to the constructor.
-<3> Finally we make use of the `make` method to create an instance of the `Book` class, which auto injects the defined dependencies.
 
-==== alias(name, namespace)
+<1> 静态getter`inject`返回一个依赖关系的数组，以便按顺序注入。
+<2> 所有指定的依赖项都注入到构造函数中。
+<3> 最后，我们利用`make`方法创建一个`Book`类的实例，它将自动注入定义的依赖关系。
+
+
+==== alias(名称, 完整类名)
 Define alias for a given namespace.
 
 [source, javascript]
@@ -95,12 +98,12 @@ const Ioc = require('adonis-fold').Ioc
 Ioc.alias('UserModel', 'App/Model/User')
 ----
 
-== Service Providers
-So far we have been manually binding dependencies to the IoC container using the `bind` method, but we are unsure of where to write this code and how to structure the bindings. Service providers give a friendly interface to *register* the bindings to the IoC container.
+== 服务提供者
+到目前为止，我们已经使用`bind`方法手动将依赖关系绑定到IoC容器，但是我们不确定在哪里编写这个代码以及如何建立绑定。服务提供商提供了一个友好的接口来*注册*到IoC容器的绑定。
 
-NOTE: Always make sure to give unique names to your bindings. For example: Adonis uses `Adonis/Src/<ModuleName>` for the core bindings and `Adonis/Addons/<ModuleName>` for 1st party add-ons. Consider suffixing providers with your company name.
+NOTE: 始终确保为您的绑定提供唯一的名称。例如：Adonis使用 `Adonis/Src/<ModuleName>`作为核心绑定， `Adonis/Addons/<ModuleName>` 用于第一方加载项。考虑使用您公司名称的后缀。
 
-A Service Provider is an `ES2015` class and supports two methods for registering the bindings and booting the initial state of the provider. For example:
+服务提供者是一个`ES2015`类，它支持两种方法来注册绑定和引导提供者的初始状态。例如：
 
 [source, javascript]
 ----
@@ -117,51 +120,51 @@ class BugSnagProvider extends ServiceProvider {
   }
 
   * boot () { <2>
-    // Everything is registered do some hard work
+    //所有绑定注册完毕，可以做点其他的
   }
 
 }
 ----
 
-<1> The `register` method is used to register bindings to the IoC container. Also, you can `use` other bindings from the IoC container using their *namespace*.
-<2> The `boot` method is called when all providers have been registered Which means you can do some heavy lifting inside this method to boot your provider. Also, this method is not required by every provider and only implement it when your provider needs to be booted.
+<1> `register`方法用于注册绑定到IoC容器。此外，您可以使用其*命名空间*来使用IoC容器中的其他绑定。
+<2> 当所有提供程序都已注册时，将调用`boot`方法，这意味着您可以在此方法中执行一些重要操作来启动提供程序。此外，不是每个提供商都需要此方法，只有在您的提供程序需要启动时才执行此方法。
 
-== Events
-Below is the list of events fired by the IoC container.
+== 事件
+以下是IoC容器触发的事件列表。
 
 [source, javascript]
 ----
 const Ioc = require('adonis-fold').Ioc
 
 Ioc.on('bind:provider', (namespace, isSingleton) => {
-  // binding registered
+  // 绑定注册完毕
 })
 
 Ioc.on('provider:resolved', (namespace, returnValue) => {
-  // binding resolved
+  // 绑定解析完毕
 })
 
 Ioc.on('module:resolved', (namespace, fromPath, returnValue) => {
-  // resolved autoloaded module
+  // 自动加载模块解析完毕
 })
 
 Ioc.on('extend:provider', (key, namespace) => {
-  // a provider has been extended
+  // 加载提供者
 })
 
 Ioc.on('bind:autoload', (namespace, directoryPath) => {
-  // defined autoload namespace and directory
+  // 自动加载的命名空间和文件路径定义完成
 })
 
 Ioc.on('bind:alias', (alias, namespace) => {
-  // an alias has been registered
+  // 别名注册完成
 })
 
 Ioc.on('providers:registered', () => {
-  // all providers have been registered
+  // 所有提供者注册（register）完成
 })
 
 Ioc.on('providers:booted', () => {
-  // all providers have been booted
+  // 所有提供者引导（boot）完成
 })
 ----

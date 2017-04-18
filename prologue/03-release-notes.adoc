@@ -7,20 +7,21 @@ categories:
 
 toc::[]
 
-== How Release Is Managed?
-AdonisJs is a combination of multiple npm packages called *Service providers*. All packages are free to have their own release cycle and versions. The combination of these packages form a release for AdonisJs. In brief you should look into the version number in `package.json` file of your project to know the current version.
+== 如何管理发行版？
+AdonisJs是名为*Service providers*的多个npm包的组合。所有包都可以自由发布周期和版本。这些包的组合形成了AdonisJs的发行版。简单来说，您应该查看项目的`package.json`文件中的版本号，以了解当前版本。
 
 == AdonisJs 3.2
-Release v3.2 is a minor update with handful or bug fixes and incremental API updates. All features/methods from *v3.1* are fully supported and compatible with *v3.2*. Below is the changelog for individual modules.
+版本v3.2是一个小的更新，具有少量或错误修复和增量API更新。 *v3.1*的所有功能、方法完全支持，并兼容*v3.2*，以下是各个模块的更改日志。
 
 ==== adonis-framework (3.0.4 - 3.0.9)
-There are no notable changes for this repo and all existing features from 3.1 will continue to work. Checkout the link:https://github.com/adonisjs/adonis-framework/blob/develop/CHANGELOG.md[git changelog, window="_blank"]
+这个repo没有显着的变化，3.1中的所有现有功能将继续运行。查看  link:https://github.com/adonisjs/adonis-framework/blob/develop/CHANGELOG.md[git changelog, window="_blank"]
+
 
 ==== adonis-lucid (3.0.8 - 3.0.13)
-Below is the list of notable changes:
+以下是显著变化的列表：
 
-1. Add support for updating and `belongsToMany` pivot table and fetch additional columns using `withPivot` method. link:https://github.com/adonisjs/adonis-lucid/commit/1d00425[Related commit]
-2. Model static interface now has `first` and `last` methods to pull first and last rows from a table related to a model. link:https://github.com/adonisjs/adonis-lucid/commit/2a74d6e[Related commit]
+1. 添加对更新的支持和`belongsToMany`中间表，并使用`withPivot`方法获取附加字段。 link:https://github.com/adonisjs/adonis-lucid/commit/1d00425[Related commit]
+2. 模型静态接口现在有一个`first`和`last`方法来从与模型相关的表中拉取第一行和最后一行。link:https://github.com/adonisjs/adonis-lucid/commit/2a74d6e[Related commit]
 +
 [source, javascript]
 ----
@@ -28,12 +29,12 @@ yield User.first()
 yield User.last()
 ----
 
-Checkout the entire link:https://github.com/adonisjs/adonis-lucid/blob/develop/CHANGELOG.md[git chanagelog, window="_blank"].
+查看整个 link:https://github.com/adonisjs/adonis-lucid/blob/develop/CHANGELOG.md[git chanagelog, window="_blank"].
 
 ==== adonis-auth(1.0.5)
-Below is the list of notable changes:
+以下是显著变化的列表：
 
-1. You can now pass custom object to the JWT token when generating it. It can be helpful to add some meta information to the token to be read on the client side. link:https://github.com/adonisjs/adonis-auth/commit/2e413fe[Related commit].
+1. 现在可以将自定义对象传递给JWT token。将一些元信息添加到客户端要读取的token可能会有帮助。 link:https://github.com/adonisjs/adonis-auth/commit/2e413fe[Related commit].
 +
 [source, javascript]
 ----
@@ -46,8 +47,8 @@ yield request.auth.generate(user, {
 const payload = yield request.auth.getPayload()
 ----
 
-Checkout the entire link:https://github.com/adonisjs/adonis-auth/blob/develop/CHANGELOG.md[git changelog, window="_blank"]
+查看整个 link:https://github.com/adonisjs/adonis-auth/blob/develop/CHANGELOG.md[git changelog, window="_blank"]
 
 ==== adonis-commands(2.1.5)
-There are no notable changes for this repo and all existing features from 3.1 will continue to work. Checkout the
-Checkout the entire link:https://github.com/adonisjs/adonis-commands/blob/develop/CHANGELOG.md[git chanagelog].
+这个repo没有显著的变化，3.1中的所有现有功能将继续运行。
+查看整个 link:https://github.com/adonisjs/adonis-commands/blob/develop/CHANGELOG.md[git chanagelog].

@@ -7,12 +7,12 @@ categories:
 
 toc::[]
 
-Lucid is the implementation of link:https://en.wikipedia.org/wiki/Active_record_pattern[Active record, window="_blank"] which is an architectural pattern of storing and manipulating SQL data as objects. Lucid makes it so simple for you to write non-trivial web applications with ease and less code.
+Lucid是link:https://en.wikipedia.org/wiki/Active_record_pattern[Active record, window="_blank"]的实现，它是将SQL数据存储和操作作为对象的架构模式，Lucid使您轻松编写非平凡的Web应用程序变得如此简单。
 
-Lucid has support for:
+Lucid支持：
 
 [pretty-list]
-1. Fluent query builder to query data by chaining javascript methods.
+1. 通过JavaScript流畅的链式调用查询构造器的方法查询数据
 +
 [source, javascript]
 ----
@@ -20,7 +20,7 @@ yield User.all()
 yield User.query().where('status', 'active').fetch()
 ----
 
-2. Solid support for defining database relations without touching your SQL schema.
+2. 在不触及您的SQL模式的状态下定义数据库关系
 +
 [source, javascript]
 ----
@@ -36,14 +36,14 @@ class User extends Lucid {
 
 }
 ----
-3. Running queries inside transactions.
-4. Getters/Setters to mutate data on the fly.
-5. Inbuilt support for computed properties.
-6. Database hooks to add domain logic to specific events.
-7. Support to define *visible/hidden* fields to remove them from the JSON output. The best example is of hiding the `password` field from the JSON output.
+3. 运行内部事务查询
+4. Getters/Setters 即时变更数据
+5. 内置支持计算属性
+6. 数据库特定事件增加钩子函数
+7. 支持定义可见/隐藏的字段，以将其从JSON输出中删除。最好的例子是password从JSON输出中隐藏该字段。
 
-== Basic Example
-Let's start with a basic example of creating a user model and querying users from the corresponding database table.
+== 基本例子
+我们从创建用户模型的基本示例开始，并从相应的数据库表查询用户。
 
 .Creating New Model
 [source, bash]
@@ -65,7 +65,7 @@ class User extends Lucid {
 }
 ----
 
-Yes, that's all you need to define a Lucid model. Lucid will figure out the database table name using some predefined conventions. For example *User* model will look for *users* table.
+是的，这就是您需要定义一个Lucid模型。Lucid将使用一些预定义的约定找出数据库表名。例如，使用用户模型寻找用户表。
 
 .users (table)
 [source]
@@ -78,9 +78,9 @@ Yes, that's all you need to define a Lucid model. Lucid will figure out the data
 +---------+-----------+--------------------+------------+
 ----
 
-NOTE: Make sure to use link:migrations[Migrations] to set up the `users` table. Lucid does not create/alter database tables for you.
+NOTE: 确保使用link:migrations[迁移]来设置users表。Lucid不会为您创建/更改数据库表。
 
-Now let's say we want to fetch all the users from the `users` table. For the sake of simplicity, we will make fetch the users within the `routes` file.
+现在我们想从users表中获取所有的用户，为了简单起见，我们将在routes文件中提取用户。
 
 .app/Http/routes.js
 [source, javascript]
@@ -94,23 +94,24 @@ Route.get('/users', function * (request, response) {
 })
 ----
 
-<1> The `all` method will fetch all the records from the database table. Think of it as `select * from "users"` query.
+<1> 该`all`方法将从数据库表中获取所有记录。认为它是`select * from "users"`查询.
 
-== Convention over Configuration
-Models inherit a handful of properties from Lucid base class, which prevents you from re-writing the same code again and again. Only implement below methods if you want to change the default behavior of a model.
+== 约定优于配置
+模型类继承了Lucid基类中的一些属性，这有效提升了代码复用性。如果要更改模型的默认行为，则仅实现以下方法。
 
-==== table
-The table name is the plural underscore representation of your model class name.
+
+==== 表
+表名是您的模型类名的复数表示，当表名为多个单词时，则单词间需使用下划线'_'连接
 
 [options="header"]
 |====
-| Model | Table Name
+| 模型 | 表名
 | User | users
 | Person | people
 | PostComment | post_comments
 |====
 
-To override the conventional table name, you can return a value from the `table` getter.
+要覆盖传统的表名，可以从table `getter` 返回一个值。
 
 [source, javascript]
 ----
@@ -123,8 +124,8 @@ class User extends Lucid {
 }
 ----
 
-==== primaryKey
-Each model needs to have a primary key which is set to `id` by default. Value for primary key is auto-populated by Lucid whenever you save a new model to the database. Also, the primary key is required to resolve model relations.
+==== 主键
+每个模型都需要设置一个主键，默认为`id`。当您将新模型保存到数据库时，主键的值将有Lucid自动填充，此外，主键是解决模型关系所必须的。
 
 [source, javascript]
 ----
@@ -137,10 +138,10 @@ class User extends Model {
 }
 ----
 
-==== connection
-Connection parameter helps you in using different databases connection for a given model.
+==== 连接
+Connection参数可帮助您为给定模型使用不同的数据库连接。
 
-Database connections are defined inside `config/database.js` file. Lucid makes use of *default* connection defined under the same file. However, you can swap this value to use any defined connection from your database config file.
+`config/database.js`文件中定义数据库连接。Lucid使用同一文件下定义的默认连接。但是，您可以改变此值以使用数据库配置文件中的任何定义的连接。
 
 .config/database.js
 [source, javascript]
@@ -170,8 +171,8 @@ class Report extends Mysql {
 }
 ----
 
-==== incrementing
-At times applications relies on `uuid` as their primary keys. Since uuids are generated before persisting the database record, they are not auto incremented. So it is important to tell Lucid before-hand about the same.
+==== 自增
+有时应用程序使用`uuid`于作其主键。由于在持久化数据库记录之前生成了`uuids`，因此它们不会自动递增。所以很重要的一点就是告诉Lucid。
 
 [source, javascript]
 ----
@@ -186,11 +187,11 @@ class User extends Lucid {
 }
 ----
 
-== TimeStamps
-Timestamps eliminate the need for setting up timestamps manually every time you create or update a record. Following timestamps are used for different database operations.
+== 时间戳
+时间戳消除了在每次创建或更新记录时手动设置时间戳的需要，以下时间戳用于数据库不同的操作。
 
 ==== createTimestamp
-Create timestamp defines the database field to be used for adding row creation time to the database table. You can override this property to specify a different field name or return `null` to disable it.
+创建时间戳字段是向数据库添加行的创建时间，您可以覆盖此属性以指定其他字段名称或返回null禁用它。
 
 [source, javascript]
 ----
@@ -204,7 +205,7 @@ class User extends Lucid {
 ----
 
 ==== updateTimestamp
-Every time you modify a row in a database table `updateTimestamp` will be updated to the current time.
+每次修改数据库表中的一行数据时，该行`updateTimestamp`将被更新为当前时间。
 
 [source, javascript]
 ----
@@ -218,7 +219,7 @@ class User extends Lucid {
 ----
 
 ==== deleteTimestamp
-The `deleteTimestamp` behaves a little different from *create* and *update* timestamps. You should only return value from this method if you want to make use of soft deletes.
+`deleteTimestamp` 与 `createTimestamp`和`updateTimestamp`不同，如果要使用软删除，您应该只返回此方法的值。
 
 [source, javascript]
 ----
@@ -231,14 +232,14 @@ class User extends Lucid {
 }
 ----
 
-Soft deletes is a term for deleting records by updating a delete timestamp instead of removing the row from the database.In other words, *soft deletes are safe deletes*, where you never loose data from your SQL tables.
+软删除是通过更新删除时间戳而不是从数据库中删除行来删除记录的术语。换句话说，`软删除是安全删除`，您从不会从SQL表中丢失数据。
 
-Soft deletes are disabled by default and to enable them you must return a table field name from `deleteTimestamp` getter.
+默认情况下禁用软删除，并且要启用它们，您必须从`deleteTimestamp` 的getter 返回表字段名称。
 
-NOTE: You can make use of xref:withtrashed[withTrashed] method to fetch soft deleted rows.
+NOTE: 您可以使用xref:withtrashed[withTrashed]方法来获取
 
-==== dateFormat
-Date format specifies the format of date in which timestamps should be saved. Internally models will convert dates to link:http://momentjs.com/[moment.js, window="_blank"] instance. You can define any valid date format supported by momentjs.
+==== 日期格式
+日期格式指定应保存时间戳的日期格式。内部模型将日期转换为link:http://momentjs.com/[moment.js, window="_blank"]实例。您可以定义由momentj支持的任何有效的日期格式。
 
 [source, javascript]
 ----
@@ -251,13 +252,13 @@ class User extends Lucid {
 }
 ----
 
-== Omitting Fields From JSON Output
-Quite often you will find yourself omitting/picking fields from the database results. For example: Hiding the *user's password* from the JSON output. Doing this manually can be tedious in many ways.
+== 从JSON输出中省略字段
+很多时候你会发现自己从数据库结果中省略/挑选字段。例如：从JSON输出`隐藏用户的密码`手动执行此操作可能会很繁琐：
 
-1. You will have manually loop over the rows and delete the key/value pair.
-2. When you fetch relationships, you will have to loop through all the parent records and then their child records to delete the key/value pair.
+1. 您需要手动循环遍历行并删除键/值对。
+2. 当您获取关系时，您将必须循环遍历所有父记录，然后将其子记录循环删除键/值对。
 
-AdonisJs makes it simpler by defining the *visible* or *hidden* (one at a time) on your model.
+通过在模型上定义可见或隐藏（一次一个），AdonisJs使其更简单。
 
 .Defining Hidden
 [source, javascript]
@@ -283,8 +284,8 @@ class Post extends Lucid {
 }
 ----
 
-== Query Scopes
-Query scopes are fluent methods defined on your models as static methods and can be used within the query builder chain. Think of them as *descriptive* convenient methods for extending the query builder.
+== 查询范围/查询作用域（scope）
+查询范围是在模型中定义的流畅的方法，作为静态方法，可以在查询生成器链中使用，将它们视为`扩展查询`构建器的描述性方便方法。
 
 [source, javascript]
 ----
@@ -297,21 +298,21 @@ class User extends Lucid {
 }
 ----
 
-Now to make use of the *active* scope, you just need to call the method on the query builder chain.
+现在要使用`active`条件，您只需要在查询生成器链上调用该方法即可。
 
 [source, javascript]
 ----
 const activeUsers = yield User.query().active().fetch()
 ----
 
-=== Query Scopes Rules
+=== 查询范围/查询作用域规则（scope规则）
 [pretty-list]
-1. Query scopes are always defined as static methods.
-2. You must append your methods with `scope` followed by the *PascalCase* method name. For example: `scopeLatest()` will be used as `latest`.
-3. You must call the `query` method on your model before calling any query scopes.
+1. 查询作用域始终定义为静态方法
+2. 您必须附加您的方法，scope+PascalCase方法名称。例如： `scopeLatest()`将被作为 `latest`使用.
+3. 在使用自定义的查询作用域之前您必须调用模型上的方法。
 
-== Traits
-Unfortunately, Javascript has no way of defining traits/mixins natively. *Lucid* models makes it easier for you to add traits to your models and extend them by adding new methods/properties.
+== 特征（Traits）
+不幸的是目前JavaScript没有语言层面的支持`traits/mixins`，但`Lucid`模型使您可以更轻松地将特征添加到模型中，并通过添加新的方法/属性来扩展它们。
 
 ==== traits
 [source, javascript]
@@ -325,8 +326,8 @@ class Post extends Lucid {
 }
 ----
 
-==== use(trait)
-Also, you can dynamically add traits using the `use` method.
+==== trait使用
+此外，您可以使用该`use`方法动态添加特征。
 
 [source, javascript]
 ----
@@ -340,10 +341,10 @@ class Post extends Lucid {
 }
 ----
 
-NOTE: Make sure to define traits only once. Redefining traits will cause multiple registrations of a triat, and your models will misbehave. The best place of defining *dynamic* traits is inside the Model `boot` method.
+NOTE: 确保仅定义traits一次, 重新定义特征将导致一个性状的多次注册，并且模型可能会出问题。 定义`动态特征`的最佳位置在Model的boot方法中
 
-== CRUD Operations
-CRUD is a term used to *Create*, *Read*, *Update* and *Delete* records from a database table. Lucid models offer a handful of convenient methods to make this process easier. Let's take an example of managing *posts* using the Post model.
+== CRUD操作
+CRUD是用于从数据库表创建，读取，更新和删除记录的术语。Lucid 模型提供了一些方便的方法，使此过程更容易。让我们Post模型实现一个*posts*管理的例子
 
 .posts table
 [source]
@@ -365,9 +366,9 @@ CRUD is a term used to *Create*, *Read*, *Update* and *Delete* records from a da
 ./ace make:model Post
 ----
 
-Now let's make use of the Post Model to perform CRUD operations
+现在我们利用Post 模型来执行CRUD操作
 
-==== create
+==== 创建
 [source, javascript]
 ----
 const post = new Post()
@@ -377,7 +378,7 @@ post.body  = 'Adonis 101 is an introductory guide for beginners.'
 yield post.save() // SQL Insert
 ----
 
-The `save` method will persist the model to the database. If row already exists in the database, it will update it. Alternatively, you can also make use of the `create` method which allows you to pass all the values as a parameter
+该`save`方法将模型保存到数据库，如果数据库中已经存在该行，它将更新它。或者，您还可以使用`create`方法，将您所有的值作为参数传入。
 
 [source, javascript]
 ----
@@ -387,8 +388,8 @@ const post = yield Post.create({
 })
 ----
 
-==== read
-Read operation is divided into two segments. First is to fetch all the *posts* and another one is to fetch a single post using `id` or any other unique identifier.
+==== 查询
+查询操作分为两种，首先是获取所有帖子，另一个是使用id或任何其他唯一标识符获取单个帖子的所有字段。
 
 .Fetching All Posts
 [source, javascript]
@@ -410,8 +411,8 @@ if (post) {
 response.send('Sorry, cannot find the selected found')
 ----
 
-==== update
-The update operation is performed on an existing model instance. In general scenarios, you will have an id of a row that you want to update.
+==== 更新
+对现有的模型实例执行更新操作。一般情况下，是通过该行的ID作为唯一标识更新
 
 [source, javascript]
 ----
@@ -421,7 +422,7 @@ post.body = 'Adding some new content'
 yield post.save() // SQL Update
 ----
 
-Alternatively, you can also make use of the `fill` method to pass all new key/values pairs as an object.
+或者，您还可以使用`fill`方法将所有新的键/值对作为对象传递。
 
 [source, javascript]
 ----
@@ -431,8 +432,8 @@ post.fill({body: 'Adding some new content'})
 yield post.save() // SQL Update
 ----
 
-==== delete
-Delete operation is also performed on an existing model instance. If you have turned on xref:_deletetimestamp[softDeletes], then rows will not be deleted from SQL. However, the model instance will be considered deleted.
+==== 删除
+删除操作是对现有的模型实例执行删除操作，I如果您已打开 xref:_deletetimestamp[softDeletes], 不会从SQL中删除行。但是，模型实例将被视为已删除。
 
 [source, javascript]
 ----
@@ -440,7 +441,7 @@ const post = yield Post.findBy('id', 1)
 yield post.delete()
 ----
 
-Also, from this point model instance will *freeze for edits*. However, you can still read data from existing model instance but will not be able to edit it anymore.
+此外，从这一点，模型实例将冻结进行编辑。但是，您仍然可以从现有的模型实例读取数据，但无法再编辑它。
 
 [source, javascript]
 ----
@@ -453,21 +454,21 @@ post.title = 'New title' // will throw RuntimeException
 ----
 
 
-== Lucid Methods
-Lucid internally makes use of link:query-builder[Database Provider] which means all methods from Database provider are available to your models. Also below methods have been added for convenience.
+== Lucid 方法
+Lucid内部使用数据库提供程序，这意味着数据库提供程序的所有方法都可用于您的模型。此外，为方便起见，还添加了以下方法。
 
 ==== query()
-The `query` method will return the query builder instance which means you build your queries with the same ease as would do with Database provider.
+该`query`方法将返回查询构建器实例，这意味着您将像数据库提供程序一样轻松构建查询。
 
 [source, javascript]
 ----
 yield Post.query().where('title', 'Adonis 101').fetch()
 ----
 
-==== fetch
-It is important to understand role of the `fetch` method. Fetch method will execute the query chain but also makes sure to return a collection of model instances.
+==== fetch()
+了解该fetch方法的作用很重要。Fetch方法将执行查询链，但也确保返回模型实例的集合。
 
-Which means each item inside the collection array will not be a regular Object. Instead, it will be a complete model instance.For example:
+这意味着集合数组中的每个项目不会是一个常规的对象。相反，它将是一个完整的模型实例。例如：
 
 .Without Fetch
 [source, javascript]
@@ -514,10 +515,10 @@ console.log(posts.value())
 ]
 ----
 
-Later one is an array of model instances, which has its benefits. We will talk about them in a different guide.
+后者是一系列的模型实例，它有其优点。我们会在另一个指南手册中讨论它。
 
-==== first
-The `first` method will return only the first matched row as the model instance. If no row has been found, it will return `null`.
+==== first()
+该`first`方法将仅返回第一个匹配的行作为模型实例,如果没有找到行，它将返回`null`。
 
 [source, javascript]
 ----
@@ -525,7 +526,7 @@ const post = yield Post.query().where('title', 'Adonis 101').first()
 ----
 
 ==== findBy(key, value)
-Find a single row for a given key/value pair.
+找到给定键/值对的单个行
 
 [source, javascript]
 ----
@@ -535,7 +536,7 @@ yield Post.findBy('id', '...')
 ----
 
 ==== find(value)
-The `find` method is similar to the xref:_find_by_key_value(findBy) method instead it makes use of the xref:_primary_key(primaryKey) as the key for fetching the row.
+该查询方法与xref:_find_by_key_value(findBy)方法相似，而本方法是使用xref:_primary_key(primaryKey) as the key for fetching the row.
 
 [source, javascript]
 ----
@@ -543,7 +544,7 @@ yield Post.find(1)
 ----
 
 ==== all()
-Returns all the rows from the corresponding database table.
+返回相应数据库表中的所有行
 
 [source, javascript]
 ----
@@ -551,7 +552,7 @@ yield Post.all()
 ----
 
 ==== ids()
-Returns an array of all the *ids* from the corresponding database table.
+从相应的数据库表中返回所有ids的数组
 
 [source, javscript]
 ----
@@ -559,7 +560,7 @@ const ids = yield Post.ids()
 ----
 
 ==== pair(lhs, rhs)
-The `pair` method will return a flat object with a key/value pair of *lhs* and *rhs* key. It is helpful in populating the select box options.
+该方法将返回一个具有lhs和rhs键的键/值对的平面对象，填充选择框选项很有帮助。
 
 [source, javascript]
 ----
@@ -577,7 +578,7 @@ const countries = yield Country.pair('code', 'name')
 ----
 
 ==== paginate(page, [perPage=20])
-The `paginate` method makes it so simple to paginate over database records.
+该方法使分页数据库记录变得如此简单
 
 [source, javascript]
 ----
@@ -585,7 +586,7 @@ const posts = yield Post.paginate(request.input('page'))
 ----
 
 ==== pick([limit=1])
-The `pick` method will pick the give number of records from the database.
+该方法将从数据库中选择给定的记录数
 
 [source, javascript]
 ----
@@ -593,7 +594,7 @@ const posts = yield Post.pick(2)
 ----
 
 ==== pickInverse([limit=1])
-The `pickInverse` works similar to the `pick` method instead it will pick rows with `desc` clause.
+`pickInverse` 和 `pick` 方法具有相似的作用，不同的是`pickInverse`是按倒序排列
 
 [source, javascript]
 ----
@@ -601,7 +602,7 @@ const posts = yield Post.pickInverse(2)
 ----
 
 ==== create(values)
-The `create` method is used to create a new row to the database
+该方法用于为数据库创建一个新行
 
 [source, javascript]
 ----
@@ -609,7 +610,7 @@ const user = yield User.create({ username: 'virk', email: 'virk@adonisjs.com' })
 ----
 
 ==== save()
-Create/Update a model instance
+创建/更新模型实例
 
 [source, javascript]
 ----
@@ -620,32 +621,32 @@ user.email = 'virk@adonisjs.com'
 yield user.save()
 ----
 
-==== createMany
-Create multiple rows at once. This method will return an array of model instances.
+==== createMany()
+一次创建多个行，此方法将返回一个模型实例数组
 
 [source, javascript]
 ----
 const users = yield User.createMany([{...}, {...}])
 ----
 
-==== first
-Select the first row from the database.
+==== first()
+从数据库中选择第一行
 
 [source, javascript]
 ----
 const user = yield User.first()
 ----
 
-==== last
-Select the last row from the database.
+==== last()
+从数据库中选择最后一行
 
 [source, javascript]
 ----
 const user = yield User.last()
 ----
 
-== Failing Early
-Lucid also has some handy methods that will throw exceptions when not able to find a given row using `find` or `findBy` method. Some programmers find it simpler to throw exception and catch them later inside a global handler to avoid `if/else` clause everywhere.
+== 查询失败报出异常
+Lucid还有一些方便的方法，当无法使用find或者findBy方法找到给定的行时，它将抛出异常。一些程序员发现容易抛出异常，并在后面的全局处理程序中捕获它们到处写if/else条件语句，使用下面的这些方法滨可以避免这些操作。
 
 ==== findOrFail(value)
 
@@ -662,7 +663,7 @@ const user = yield User.findOrFail(userId)
 const user = yield User.findByOrFail('username', 'virk')
 ----
 
-If you want, you can wrap your `orFail` methods inside a `try/catch` block, or you can handle them globally inside `app/Listeners/Http.js` file.
+如果你愿意的话，你可以把你的`orFail`方法包装在一个`try/catch`块中，或者你可以在`app/Listeners/Http.js`文件中全局处理它们。
 
 .app/Listeners/Http.js
 [source, javascript]
@@ -676,7 +677,7 @@ Http.handleError = function * (error, request, response) {
 ----
 
 ==== findOrCreate (whereAttributes, values)
-The `findOrCreate` method is a shortcut to finding a record and if not found a new record will be created and returned back on the fly.
+该`findOrCreate`方法是查找记录的快捷方式，如果没有找到，新的记录将被创建并立即返回。
 
 [source, javascript]
 ----
@@ -686,18 +687,18 @@ const user = yield User.findOrCreate(
 )
 ----
 
-==== withTrashed
-The `withTrashed` method can be used to fetch soft deleted rows.
+==== withTrashed()
+该方法可用于获取软删除的行。
 
 [source, javascript]
 ----
 const users = yield User.query().withTrashed().fetch()
 ----
 
-== Using Transactions
-AdonisJs has first class support for running SQL transactions using the link:query-builder#_database_transactions[Database Provider]. Also, your Lucid models can make use of transactions when creating, updating or deleting records.
+== 事务处理
+AdonisJs拥有使用link:query-builder#_database_transactions[Database Provider]运行SQL事务的一流支持。此外，您的Lucid模型可以在创建，更新或删除记录时使用事务。
 
-==== useTransaction
+==== 使用事务
 [source, javascript]
 ----
 const Database = use('Database')
@@ -711,6 +712,6 @@ yield user.save()
 trx.commit() <3>
 ----
 
-<1> You always make use of the database provider to begin a new transaction. The reason we decoupled transactions from the Lucid models is to offer the flexibility of using same transaction instance of different models.
-<2> The `useTransaction` method will use the transaction instance to perform upcoming SQL operations.
-<3> The `commit` method gives you the ability to commit the transaction or `rollback` it if something unexpected happened.
+<1> 您应该始终使用数据库提供程序来创建新的事务，我们将事务与Lucid模型分离的原因是提供使用不同模型的相同事务实例的灵活性。
+<2> `useTransaction`方法将使用事务实例来执行即将到来的SQL操作
+<3> `commit` 方法使您能够提交事务,`rollback`意外事件发生时执行回滚
