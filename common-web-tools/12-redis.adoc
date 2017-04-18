@@ -7,19 +7,19 @@ categories:
 
 toc::[]
 
-AdonisJs makes it so simple to work with link:http://redis.io/[redis, window="_blank"]. Internally it makes use of link:https://github.com/luin/ioredis[ioredis, window="_blank"] but the API is slightly different to keep your code maintainable and readable.
+AdonisJs可以很简单地使用link:http://redis.io/[redis, window="_blank"]。在内部使用link:https://github.com/luin/ioredis[ioredis, window="_blank"]，但API略有不同，以保持代码的可维护性和可读性。
 
-== Features
+== 特点
 
 [pretty-list]
-1. Support for multiple redis connections.
-2. Connect to redis cluster.
-3. Support for sentinel and transactions.
-4. Extensive support for Pub/Sub.
-5. ES2015 Generators friendly.
+1. Support for multiple redis connections.支持多重连接。
+2. Connect to redis cluster.连接到redis集群。
+3. 支持sentinel和transactions。
+4. 全面支持Pub/Sub。
+5. 友好支持ES2015 Generators.
 
-== Setup
-Redis provider is not shipped with the base installation of AdonisJs, which means you are required to install and set it up manually.
+== 设置
+Redis Provider不附带AdonisJs的基本安装，这意味着您需要手动安装和设置。
 
 .Installing From Npm
 [source, bash]
@@ -48,19 +48,19 @@ const aliases = {
 }
 ----
 
-== Config
-Also, a configuration file needs to be saved as config/redis.js. You can download the sample configuration from link:https://raw.githubusercontent.com/adonisjs/adonis-redis/develop/examples/redis.js[github] or run the below bash command to save the file automatically.
+== 配置
+另外，配置文件需要保存为config/redis.js。您可以下载示例配置link:https://raw.githubusercontent.com/adonisjs/adonis-redis/develop/examples/redis.js[github]或运行以下bash命令自动保存文件。
 
-.Download using wget
+.使用wget下载
 [source, bash]
 ----
 wget https://raw.githubusercontent.com/adonisjs/adonis-redis/develop/examples/redis.js -O config/redis.js
 ----
 
-== Basic Example
-Once everything is configured, you are good to make use of Redis inside your AdonisJs applications. Let's start with a basic example of caching users inside redis.
+== 基本例子
+一旦配置完成，您可以在AdonisJs应用程序中使用Redis。我们从一个缓存redis内的用户的基本示例开始。
 
-NOTE: Below example may not be the best way to cache users but does give you some idea on how to use the redis provider.
+NOTE: 下面的示例可能不是缓存用户的最佳方法，但是可以给你提供有关如何使用redis Provider的一些想法。
 
 .app/Http/Controllers/UsersController.js
 [source, javascript]
@@ -87,8 +87,8 @@ class UsersController {
 }
 ----
 
-== Redis Commands
-All link:http://redis.io/commands[redis, window="_blank"] commands are supported as javascript functions. For example:
+== Redis命令
+所有link:http://redis.io/commands[redis, window="_blank"]命令作为javascript函数支持。例如：
 
 [source, javascript]
 ----
@@ -105,9 +105,9 @@ const user = yield Redis.hmget('users', user.username) // returns stringified JS
 ----
 
 == Pub/Sub
-Redis has built-in support for Pub/Sub to share messages on same or across multiple servers. AdonisJs offers a clean API to subscribe and publish messages without any extra efforts.
+Redis内置支持Pub/Sub在同一台或多台服务器上共享消息。 AdonisJs提供了一个干净的API来订阅和发布消息，而无需任何额外的东西。
 
-It is recommended to create a new file inside the *bootstrap* directory to register subscribers.
+建议在*bootstrap*目录下创建一个新文件来注册subscribers。
 
 .bootstrap/redis.js
 [source, javascript]
@@ -121,7 +121,8 @@ Redis.subscribe('music', function * (track) {
 })
 ----
 
-Next, you need to require this file inside `bootstrap/http.js` file to make sure it is loaded when booting the HTTP server just after the `require('./events')` statement.
+接下来，您需要在`bootstrap/http.js`文件中要求这个文件，以确保在`require('./events')`语句之后引导HTTP服务器时加载。
+
 
 .bootstrap/http.js
 [source, javascript]
@@ -129,7 +130,7 @@ Next, you need to require this file inside `bootstrap/http.js` file to make sure
 require('./redis')
 ----
 
-Now anywhere inside your application, you can publish to the music channel and the registered listener will be called.
+现在您的应用程序中的任何地方，您可以发布到music频道，并且将会调用已注册的listener。
 
 .app/Http/routes.js
 [source, javascript]
@@ -144,8 +145,8 @@ Route.post('musics', function * (request, response) {
 })
 ----
 
-== Pub/Sub Methods
-Below is the list of pub/sub methods exposed by the Redis Provider.
+== Pub/Sub方法
+以下是Redis Provider内置的pub/sub方法列表
 
 ==== subscribe(channel, listener)
 [source, javascript]
@@ -155,7 +156,7 @@ Redis.subscribe('music', function * (track, channel) {
 })
 ----
 
-Also, the `listener` can be a reference to a module inside `app/Listeners` directory.
+另外，`listener`可以是`app/Listeners`目录下的一个模块的引用。
 
 [source, javascript]
 ----
@@ -175,7 +176,8 @@ Music.newTrack = function * (track, channel) {
 ----
 
 ==== psubscribe(pattern, listener)
-The `psubscribe` method will subscribe to a pattern, and matching messages will be sent to the listener.
+`psubscribe`方法将订阅一个pattern，匹配的消息将被发送给监听器。
+
 
 [source, javascript]
 ----
@@ -187,7 +189,7 @@ Redis.publish('hallo')
 ----
 
 ==== publish
-Publish message to a given channel.
+将消息发布到给定的频道。
 
 [source, javascript]
 ----
@@ -195,7 +197,7 @@ Redis.publish('music', {id: 1, title: 'Love me like you do', artist: 'Ellie goul
 ----
 
 ==== unsubscribe(channel, [callback])
-Unsubscribe from a given channel.
+取消订阅某个频道。
 
 [source, javascript]
 ----
@@ -203,7 +205,7 @@ Redis.unsubscribe('music')
 ----
 
 ==== punsubscribe(pattern, [callback])
-Unsubscribe from a given pattern.
+取消订阅给定的pattern。
 
 [source, javascript]
 ----
@@ -211,7 +213,7 @@ Redis.punsubscribe('h?llo')
 ----
 
 == Transactions
-Transactions are helpful when you want to perform bulk operations at a given point of time. Let's review an example of adding users to a list.
+当您希望在给定的时间点执行批量操作时，Transactions是有帮助的。我们来看一个将用户添加到列表的例子。
 
 [source, javascript]
 ----
@@ -239,7 +241,7 @@ class UsersController {
 ----
 
 ==== multi
-Creates a new transaction to call multiple commands and execute them together.
+创建一个新的事务来调用多个命令并一起执行。
 
 [source, javascript]
 ----
@@ -252,8 +254,8 @@ const response = yield multi.exec()
 // [[null, 'OK'], [null, 'OK']]
 ----
 
-== Pipelines
-Pipelines are quite similar to transactions, but they do not guarantee that all commands will be executed in a transaction. Pipelines are helpful in sending a batch of commands to save network round trips.
+== 管道
+管道与事务非常相似，但并不保证所有命令都将在事务中执行。管道有助于发送一批命令来保存网络往返。
 
 ==== pipeline
 [source, javascript]
@@ -267,8 +269,8 @@ const response = yield pipeline.exec()
 // [[null, 'OK'], [null, 'OK']]
 ----
 
-== Multiple Connections
-You can define the configuration for multiple connections inside the `config/redis.js` file, and you can use those connections by calling the `connection` method.
+== 多个连接
+您可以为`config/redis.js`文件中的多个连接定义配置，您可以通过调用`connection`方法来使用这些连接。
 
 .config/redis.js
 [source, javascript]
@@ -289,7 +291,7 @@ module.exports = {
 ----
 
 ==== connection(name)
-Switch to a different connection.
+切换到不同的连接。
 
 [source, javascript]
 ----
@@ -297,7 +299,7 @@ yield Redis.connection('secondary').get('users')
 ----
 
 ==== quit([name])
-AdonisJs creates a connection pool to re-use the established connnection. Make use of the `quit` method to close a single/all redis connections.
+AdonisJs创建连接池以重新使用已建立的连接。使用`quit`方法来关闭single/all的redis连接。
 
 [source, javascript]
 ----
@@ -306,8 +308,8 @@ const response = yield Redis.quit('secondary')
 const response = yield Redis.quit() // close all connections
 ----
 
-== LifeCycle Events
-You can register a listener for lifecycle events in the same way you will do for xref:_pub_sub_methods[Pub/Sub].
+== 生命周期Events
+您可以使用与外部参照相同的方式为生命周期Events注册listener xref:_pub_sub_methods[Pub/Sub]。
 
 .bootstrap/redis.js
 [source, javascript]
@@ -324,18 +326,18 @@ Redis.on('error', function (error) {
 })
 ----
 
-Below is the list of events emitted by the Redis provider.
+以下是Redis Provider发出的事件列表。
 
 [options="header"]
 |====
-Event | Description
-| connect | emits when a connection is established to the Redis server.
-| ready | emits when `CLUSTER INFO` reporting the cluster is able to receive commands (if *enableReadyCheck=true*) or immediately after `connect` event (if *enableReadyCheck=false*).
-| error | emits when an error occurs while connecting with a property of `lastNodeError` representing the last node error received. This event is emitted silently (only emitting if there's at least one listener).
-| close | emits when an established Redis server connection has closed.
-| reconnecting | emits after `close` when a reconnection will be made. The argument of the event is the time (in ms) before reconnecting.
-| end | emits after `close` when no more reconnections will be made.
-| +node | emits when a new node is connected.
-| -node | emits when a node is disconnected.
-| node error | emits when an error occurs when connecting to a node
+事件 | 描述
+| connect | 当连接建立到Redis服务器时发出。
+| ready | 当发送集群的`CLUSTER INFO`能够接收命令(if *enableReadyCheck=true*)或紧接在“connect”事件之后(if *enableReadyCheck=false*)则发出。
+| error | 当连接一个表示最后一个节点错误的`lastNodeError`的属性发生错误时发出。这个事件是静默地发出的（只有至少有一个listener才会发出）。
+| close | 当已建立的Redis服务器连接已关闭时发出。
+| reconnecting | 在重新连接后，在`close`之后发出。事件的参数是重新连接之前的时间（以ms为单位）
+| end | 在没有更多重新连接的情况下，在close`后发出。
+| +node | 当连接新节点时发出。
+| -node | 当节点断开连接时发出。
+| node error | 当连接到节点时发生错误时发出
 |====

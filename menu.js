@@ -412,7 +412,7 @@ module.exports = {
   ],
   "视图": [
     {
-      "permalink": "view",
+      "permalink": "views",
       "categories": [
         "视图"
       ],

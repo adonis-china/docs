@@ -3,16 +3,16 @@ permalink: validator
 categories:
 - web-development-tools
 ---
-= Validation
+= 验证
 
 toc::[]
 
-Validating user data is an essential requirement for any application. AdonisJs makes use of link:http://indicative.adonisjs.com/[Indicative, window="_blank"] to sanitize and validate user inputs. It supports all validation rules from indicative, so make sure to check indicative's documentation.
+给出用户数据是对任何应用程序的基本要求。 AdonisJs利用link:http://indicative.adonisjs.com/[Indicative, window="_blank"]来处理和验证用户输入。它支持来自Indicative的所有验证规则，因此请确保检查Indicative文档。
 
-== Setup
-Validator is not the part of the base installation and hence you are required to install and register it manually.
+== 设置
+验证器不是基本安装的一部分，因此您需要手动安装和注册。
 
-.Installing From Npm
+.从Npm安装
 [source, bash]
 ----
 npm i --save adonis-validation-provider
@@ -38,10 +38,10 @@ const aliases = {
 }
 ----
 
-== Basic Example
-Let's take the most basic example of validating a form to create a user. For now, we will perform all the validations within the controller, but you are free to organize them into separate services.
+== 基本例子
+让我们来看一下验证一个表单来创建一个用户的最基本的例子。现在，我们将执行控制器内的所有验证，但您可以自由组织成单独的服务。
 
-Let's start by defining the rules on the User model. Make sure also to check out indicative docs on link:http://indicative.adonisjs.com/#indicative-schema-rules[schema rules, window="_blank"].
+我们首先定义用户模型的规则。请确保在链接上查看指示性文档link:http://indicative.adonisjs.com/#indicative-schema-rules[schema rules, window="_blank"]。
 
 .app/Model/User
 [source, javascript]
@@ -85,16 +85,17 @@ class UsersController {
 }
 ----
 
-<1> We start by defining the rules inside the *User Model*.
-<2> Next we validate the user data from request against the previously defined rules.
-<3> The `validation.fails()` returns true, if validation has failed.
-<4> The `validation.messages()` will return all the error messages as an array.
+<1> 我们从*User Model*中定义规则开始。
+<2> 接下来，我们根据先前定义的规则验证来自请求的用户数据。
+<3> 如果验证失败，`validation.fails()`返回true。
+<4> `validation.messages()`将返回所有错误消息作为数组。
 
-== Validator Methods
-Below is the list of methods exposed by the Validation Provider.
+
+== 验证方法
+以下是Validation Provider公开的方法列表
 
 ==== validate(data, rules, [messages])
-Validate user data against defined rules and returns as soon as first validation get's failed.
+根据定义的规则验证用户数据，并在第一次验证失败后立即返回。
 
 [source, javascript]
 ----
@@ -102,7 +103,7 @@ const validation = yield Validator.validate(data, rules, messages)
 ----
 
 ==== validateAll(data, rules, [messages])
-Same as `validate` but instead continue till the last validation and returns multiple error messages.
+与`validate`相同，但直到最后一次验证，并返回多个错误消息。
 
 [source, javascript]
 ----
@@ -110,7 +111,7 @@ const validation = yield Validator.validateAll(data, rules, messages)
 ----
 
 ==== fails()
-Returns a boolean indicating whether the validation has been failed or not.
+返回一个布尔值，指示验证是否已失败。
 
 [source, javascript]
 ----
@@ -121,7 +122,7 @@ if (validation.fails ()) {
 ----
 
 ==== messages
-Returns an array of validation error message
+返回验证错误消息的数组。
 
 [source, javascript]
 ----
@@ -132,7 +133,7 @@ if (validation.fails ()) {
 ----
 
 ==== sanitize(data, rules)
-Sanitize user data. Also make sure to check the link:sanitization[sanitization] docs for more info.
+处理用户数据。还要确保检查link:sanitization[sanitization]文档了解更多信息。
 
 [source, javascript]
 ----
@@ -147,7 +148,8 @@ const sanitizedData = Validator.sanitize(data, rules)
 ----
 
 ==== is
-You can make use of is method to do inline validations instead of going through a complete validation lifecycle.
+您可以使用is方法进行内联验证，而不是进行完整的验证生命周期。
+
 
 [source, javascript]
 ----
@@ -157,7 +159,7 @@ if (Validator.is.email('foo')) {
 ----
 
 ==== sanitizor
-Same as `is`, you can do inline data sanitisation.
+与`is`相同，您可以进行内联数据处理。
 
 [source, javascript]
 ----
@@ -168,11 +170,11 @@ const sanitizedEmail = Validator
 // returns barsneaky@gmail.com
 ----
 
-== Custom Rules
-AdonisJs supports all the validation rules by Indicative, but also adds a few who are specific to AdonisJs only. Below is the list of custom rules.
+== 自定义规则
+AdonisJs通过Indicative支持所有的验证规则，但也只添加了一些仅适用于AdonisJs的规则。以下是自定义规则的列表。
 
 ==== unique(tableName, [fieldName])
-Makes sure a given value is unique in a given database table.
+确定给定数据库表中给定的值是唯一的。
 
 [source, javascript]
 .app/Model/User
@@ -190,7 +192,7 @@ class User extends Lucid {
 }
 ----
 
-Now when trying to update a user, you would never want to run the unique validation for the same user. Same can be achieved by defining a `whereNot` clause.
+现在，当尝试更新用户时，您不会想要为同一用户运行唯一的验证。可以通过定义一个`whereNot`子句来实现。
 
 [source, javascript]
 .app/Model/User
@@ -208,7 +210,7 @@ class User extends Lucid {
 }
 ----
 
-Inside you controller, you can do
+在你的控制器里，你可以做
 
 .app/Http/Controllers/UsersController
 [source, javascript]
@@ -229,13 +231,13 @@ class UsersController {
 }
 ----
 
-<1> When fetching the rules from the *User Model*, we pass along the user id which gets ignored when checking the email uniqueness.
+<1> 从*User Model*中获取规则时，我们会传递在检查邮件唯一性时被忽略的用户标识。
 
-== Extending Validator
-Quite often you have the requirement of extending the *Validator Provider* by adding new validation rules. You can make use of the `extend` method provided by link:http://indicative.adonisjs.com/#indicative-extending[Indicative, window="_blank"].
+== 扩展验证器
+通常，您需要通过添加新的验证规则来扩展*Validator Provider*。您可以使用由链接提供的`extend`方法link:http://indicative.adonisjs.com/#indicative-extending[Indicative, window="_blank"]。
 
-==== Application Specific
-For application specific rules you can make use of `app/Listeners/Http.js` file to listen for the *start* event and your custom rule.
+==== 具体应用
+对于特定于应用程序的规则，您可以使用`app/Listeners/Http.js`文件来监听*start*事件和您的自定义规则。
 
 .app/Listeners/Http.js
 [source, javascript]
@@ -260,7 +262,7 @@ Http.onStart = function () {
 ----
 
 ==== Via Provider
-If you are writing a module/addon for AdonisJs, you can add your custom rules inside the `boot` method of your service provider.
+如果您正在为AdonisJ编写module/addon，则可以在服service provider的`boot`方法中添加自定义规则。
 
 [source, javascript]
 ----
@@ -293,4 +295,4 @@ class MyServiceProvider extends ServiceProvider {
 }
 ----
 
-You can make use of the above defined `adult` like any other validation rule.
+您可以像任何其他验证规则一样使用上述定义的`adult`。
