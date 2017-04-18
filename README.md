@@ -8,7 +8,7 @@
 1. 得到回复后即可在你本地翻译对应章节，为保证效率，强烈建议配合 [Google Translate](https://translate.google.cn/)
 1. 请务必于3日内完成翻译，完成后发送Pull Request
 
-## 章节认领
+## 章节认领 (已完成)
 
 ### 序言
 1. **@wxs77577 AdonisJs一览**
@@ -56,10 +56,10 @@
 1. @river-lee Mail
 1. @river-lee 错误和异常处理
 1. @river-lee 事件
-1. 助手
-1. Sessions
-1. 验证
-1. Redis
+1. **@dxc1996 助手**
+1. **@dxc1996 Sessions**
+1. **@dxc1996 验证**
+1. **@dxc1996 Redis**
 1. **@linganmin 国际化**
 1. **@linganmin 基于Ally的社交登陆**
 1. **@linganmin WebSocket**
