@@ -33,7 +33,7 @@
 1. **@copydog 文件**
 
 ### 视图
-1. @copydog 视图
+1. **@copydog 视图**
 1. **@river-lee Nunjucks模板**
 1. **@river-lee 表单生成器**
 
