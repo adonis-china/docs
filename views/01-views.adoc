@@ -3,18 +3,18 @@ permalink: views
 categories:
 - views
 ---
-= Views
+= 视图
 
 toc::[]
 
-AdonisJs has a solid View engine built on top of link:http://mozilla.github.io/nunjucks/templating.html[nunjucks, window="_blank"]. Everything from nunjucks is fully supported with some extra features unique to AdonisJs only.
+AdonisJs使用了一个很优秀的模板引擎link:http://mozilla.github.io/nunjucks/templating.html[nunjucks, window="_blank"]. 不仅集成了原有的nunjucks模板, 还添加了一些AdonisjJs独有的功能.
 
-== How Views Work?
+== 视图怎么工作的?
 
 [pretty-list]
-* Views are stored inside `resources/views`.
-* They all should have an extension of `.njk`.
-* To create a view, you can make use of a generator command
+* 视图都存放在`resources/views`目录里.
+* 他们的后缀名都应该是`.njk`.
+* 你可以通过命令行生成视图文件.
 +
 [source, bash]
 ----
@@ -22,20 +22,20 @@ AdonisJs has a solid View engine built on top of link:http://mozilla.github.io/n
 
 # create: resources/views/welcome.njk
 ----
-* You are free to create multiple directories to manage *layouts* and *partials*.
-* You can cache views in production by setting *CACHE_VIEWS=true* inside `.env` file.
+* 你可以在视图文件夹里面任意添加文件夹来管理你的视图, 比如 *layouts* 和 *partials*.
+* 你可以通过设置`.env`文件里面的 *CACHE_VIEWS=true*来启用模板缓存.
 
-== Basic Example
-Let's take a basic example of rendering a view by registering a route and controller.
+== 小例子
+我们来看一个渲染视图的小例子(包含路由和控制器):
 
-.Route
+.路由
 [source, javascript]
 ----
 const Route = use('Route')
 Route.get('/greet/:user', 'UserController.greet')
 ----
 
-.Controller
+.控制器
 [source, javascript]
 ----
 class UserController {
@@ -48,18 +48,19 @@ class UserController {
 }
 ----
 
-.View
+.视图
 [source, twig]
 ----
 <h2> Hello {{ user }} </h2>
 ----
 
-== Rendering Views
-Views can be rendered using the `response` object or with the help of the `View` provider directly.
+== 渲染视图
+视图可以通过`response`对象渲染, 或者直接使用`View`服务.
 
-NOTE: It is recommended to use `response.sendView` wherever you have access to the response object.
+NOTE: 在你能访问到`response`对象的时候, 推荐使用`response.sendView`方法.
 
 ==== make(templatePath, data)
+(译者添加: 通过视图渲染, 并得到渲染后的结果)
 [source, javascript]
 ----
 const View = use('View')
@@ -67,13 +68,14 @@ const compiledHtml = yield View.make('welcome')
 ----
 
 ==== makeString(templateString, data)
+(译者添加: 从字符串渲染视图, 并得到渲染后的结果)
 [source, javascript]
 ----
 const View = use('View')
 const compiledHtml = View.makeString('<h2> Hello {{ username }} </h2>', {username: 'virk'})
 ----
 
-Templates are referenced without the *.njk* extension to the `make` or `sendView` function. Also, you can take advantage of the dot-notation for referencing nested views.
+填写视图文件路径时, 不需要添加*.njk*这个后缀名, 并且, 你可以用*点(.)*来访问子文件夹里面的视图.
 
 [options="header"]
 |====
@@ -82,11 +84,11 @@ Templates are referenced without the *.njk* extension to the `make` or `sendView
 | resources/views/user/list.njk | response.sendView('user.list')
 |====
 
-== Templating
-Templating refers to dynamic data binding and logical processing of data inside your views. You are required to follow a special syntax to make all this work.
+== 制作模板
+制作模板的过程是在视图里面填写上需要动态生成的数据和逻辑处理, 在制作模板时你需要用特殊的符号来标记这些数据和逻辑.
 
-=== Variables
-To output the value of a variable, you make use of curly braces.
+=== 变量
+如果你想输出一个变量, 你需要把这个变量用花括号包裹起来.
 
 [source, twig]
 ----
@@ -95,8 +97,8 @@ To output the value of a variable, you make use of curly braces.
 {{ user['firstname'] }}
 ----
 
-=== Conditionals
-Conditionals are referenced with a curly brace and a `%` sign.
+=== 条件
+如果你想执行一个判断条件, 你需要用花括号和百分号包裹起来.
 
 [source, twig]
 ----
@@ -105,7 +107,7 @@ Conditionals are referenced with a curly brace and a `%` sign.
 {% endif %}
 ----
 
-You are not only limited to an if condition. Views support `if`, `else`, `elseif`.
+你不仅可以使用`if`语句, 你也可以使用`if`, `else`, `elseif`.
 
 [source, twig]
 ----
@@ -118,8 +120,8 @@ You are not only limited to an if condition. Views support `if`, `else`, `elseif
 {% endif %}
 ----
 
-=== Filters
-Filters transform inline data and are super helpful when you want to transform data for representation only.
+=== 过滤器
+过滤器可以按照你的想法处理你的数据.
 
 [source, twig]
 ----
@@ -129,12 +131,12 @@ Filters transform inline data and are super helpful when you want to transform d
 {# output = John #}
 ----
 
-Here `capitalize` is a filter to capitalize the value of a given string. Here is the list of all the available link:templating#_filters[filters].
+这里的`capitalize`是一个把你的字符串数据首字母变成大写的过滤器. 更多的过滤器你可以看这里link:templating#_filters[filters].
 
-== Inheritance
-Inheritance means extending a base template and overriding its individual pieces. Think of it as inheriting a Javascript Class.
+== 继承
+继承就是扩展一个视图并且修改或替换其中的一部分, 和Java类里面的继承差不太多~.
 
-Let's take the example of a master and a child view.
+我们来看个继承的例子.
 
 .resources/views/master.njk
 [source, twig]
@@ -144,13 +146,13 @@ Let's take the example of a master and a child view.
 
     <header class="header">
       {% block header %}
-        Common Header
+        我很帅
       {% endblock %}
     </header>
 
     <section class="sidebar">
       {% block sidebar %}
-        Common Sidebar
+        我很无敌
       {% endblock %}
     </section>
 
@@ -168,42 +170,42 @@ Let's take the example of a master and a child view.
 {% extends 'master' %}
 
 {% block content %}
-  Here comes the content of the home page.
+  我最牛逼
 {% endblock %}
 ----
 
-.Output
+.结果
 [source, html]
 ----
 <html>
   <body>
 
     <header class="header">
-      Common Header
+      我很帅
     </header>
 
     <section class="sidebar">
-      Common Sidebar
+      我很无敌
     </section>
 
     <section class="content">
-      Here comes the content of the home page.
+      我最牛逼
     </section>
 
   </body>
 </html>
 ----
 
-Here is the list of rules for extending templates
+这里是几个继承模板的注意事项:
 
-1. You must create a block using the *{% block <name> %}* tag.
-2. Each block must have a unique name.
-3. After extending a view, you cannot place anything outside the block tags.
+1. 你必须要有一个可继承的代码块(block) *{% block <name> %}* .
+2. 每个代码块必须要有一个独一无二的名字.
+3. 继承模板后, 你是不能在父模板代码块之外的地方插入内容的.
 
-== Includes
-You can also include different templates instead of just extending them. You start by creating partials of reusable markup.
+== 包含(include)
+你可以让你的模板包含几个其他模板里面的内容, 你可以用此来制作一些可重复使用的小模板.
 
-Let's take an example of a chat application, where the markup for a chat message can be saved inside a different view.
+我们用聊天程序来作为一个例子, 我们打包了一个聊天信息框.
 
 .resources/views/chat/message.njk
 [source, twig]
@@ -214,7 +216,7 @@ Let's take an example of a chat application, where the markup for a chat message
 </div>
 ----
 
-Now in your index file, you can include the message template inside a loop.
+现在, 你可以在你的index模板里面, 用循环输出多个聊天框, 这样你就复用了你打包的聊天框.
 
 .resources/views/chat/index.njk
 [source, twig]
@@ -224,12 +226,12 @@ Now in your index file, you can include the message template inside a loop.
 {% endfor %}
 ----
 
-NOTE: Included templates shares the scope of the parent block.
+NOTE: 被导入的模板共享了相同父模板作用域.
 
-== Macros & Imports
-Macros makes it so easy to create re-usable components. The difference between a *partial* and a *macro* is, you can pass arguments to the *macros* which makes them reusable out of the box.
+== 宏 & 导入
+宏可以帮助你简单的创建可复用的元件. 使用宏和包含模板的区别是, 你可以给宏传入一些数据, 来改变它.
 
-Let's take an example of creating a button component, which will adhere to bootstrap CSS classes.
+我们来看个按钮的小例子, 我们这里用了bootstrap (css框架).
 
 .resource/views/macros/button.njk
 [source, twig]
@@ -239,7 +241,7 @@ Let's take an example of creating a button component, which will adhere to boots
 {% endmacro %}
 ----
 
-Now we can use the macro by importing it
+我们现在可以用import来导入一个宏.
 
 .resources/views/home.njk
 [source, twig]
@@ -248,11 +250,11 @@ Now we can use the macro by importing it
 {{ button('Create User', 'primary') }}
 ----
 
-== Working With Globals
-Views globals are available to all the templates. AdonisJs ships with some predefined globals and some are defined by other modules/providers.
+== 使用全局数据/方法
+全局数据/方法可以被所有模板获取, AdonisJs有一些内置的全局数据, 一些第三方模块和服务也可能包含全局数据.
 
-=== Registering App Specific Globals
-The best place to register application specific globals is to make use of the `start` event listener.
+=== 注册一个你自己网站专用的全局数据/方法
+最好的注册方法是在程序的`start`事件监听器里面添加你的视图全局数据/方法.
 
 .app/Listeners/Http.js
 [source, javascript]
@@ -265,8 +267,8 @@ Http.onStart = function () {
 }
 ----
 
-=== Via Provider
-If you are writing a module/addon for AdonisJs, you can register a view global inside the `boot` method of your service provider.
+=== 通过服务注册
+如果你想为AdonisJs写一个模块或插件, 你可以在你服务提供文件(service provider)的`boot`方法里添加.
 
 [source, javascript]
 ----
@@ -288,19 +290,19 @@ class MyServiceProvider extends ServiceProvider {
 }
 ----
 
-Now you can make use of the above defined global inside your views.
+现在你就可以在模板里面访问你定义的全局数据/函数了.
 
 [source, twig]
 ----
 {{ time() }}
 ----
 
-== Working With Filters
-Just like globals, you can also set filters. The job of the filters is to take an input and transform its value based on the requirements. Here is the list of all inbuilt link:templating#_filters[filters].
+== 制作过滤器
+和全局数据/方法一样, 你也可以制作你自己的过滤器. 过滤器的作用是根据你的要求处理一个变量, 这些是内置的过滤器link:templating#_filters[filters].
 
-TIP: Filters can be registered by listening to `Http.start` event or inside the provider `boot` similar to the way xref:_working_with_globals[globals] are registered.
+TIP: 过滤器可以在`Http.start`事件监听器里面添加, 或者在服务提供文件`boot`里面添加 xref:_working_with_globals[globals].
 
-.Registering A Filter
+.注册一个过滤器
 [source, javascript]
 ----
 const View = use('Adonis/Src/View')
@@ -311,7 +313,7 @@ View.filter('currency', function (amount, symbol) {
 })
 ----
 
-.Using Filter
+.使用一个过滤器
 [source, twig]
 ----
 {{ 1000 | currency('$') }}
@@ -319,8 +321,8 @@ View.filter('currency', function (amount, symbol) {
 {# returns $1,000.00 #}
 ----
 
-== Injecting Providers
-You can also use service providers or any binding from the IoC container inside your views. Let's take an example of fetching users right from the views.
+== 注入服务
+你可以在视图里面使用服务或者任何用IoC绑定过的东西. 我们来看一个直接在模板里面查询用户的小例子.
 
 [source, twig]
 ----
@@ -332,7 +334,7 @@ You can also use service providers or any binding from the IoC container inside 
 {% endfor %}
 ----
 
-NOTE: Injecting providers can open *security holes* especially when you expose your views to be edited by the outside world. Think of a scenario, where the user editing the view/template injects the user model and drop all users. *Make sure to turn off the injectServices flag if you do want this feature*
+NOTE: 当你的模板可以被外界编辑的时候, 注入服务可能出现 *安全漏洞(security holes)*. 比如:一个黑客在你模板里面注入代码, 清空了你的数据库 *如果你不想使用注入服务记得把 injectServices 设置为false*
 
 .config/app.js
 [source, javascript]
@@ -342,8 +344,8 @@ views: {
 }
 ----
 
-== Caching
-Views caching is controlled via `config/app.js` file. Make sure to disable cache during development and enable it when running your app in production.
+== 缓存
+在`config/app.js`文件里, 你可以管理视图缓存, 建议你在开发的时候关闭缓存, 在线上运行环境开启缓存.
 
 .config/app.js
 [source, javascript]
@@ -359,9 +361,9 @@ view: {
 CACHE_VIEWS=true
 ----
 
-== Syntax Highlighting
-You need to download packages for your favorite editor to have proper syntax highlighting for your *nunjucks* views.
-You can also use *twig* highlighter if you cannot find nunjucks support for your favorite editor.
+== 语法高亮
+你需要在你的编辑器/IDE里面安装*nunjucks*模板的语法高亮插件.
+如果你的编辑器没有*nunjucks*模板语法高亮插件, 你可以使用*twig*模板高亮插件代替.
 
 [support-list]
 * link:https://atom.io/packages/language-nunjucks[Atom, window="_blank"].
