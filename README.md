@@ -1,4 +1,4 @@
-## AdoninJs 中文文档
+## AdoninJs 中文文档 (已完成，待完善)
 
 > Founded by [Adonis China](http://adonis-china.org) (域名备案中，请移步[临时访问地址](http://adonis.genyii.com))
 
