@@ -2,6 +2,16 @@
 
 > Founded by [Adonis China](http://adonis-china.org) (域名备案中，请移步[临时访问地址](http://adonis.genyii.com))
 
+## 首先，真诚感谢我们的翻译团队：
+* @wxs77577
+* @copydog
+* @dxc1996
+* @linganmin
+* @river-lee
+
+得益于他们的不懈努力，我们AdonisJs的中文文档翻译工程在短短**3天**内就已经**全部完成**，大家辛苦了！
+我们时刻欢迎你的积极参与，发现问题，贡献更好的翻译内容。
+
 ## 贡献流程
 1. Fork本项目到你自己的账号下，并clone到本地
 1. 查看『章节认领』后提交一个Issue，申请你要翻译的章节。如：申请翻译『AdonisJs一览』
