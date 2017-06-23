@@ -39,7 +39,7 @@ SESSION_DRIVER=cookie
 该文件在引导HTTP服务器或运行Ace命令时自动加载。您可以在`Env`提供者的帮助下从该文件读取值，或使用Node.js `process.env`全局访问它们。
 
 == 读/写 值
-来自此文件的值可以通过`process.env`或使用内置的Env提供程序访问，理想情况下，建议您使用*Env提供商*，因为它可能会为你处理一些不一致。
+来自此文件的值可以通过`process.env`或使用内置的Env提供程序访问，理想情况下，建议您使用*Env提供商*，因为它可能会处理一些不一致的问题。
 
 ==== get(value, [defaultValue])
 `get` 方法是用来读取配置值得，他也可以接受一个可选项的`defaultValue`的默认值, 当实际值为`undefined` 或 `null`时返回默认值。
