@@ -65,7 +65,7 @@ response.json({ name: 'doe' })
 ----
 
 ==== jsonp(body)
-Creates a JSONP response with Content-Type header set to *text/javascript*. It will make use of callback defined as the query string or will fallback to `http.jsonpCallback` defined inside `config/app.js` file.
+创建一个JSONP响应，且响应头里面的Content-Type被设置为*text/javascript*。它将使用所定义的查询字符串作为回调，如果不存在，则使用 *config / app.js* 文件中定义的 *http.jsonpCallback*
 
 [source, javascript]
 ----
