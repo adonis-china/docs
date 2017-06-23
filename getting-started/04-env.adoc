@@ -42,7 +42,7 @@ SESSION_DRIVER=cookie
 来自此文件的值可以通过`process.env`或使用内置的Env提供程序访问，理想情况下，建议您使用*Env提供商*，因为它可能会处理一些不一致的问题。
 
 ==== get(value, [defaultValue])
-`get` 方法是用来读取配置值得，他也可以接受一个可选项的`defaultValue`的默认值, 当实际值为`undefined` 或 `null`时返回默认值。
+`get` 方法用来读取配置值，他也可以接受一个可选项的`defaultValue`的默认值, 当实际值为`undefined` 或 `null`时返回默认值。
 
 
 [source, javascript]
